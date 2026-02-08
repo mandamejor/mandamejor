@@ -551,15 +551,18 @@
     </main>
 
     <!-- Footer -->
-    <footer class="mt-8 md:mt-12 lg:mt-16 py-4 md:py-6 border-t border-slate-200">
+ <footer class="mt-8 md:mt-12 lg:mt-16 py-4 md:py-6 border-t border-slate-200">
         <div class="container mx-auto px-4 text-center">
             <p class="text-xs md:text-sm text-navy-muted">
-                © 2025 · Developed by <span class="font-semibold text-navy">Ariana Acosta</span>
+                © <span id="year"></span> · Developed by <span class="font-semibold text-navy">Ariana Acosta</span>
             </p>
         </div>
     </footer>
 
     <script>
+        // Actualizar el año de copyright automáticamente
+        document.getElementById('year').textContent = new Date().getFullYear();
+
         // ==========================================
         // CUSTOM DROPDOWN FUNCTIONS
         // ==========================================
