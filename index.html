@@ -39,7 +39,6 @@
             font-family: 'Inter', system-ui, sans-serif;
         }
 
-        /* ESTO ES LO QUE HACE QUE SE VEAN LAS BANDERAS EN PC */
         #destination, #destination option {
             font-family: 'Twemoji Country Flags', 'Inter', sans-serif !important;
         }
@@ -64,6 +63,7 @@
             box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.12);
         }
         
+        /* Primary Button */
         .btn-primary {
             background: linear-gradient(135deg, #FF6B35 0%, #FF8F66 100%);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -73,16 +73,72 @@
         
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 24px -8px rgba(255, 107, 53, 0.4);
+            box-shadow: 0 8px 20px -6px rgba(255, 107, 53, 0.5);
         }
         
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        /* Frequency Buttons - Enhanced */
+        .freq-btn {
+            background: white;
+            border: 2px solid #E2E8F0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .freq-btn:hover:not(.freq-active) {
+            border-color: #FF6B35;
+            background: rgba(255, 107, 53, 0.04);
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.15);
+            transform: translateY(-1px);
+        }
+        
+        .freq-active {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            border-color: #0F172A;
+            color: white;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3);
+        }
+        
+        /* Cards */
         .card {
             background: white;
             border-radius: 16px;
             border: 1px solid rgba(15, 23, 42, 0.06);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -8px rgba(15, 23, 42, 0.12);
+        }
+        
+        /* Best Deal */
+        .best-deal {
+            position: relative;
+            border: 2px solid #2ECC71;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.03) 0%, rgba(46, 204, 113, 0.01) 100%);
+        }
+        
+        .best-deal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2ECC71, #27AE60);
+            border-radius: 14px 14px 0 0;
+        }
+        
+        .badge-best {
+            background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+            box-shadow: 0 4px 12px -2px rgba(46, 204, 113, 0.4);
+        }
 
+        /* Select Dropdown */
         .select-premium {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%230F172A' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
@@ -90,250 +146,330 @@
             background-size: 20px;
         }
         
+        /* Header Pattern */
         .header-pattern {
             background-color: #0F172A;
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231E293B' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        /* Thermometer */
+        .thermometer-track {
+            background: linear-gradient(90deg, #FEE2E2, #FEF3C7, #D1FAE5);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        
+        .thermometer-fill {
+            border-radius: 999px;
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Alerts */
+        .alert-excellent {
+            background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+            border: 1px solid #A7F3D0;
+        }
+        
+        .alert-low {
+            background: linear-gradient(135deg, #FEF2F2 0%, #FECACA 100%);
+            border: 1px solid #FCA5A5;
+        }
+        
+        .alert-stable {
+            background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+            border: 1px solid #FCD34D;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Custom scrollbar for desktop */
+        @media (min-width: 768px) {
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #F1F5F9;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #CBD5E1;
+                border-radius: 4px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #94A3B8;
+            }
         }
     </style>
 </head>
 <body class="antialiased">
     
-    <!-- Header -->
-<header class="header-pattern shadow-xl">
-    <div class="container mx-auto px-4 py-8 md:py-12">
-        <div class="flex flex-col items-center">
-            
-            <div class="flex items-end space-x-2 md:space-x-3 mb-2">
-                <img src="logo.png" alt="Icono" class="h-12 md:h-16 w-auto object-contain mb-1">
-                
-                <h1 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" 
-                    class="text-4xl md:text-6xl font-black text-white tracking-tighter leading-none">
-                    Manda Mejor
-                </h1>
+    <!-- Header - Compact on mobile, slightly bigger on desktop -->
+    <header class="header-pattern shadow-xl">
+        <div class="container mx-auto px-4 py-5 md:py-8 lg:py-10">
+            <div class="flex flex-col items-center">
+                <div class="flex items-end space-x-2 md:space-x-3 mb-1 md:mb-2">
+                    <img src="logo.png" alt="Icono" class="h-10 md:h-14 lg:h-16 w-auto object-contain mb-1">
+                    <h1 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" 
+                        class="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-none">
+                        Manda Mejor
+                    </h1>
+                </div>
+                <p style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" 
+                   class="text-[9px] md:text-sm lg:text-base text-white/70 font-medium tracking-[0.12em] md:tracking-[0.2em] uppercase mt-1 md:mt-2 text-center">
+                    Remesas optimizadas • más para los tuyos
+                </p>
             </div>
-
-            <p style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" 
-               class="text-[10px] md:text-base text-white/70 font-medium tracking-[0.15em] md:tracking-[0.2em] uppercase mt-2 text-center">
-                Remesas optimizadas • más para los tuyos
-            </p>
-            
         </div>
-    </div>
-</header>
+    </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8 max-w-5xl">
+    <main class="container mx-auto px-3 md:px-4 py-4 md:py-6 lg:py-8 max-w-6xl">
         
         <!-- Hero Calculator Card -->
-        <div class="card shadow-xl shadow-navy/5 p-6 md:p-8 mb-8">
+        <div class="card shadow-xl shadow-navy/5 p-4 md:p-6 lg:p-8 mb-4 md:mb-6 lg:mb-8">
             <!-- Hero Text -->
-            <div class="text-center mb-8">
-                <h2 class="text-2xl md:text-3xl font-black text-navy mb-2 tracking-tight">
+            <div class="text-center mb-4 md:mb-6 lg:mb-8">
+                <h2 class="text-xl md:text-2xl lg:text-3xl font-black text-navy mb-1 md:mb-2 tracking-tight">
                     Descubre cuánto <span class="text-primary">ahorras</span> en cada envío
                 </h2>
-                <p class="text-navy-muted font-medium max-w-xl mx-auto">
+                <p class="text-sm md:text-base text-navy-muted font-medium max-w-xl mx-auto">
                     Compara comisiones reales y encuentra el mejor servicio para tu remesa
                 </p>
             </div>
 
-            <!-- Calculator Form -->
-            <div class="grid md:grid-cols-2 gap-5 mb-6">
-                <!-- Amount Input -->
-                <div>
-                    <label for="amount" class="block text-sm font-bold text-navy mb-2">
-                        ¿Cuánto quieres enviar?
-                    </label>
-                    <div class="relative">
-                        <span class="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl font-black text-navy">€</span>
-                        <input 
-                            type="number" 
-                            id="amount" 
-                            value="500"
-                            min="10"
-                            max="10000"
-                            step="10"
-                            class="input-premium w-full pl-14 pr-5 py-5 text-2xl font-bold text-navy rounded-2xl"
-                            placeholder="500"
-                        >
+            <!-- Calculator Form - Desktop: side by side layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 mb-4 md:mb-6">
+                
+                <!-- Left Column: Amount + Country (stacked on mobile, side by side on tablet+) -->
+                <div class="lg:col-span-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Amount Input -->
+                        <div>
+                            <label for="amount" class="block text-xs md:text-sm font-bold text-navy mb-2">
+                                ¿Cuánto quieres enviar?
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-4 md:left-5 top-1/2 transform -translate-y-1/2 text-xl md:text-2xl font-black text-navy">€</span>
+                                <input 
+                                    type="number" 
+                                    id="amount" 
+                                    value="500"
+                                    min="10"
+                                    max="10000"
+                                    step="10"
+                                    class="input-premium w-full pl-12 md:pl-14 pr-4 md:pr-5 py-4 md:py-5 text-xl md:text-2xl font-bold text-navy rounded-xl md:rounded-2xl"
+                                    placeholder="500"
+                                >
+                            </div>
+                            <p class="text-[10px] md:text-xs text-navy-muted mt-1.5 md:mt-2 font-medium">Monto entre €10 - €10,000</p>
+                        </div>
+
+                        <!-- Destination Select -->
+                        <div class="relative" id="custom-select-container">
+                            <label class="block text-xs md:text-sm font-bold text-navy mb-2">
+                                ¿A qué país envías?
+                            </label>
+                            
+                            <div onclick="toggleDropdown()" 
+                                 id="selected-country-display"
+                                 class="input-premium flex items-center justify-between w-full px-4 md:px-5 py-4 md:py-5 text-base md:text-lg font-semibold text-navy rounded-xl md:rounded-2xl cursor-pointer bg-white border-2 border-slate-200">
+                                <div class="flex items-center">
+                                    <img id="current-flag-img" src="https://flagcdn.com/w40/ve.png" class="w-6 md:w-7 h-auto mr-2.5 md:mr-3 rounded-sm" alt="">
+                                    <span id="current-country-text" class="text-sm md:text-base">Venezuela (Bolívares)</span>
+                                </div>
+                                <svg id="dropdown-arrow-icon" class="w-4 md:w-5 h-4 md:h-5 text-slate-400 transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+
+                            <div id="custom-dropdown-list" 
+                                 class="hidden absolute z-[100] w-full mt-2 bg-white border border-slate-200 rounded-xl md:rounded-2xl shadow-xl overflow-hidden">
+                                
+                                <div onclick="selectCountry('VES', 've', 'Venezuela (Bolívares)')" class="flex items-center px-4 md:px-5 py-3 md:py-4 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-50">
+                                    <img src="https://flagcdn.com/w40/ve.png" class="w-5 md:w-6 h-auto mr-2.5 md:mr-3 rounded-sm" alt="">
+                                    <span class="text-navy font-medium text-sm md:text-base">Venezuela (Bolívares)</span>
+                                </div>
+                                
+                                <div onclick="selectCountry('COP', 'co', 'Colombia (Pesos)')" class="flex items-center px-4 md:px-5 py-3 md:py-4 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-50">
+                                    <img src="https://flagcdn.com/w40/co.png" class="w-5 md:w-6 h-auto mr-2.5 md:mr-3 rounded-sm" alt="">
+                                    <span class="text-navy font-medium text-sm md:text-base">Colombia (Pesos)</span>
+                                </div>
+
+                                <div onclick="selectCountry('ARS', 'ar', 'Argentina (Pesos)')" class="flex items-center px-4 md:px-5 py-3 md:py-4 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-50">
+                                    <img src="https://flagcdn.com/w40/ar.png" class="w-5 md:w-6 h-auto mr-2.5 md:mr-3 rounded-sm" alt="">
+                                    <span class="text-navy font-medium text-sm md:text-base">Argentina (Pesos)</span>
+                                </div>
+
+                                <div onclick="selectCountry('PEN', 'pe', 'Perú (Soles)')" class="flex items-center px-4 md:px-5 py-3 md:py-4 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-50">
+                                    <img src="https://flagcdn.com/w40/pe.png" class="w-5 md:w-6 h-auto mr-2.5 md:mr-3 rounded-sm" alt="">
+                                    <span class="text-navy font-medium text-sm md:text-base">Perú (Soles)</span>
+                                </div>
+
+                                <div onclick="selectCountry('DOP', 'do', 'República Dominicana (Pesos)')" class="flex items-center px-4 md:px-5 py-3 md:py-4 hover:bg-slate-50 cursor-pointer transition-colors">
+                                    <img src="https://flagcdn.com/w40/do.png" class="w-5 md:w-6 h-auto mr-2.5 md:mr-3 rounded-sm" alt="">
+                                    <span class="text-navy font-medium text-sm md:text-base">Rep. Dominicana (Pesos)</span>
+                                </div>
+                            </div>
+                            
+                            <input type="hidden" id="destination" value="VES">
+                        </div>
                     </div>
-                    <p class="text-xs text-navy-muted mt-2 font-medium">Monto entre €10 - €10,000</p>
                 </div>
 
-                <!-- Destination Select -->
-<div class="relative" id="custom-select-container">
-    <label class="block text-sm font-bold text-navy mb-2">
-        ¿A qué país envías?
-    </label>
-    
-    <div onclick="toggleDropdown()" 
-         id="selected-country-display"
-         class="input-premium flex items-center justify-between w-full px-5 py-5 text-lg font-semibold text-navy rounded-2xl cursor-pointer bg-white border-2 border-slate-200">
-        <div class="flex items-center">
-            <img id="current-flag-img" src="https://flagcdn.com/w40/ve.png" class="w-7 h-auto mr-3 rounded-sm" alt="">
-            <span id="current-country-text">Venezuela (Bolívares)</span>
-        </div>
-        <svg id="dropdown-arrow-icon" class="w-5 h-5 text-slate-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-        </svg>
-    </div>
+                <!-- Right Column: Frequency + Button -->
+                <div class="lg:col-span-4 flex flex-col">
+                    <!-- Frequency Toggle -->
+                    <div class="mb-3 md:mb-4">
+                        <label class="block text-xs md:text-sm font-bold text-navy mb-2 md:mb-3">
+                            ¿Con qué frecuencia envías?
+                        </label>
+                        <div class="grid grid-cols-3 gap-2 md:gap-3">
+                            <button 
+                                onclick="setFrequency('once')" 
+                                id="btn-once"
+                                class="freq-btn px-2 md:px-4 py-2.5 md:py-3 rounded-lg md:rounded-xl text-xs md:text-sm font-semibold text-navy-muted">
+                                Una vez
+                            </button>
+                            <button 
+                                onclick="setFrequency('monthly')" 
+                                id="btn-monthly"
+                                class="freq-btn freq-active px-2 md:px-4 py-2.5 md:py-3 rounded-lg md:rounded-xl text-xs md:text-sm font-semibold">
+                                Mensual
+                            </button>
+                            <button 
+                                onclick="setFrequency('annual')" 
+                                id="btn-annual"
+                                class="freq-btn px-2 md:px-4 py-2.5 md:py-3 rounded-lg md:rounded-xl text-xs md:text-sm font-semibold text-navy-muted">
+                                Anual
+                            </button>
+                        </div>
+                    </div>
 
-    <div id="custom-dropdown-list" 
-         class="hidden absolute z-[100] w-full mt-2 bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden animate-in fade-in zoom-in duration-200">
-        
-        <div onclick="selectCountry('VES', 've', 'Venezuela (Bolívares)')" class="flex items-center px-5 py-4 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-50">
-            <img src="https://flagcdn.com/w40/ve.png" class="w-6 h-auto mr-3 rounded-sm" alt="">
-            <span class="text-navy font-medium">Venezuela (Bolívares)</span>
-        </div>
-        
-        <div onclick="selectCountry('COP', 'co', 'Colombia (Pesos)')" class="flex items-center px-5 py-4 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-50">
-            <img src="https://flagcdn.com/w40/co.png" class="w-6 h-auto mr-3 rounded-sm" alt="">
-            <span class="text-navy font-medium">Colombia (Pesos)</span>
-        </div>
-
-        <div onclick="selectCountry('ARS', 'ar', 'Argentina (Pesos)')" class="flex items-center px-5 py-4 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-50">
-            <img src="https://flagcdn.com/w40/ar.png" class="w-6 h-auto mr-3 rounded-sm" alt="">
-            <span class="text-navy font-medium">Argentina (Pesos)</span>
-        </div>
-
-        <div onclick="selectCountry('PEN', 'pe', 'Perú (Soles)')" class="flex items-center px-5 py-4 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-50">
-            <img src="https://flagcdn.com/w40/pe.png" class="w-6 h-auto mr-3 rounded-sm" alt="">
-            <span class="text-navy font-medium">Perú (Soles)</span>
-        </div>
-
-        <div onclick="selectCountry('DOP', 'do', 'República Dominicana (Pesos)')" class="flex items-center px-5 py-4 hover:bg-slate-50 cursor-pointer transition-colors">
-            <img src="https://flagcdn.com/w40/do.png" class="w-6 h-auto mr-3 rounded-sm" alt="">
-            <span class="text-navy font-medium">República Dominicana (Pesos)</span>
-        </div>
-    </div>
-    
-    <input type="hidden" id="destination" value="VES">
-</div>
-
-
-            <!-- Frequency Toggle -->
-            <div class="mb-6">
-                <label class="block text-sm font-bold text-navy mb-3">
-                    ¿Con qué frecuencia envías?
-                </label>
-                <div class="grid grid-cols-3 gap-3">
+                    <!-- Calculate Button - Grows to fill remaining space on desktop -->
                     <button 
-                        onclick="setFrequency('once')" 
-                        id="btn-once"
-                        class="freq-btn px-4 py-3.5 rounded-xl font-semibold text-navy-muted">
-                        Una vez
-                    </button>
-                    <button 
-                        onclick="setFrequency('monthly')" 
-                        id="btn-monthly"
-                        class="freq-btn freq-active px-4 py-3.5 rounded-xl font-semibold">
-                        Mensual
-                    </button>
-                    <button 
-                        onclick="setFrequency('annual')" 
-                        id="btn-annual"
-                        class="freq-btn px-4 py-3.5 rounded-xl font-semibold text-navy-muted">
-                        Anual (12x)
+                        onclick="calculateRemittances()" 
+                        id="calculateBtn"
+                        class="btn-primary w-full text-white font-bold text-sm md:text-base py-3.5 md:py-4 rounded-xl md:rounded-2xl flex items-center justify-center space-x-2 lg:flex-1 lg:min-h-[52px]">
+                        <span id="btnText">Comparar servicios</span>
+                        <svg id="btnArrow" class="w-4 md:w-5 h-4 md:h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                        <div id="btnLoader" class="loading hidden"></div>
                     </button>
                 </div>
             </div>
 
-            <!-- Calculate Button -->
-            <button 
-                onclick="calculateRemittances()" 
-                id="calculateBtn"
-                class="btn-primary w-full text-white font-bold text-lg py-5 rounded-2xl flex items-center justify-center space-x-2">
-                <span id="btnText">Comparar servicios</span>
-                <svg id="btnArrow" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                </svg>
-                <div id="btnLoader" class="loading hidden"></div>
-            </button>
-
             <!-- Exchange Rate Indicator -->
-            <div id="rateIndicator" class="mt-4 flex items-center justify-center space-x-2 text-sm bg-slate-50 rounded-xl py-3 px-4">
-                <svg class="w-4 h-4 text-slate-400 animate-spin" fill="none" viewBox="0 0 24 24">
+            <div id="rateIndicator" class="flex items-center justify-center space-x-2 text-sm bg-slate-50 rounded-lg md:rounded-xl py-2 md:py-3 px-3 md:px-4">
+                <svg class="w-3.5 md:w-4 h-3.5 md:h-4 text-slate-400 animate-spin" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                <span class="text-xs text-slate-500 font-medium">Cargando tasas de cambio...</span>
+                <span class="text-[10px] md:text-xs text-slate-500 font-medium">Cargando tasas de cambio...</span>
             </div>
         </div>
 
         <!-- Market Pulse Thermometer -->
-        <div id="marketPulse" class="card shadow-lg shadow-navy/5 p-6 mb-8" style="display: none;">
-            <div class="flex items-center justify-between mb-5">
+        <div id="marketPulse" class="card shadow-lg shadow-navy/5 p-4 md:p-6 mb-4 md:mb-6 lg:mb-8" style="display: none;">
+            <!-- Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 md:mb-5">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center">
-                        <svg class="w-5 h-5 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-9 md:w-10 h-9 md:h-10 bg-slate-100 rounded-lg md:rounded-xl flex items-center justify-center">
+                        <svg class="w-4 md:w-5 h-4 md:h-5 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-navy">Termómetro de Tasa</h3>
-                        <p class="text-xs text-navy-muted font-medium">Análisis vs. media de 14 días</p>
+                        <h3 class="text-base md:text-lg font-bold text-navy">Termómetro de Tasa</h3>
+                        <p class="text-[10px] md:text-xs text-navy-muted font-medium">Análisis vs. media de 14 días</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-2">
-                    <button onclick="refreshHistoricalData()" id="refreshHistoryBtn" class="text-xs bg-slate-100 hover:bg-slate-200 text-navy-muted px-3 py-1.5 rounded-lg font-semibold transition-all">
+                <div class="flex items-center gap-2 self-end sm:self-auto">
+                    <button onclick="refreshHistoricalData()" id="refreshHistoryBtn" class="text-[10px] md:text-xs bg-slate-100 hover:bg-slate-200 text-navy-muted px-2.5 md:px-3 py-1 md:py-1.5 rounded-lg font-semibold transition-all">
                         ↻ Actualizar
                     </button>
-                    <div id="pulseStatus" class="px-3 py-1.5 rounded-lg text-xs font-bold">
-                        <!-- Status badge will be inserted here -->
+                    <div id="pulseStatus" class="px-2.5 md:px-3 py-1 md:py-1.5 rounded-lg text-[10px] md:text-xs font-bold">
                     </div>
                 </div>
             </div>
 
             <!-- Thermometer Visual -->
-            <div class="mb-6">
-                <div class="thermometer-track h-10 relative">
-                    <div id="thermometerFill" class="thermometer-fill h-full flex items-center justify-end pr-4" style="width: 50%; background: linear-gradient(90deg, #FFB627, #FF6B35);">
-                        <span id="thermometerEmoji" class="text-xl">📊</span>
+            <div class="mb-4 md:mb-6">
+                <div class="thermometer-track h-8 md:h-10 relative">
+                    <div id="thermometerFill" class="thermometer-fill h-full flex items-center justify-end pr-3 md:pr-4" style="width: 50%; background: linear-gradient(90deg, #FFB627, #FF6B35);">
+                        <span id="thermometerEmoji" class="text-lg md:text-xl">📊</span>
                     </div>
                 </div>
-                <div class="flex justify-between text-xs text-navy-muted mt-2 font-medium px-1">
+                <div class="flex justify-between text-[10px] md:text-xs text-navy-muted mt-1.5 md:mt-2 font-medium px-1">
                     <span>Baja</span>
                     <span>Normal</span>
                     <span>Excelente</span>
                 </div>
             </div>
 
-            <!-- Market Analysis Alert -->
-            <div id="pulseMessage" class="alert-stable rounded-2xl p-5 mb-5">
-                <div class="flex items-start space-x-3">
-                    <span id="pulseEmoji" class="text-2xl">📊</span>
-                    <div>
-                        <p class="font-bold text-navy mb-1" id="pulseTitle">Analizando mercado...</p>
-                        <p class="text-sm text-navy-muted leading-relaxed" id="pulseRecommendation">Cargando datos...</p>
+            <!-- Desktop: Side by side layout for alert + rates -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+                <!-- Market Analysis Alert -->
+                <div id="pulseMessage" class="alert-stable rounded-xl md:rounded-2xl p-4 md:p-5">
+                    <div class="flex items-start space-x-3">
+                        <span id="pulseEmoji" class="text-xl md:text-2xl">📊</span>
+                        <div>
+                            <p class="font-bold text-navy mb-0.5 md:mb-1 text-sm md:text-base" id="pulseTitle">Analizando mercado...</p>
+                            <p class="text-xs md:text-sm text-navy-muted leading-relaxed" id="pulseRecommendation">Cargando datos...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Savings Calculator + Impact -->
+                <div class="space-y-3 md:space-y-4">
+                    <div id="savingsVsAverage" class="grid grid-cols-2 gap-3 md:gap-4">
+                        <div class="bg-slate-50 rounded-lg md:rounded-xl p-3 md:p-4">
+                            <p class="text-[10px] md:text-xs text-navy-muted font-semibold mb-0.5 md:mb-1">Tasa actual</p>
+                            <p class="text-lg md:text-2xl font-black text-navy" id="currentRateDisplay">-</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg md:rounded-xl p-3 md:p-4">
+                            <p class="text-[10px] md:text-xs text-navy-muted font-semibold mb-0.5 md:mb-1">Media 14 días</p>
+                            <p class="text-lg md:text-2xl font-black text-navy" id="avgRateDisplay">-</p>
+                        </div>
+                    </div>
+
+                    <!-- Savings Impact -->
+                    <div id="savingsImpact" class="bg-blue-50 rounded-lg md:rounded-xl p-3 md:p-4 border border-blue-100" style="display: none;">
+                        <div class="flex items-start space-x-2 md:space-x-3">
+                            <svg class="w-4 md:w-5 h-4 md:h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div>
+                                <p class="text-xs md:text-sm font-bold text-blue-900 mb-0.5">Impacto en tu envío</p>
+                                <p class="text-[11px] md:text-sm text-blue-800" id="savingsText">-</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Savings Calculator -->
-            <div id="savingsVsAverage" class="grid md:grid-cols-2 gap-4">
-                <div class="bg-slate-50 rounded-xl p-4">
-                    <p class="text-xs text-navy-muted font-semibold mb-1">Tasa actual</p>
-                    <p class="text-2xl font-black text-navy" id="currentRateDisplay">-</p>
-                </div>
-                <div class="bg-slate-50 rounded-xl p-4">
-                    <p class="text-xs text-navy-muted font-semibold mb-1">Media 14 días (SMA-14)</p>
-                    <p class="text-2xl font-black text-navy" id="avgRateDisplay">-</p>
-                </div>
-            </div>
-
-            <!-- Savings Impact -->
-            <div id="savingsImpact" class="mt-4 bg-blue-50 rounded-xl p-4 border border-blue-100" style="display: none;">
-                <div class="flex items-start space-x-3">
-                    <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-                    </svg>
-                    <div>
-                        <p class="text-sm font-bold text-blue-900 mb-0.5">Impacto en tu envío</p>
-                        <p class="text-sm text-blue-800" id="savingsText">-</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-4 text-xs text-navy-muted text-center font-medium">
+            <div class="mt-3 md:mt-4 text-[10px] md:text-xs text-navy-muted text-center font-medium">
                 <span id="historyDays">Datos basados en histórico de 14 días</span>
             </div>
         </div>
@@ -341,37 +477,34 @@
         <!-- Results Section -->
         <div id="resultsSection" class="hidden animate-fade-in">
             <!-- Summary Card -->
-            <div id="summaryCard" class="card shadow-lg shadow-success/10 border-2 border-success p-6 mb-8">
-                <!-- Populated by JavaScript -->
+            <div id="summaryCard" class="card shadow-lg shadow-success/10 border-2 border-success p-4 md:p-6 mb-4 md:mb-6 lg:mb-8">
             </div>
 
             <!-- Results Grid -->
-            <div class="mb-8">
-                <h3 class="text-xl font-black text-navy mb-5 flex items-center">
-                    <span class="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center mr-3">
-                        <svg class="w-4 h-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="mb-4 md:mb-6 lg:mb-8">
+                <h3 class="text-base md:text-xl font-black text-navy mb-3 md:mb-5 flex items-center">
+                    <span class="w-7 md:w-8 h-7 md:h-8 bg-slate-100 rounded-lg flex items-center justify-center mr-2 md:mr-3">
+                        <svg class="w-3.5 md:w-4 h-3.5 md:h-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                         </svg>
                     </span>
                     Comparación detallada
                 </h3>
-                <div id="resultsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    <!-- Populated by JavaScript -->
+                <div id="resultsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
                 </div>
             </div>
 
             <!-- Insights Card -->
-            <div class="card shadow-sm border border-blue-100 bg-gradient-to-br from-blue-50 to-slate-50 p-6">
-                <div class="flex items-start space-x-4">
-                    <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <div class="card shadow-sm border border-blue-100 bg-gradient-to-br from-blue-50 to-slate-50 p-4 md:p-6">
+                <div class="flex items-start space-x-3 md:space-x-4">
+                    <div class="w-9 md:w-10 h-9 md:h-10 bg-blue-100 rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 md:w-5 h-4 md:h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
                         </svg>
                     </div>
                     <div class="flex-1">
-                        <h4 class="font-bold text-navy text-lg mb-2">¿Sabías que...?</h4>
-                        <p id="insightText" class="text-navy-muted leading-relaxed">
-                            <!-- Populated by JavaScript -->
+                        <h4 class="font-bold text-navy text-sm md:text-lg mb-1 md:mb-2">¿Sabías que...?</h4>
+                        <p id="insightText" class="text-navy-muted text-xs md:text-base leading-relaxed">
                         </p>
                     </div>
                 </div>
@@ -379,56 +512,48 @@
         </div>
 
         <!-- Methodology Section -->
-        <div class="card shadow-sm p-6 mt-8">
-            <h3 class="text-lg font-bold text-navy mb-4 flex items-center">
-                <span class="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center mr-3">
-                    <svg class="w-4 h-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="card shadow-sm p-4 md:p-6 mt-4 md:mt-6 lg:mt-8">
+            <h3 class="text-sm md:text-lg font-bold text-navy mb-3 md:mb-4 flex items-center">
+                <span class="w-7 md:w-8 h-7 md:h-8 bg-slate-100 rounded-lg flex items-center justify-center mr-2 md:mr-3">
+                    <svg class="w-3.5 md:w-4 h-3.5 md:h-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                     </svg>
                 </span>
                 Metodología de cálculo
             </h3>
-            <div class="space-y-3 text-sm text-navy-muted">
-                <div class="flex items-start space-x-3">
-                    <div class="w-5 h-5 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg class="w-3 h-3 text-success" fill="currentColor" viewBox="0 0 20 20">
+            <div class="space-y-2 md:space-y-3 text-xs md:text-sm text-navy-muted">
+                <div class="flex items-start space-x-2 md:space-x-3">
+                    <div class="w-4 md:w-5 h-4 md:h-5 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <svg class="w-2.5 md:w-3 h-2.5 md:h-3 text-success" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                         </svg>
                     </div>
-                    <span>Tipos de cambio <strong class="text-navy">actualizados en tiempo real</strong> (fuente: BCE vía Frankfurter API)</span>
+                    <span>Tipos de cambio <strong class="text-navy">actualizados en tiempo real</strong> (fuente: BCE)</span>
                 </div>
-                <div class="flex items-start space-x-3">
-                    <div class="w-5 h-5 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg class="w-3 h-3 text-success" fill="currentColor" viewBox="0 0 20 20">
+                <div class="flex items-start space-x-2 md:space-x-3">
+                    <div class="w-4 md:w-5 h-4 md:h-5 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <svg class="w-2.5 md:w-3 h-2.5 md:h-3 text-success" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                         </svg>
                     </div>
-                    <span><strong class="text-navy">Comisiones oficiales</strong> publicadas en las webs de cada servicio (Feb 2025)</span>
+                    <span><strong class="text-navy">Comisiones oficiales</strong> de cada servicio (Feb 2025)</span>
                 </div>
-                <div class="flex items-start space-x-3">
-                    <div class="w-5 h-5 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg class="w-3 h-3 text-success" fill="currentColor" viewBox="0 0 20 20">
+                <div class="flex items-start space-x-2 md:space-x-3">
+                    <div class="w-4 md:w-5 h-4 md:h-5 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <svg class="w-2.5 md:w-3 h-2.5 md:h-3 text-success" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                         </svg>
                     </div>
-                    <span>Incluye el <strong class="text-navy">margen de cambio oculto</strong> (markup) que aplica cada proveedor</span>
-                </div>
-                <div class="flex items-start space-x-3 mt-4 pt-3 border-t border-slate-100">
-                    <div class="w-5 h-5 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg class="w-3 h-3 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    <span class="text-xs">Las comisiones pueden variar según método de pago y destino. Verifica siempre en la web del proveedor.</span>
+                    <span>Incluye el <strong class="text-navy">margen de cambio oculto</strong> (markup)</span>
                 </div>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="mt-16 py-6 border-t border-slate-200">
+    <footer class="mt-8 md:mt-12 lg:mt-16 py-4 md:py-6 border-t border-slate-200">
         <div class="container mx-auto px-4 text-center">
-            <p class="text-sm text-navy-muted">
+            <p class="text-xs md:text-sm text-navy-muted">
                 © 2025 · Developed by <span class="font-semibold text-navy">Ariana Acosta</span>
             </p>
         </div>
@@ -436,39 +561,57 @@
 
     <script>
         // ==========================================
-        // DATA CONFIGURATION - FINTECH LOGIC
-        // ==========================================
-
-        // Exchange Rates (EUR to Local Currency) - FALLBACK STATIC RATES
-        // These are used if the API fails or on first load
-        // ==========================================
-        // EXCHANGE RATES
-        // ==========================================
-        // IMPORTANTE: Estos valores hardcoded YA NO SE USAN como fallback
-        // porque darían información incorrecta/desactualizada.
-        //
-        // La calculadora REQUIERE obtener tasas en tiempo real de las APIs.
-        // Si TODAS las APIs fallan, la calculadora muestra ERROR y no funciona.
-        //
-        // Estos valores solo sirven como referencia para desarrollo/testing.
+        // CUSTOM DROPDOWN FUNCTIONS
         // ==========================================
         
-        // Reference rates (NOT USED in production - for reference only)
+        function toggleDropdown() {
+            const dropdown = document.getElementById('custom-dropdown-list');
+            const arrow = document.getElementById('dropdown-arrow-icon');
+            dropdown.classList.toggle('hidden');
+            arrow.classList.toggle('rotate-180');
+        }
+
+        function selectCountry(currencyCode, flagCode, countryName) {
+            document.getElementById('destination').value = currencyCode;
+            document.getElementById('current-flag-img').src = `https://flagcdn.com/w40/${flagCode}.png`;
+            document.getElementById('current-country-text').textContent = countryName;
+            toggleDropdown();
+            
+            // Trigger change event for market pulse update
+            const event = new Event('change');
+            document.getElementById('destination').dispatchEvent(event);
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const container = document.getElementById('custom-select-container');
+            if (container && !container.contains(e.target)) {
+                const dropdown = document.getElementById('custom-dropdown-list');
+                const arrow = document.getElementById('dropdown-arrow-icon');
+                if (dropdown && !dropdown.classList.contains('hidden')) {
+                    dropdown.classList.add('hidden');
+                    arrow.classList.remove('rotate-180');
+                }
+            }
+        });
+
+        // ==========================================
+        // DATA CONFIGURATION - FINTECH LOGIC
+        // ==========================================
+        
         const FALLBACK_EXCHANGE_RATES = {
-            VES: 449.79,    // Venezuela Bolívar (Referencia: Feb 8, 2026)
-            COP: 4294.62,   // Colombian Peso (Referencia: Feb 8, 2026)
-            ARS: 1700.46,   // Argentine Peso (Referencia: Feb 8, 2026)
-            PEN: 3.97,      // Peruvian Sol (Referencia: Feb 8, 2026)
-            USD_EC: 1.18,   // Ecuador USD (Referencia: Feb 8, 2026)
-            DOP: 74.41      // Dominican Peso (Referencia: Feb 8, 2026)
+            VES: 449.79,
+            COP: 4294.62,
+            ARS: 1700.46,
+            PEN: 3.97,
+            USD_EC: 1.18,
+            DOP: 74.41
         };
 
-        // Current exchange rates (will be updated from API)
         let EXCHANGE_RATES = { ...FALLBACK_EXCHANGE_RATES };
         let lastRateUpdate = null;
         let ratesLoadedFromAPI = false;
 
-        // Historical rates for 7-day average calculation
         let HISTORICAL_RATES = {
             VES: [],
             COP: [],
@@ -478,10 +621,6 @@
             DOP: []
         };
 
-        /**
-         * Debug function - call from console to see current rates
-         * Usage: window.debugRates()
-         */
         window.debugRates = function() {
             console.log('\n═══════════════════════════════════════');
             console.log('🔍 DEBUG: Tasas de Cambio Actuales');
@@ -497,79 +636,46 @@
                 console.log(`  Venezuela (VES): ${EXCHANGE_RATES.VES.toFixed(4)}`);
                 console.log(`  Argentina (ARS): ${EXCHANGE_RATES.ARS.toFixed(4)}`);
                 console.log(`  Rep. Dom. (DOP): ${EXCHANGE_RATES.DOP.toFixed(4)}`);
-                console.log('\n💡 Estas tasas están actualizadas y son precisas');
                 console.log('═══════════════════════════════════════\n');
             } else {
                 console.error('❌ ERROR: No hay tasas de cambio cargadas');
-                console.error('❌ La calculadora NO puede funcionar');
-                console.error('\n💡 Soluciones:');
-                console.error('   1. Recarga la página (Ctrl+F5)');
-                console.error('   2. Verifica tu conexión a internet');
-                console.error('   3. Abre la consola de red (F12 > Network) para ver errores de API');
-                console.error('═══════════════════════════════════════\n');
             }
         };
         
-        /**
-         * Generates realistic 14-day historical data based on typical FX volatility
-         * Uses the current rate and applies realistic daily variance
-         */
         function generateRealisticHistoricalData(currency, today) {
             const todayStr = today.toISOString().split('T')[0];
             const currentRate = EXCHANGE_RATES[currency];
             
-            console.log(`   🔧 Generando datos simulados para ${currency}`);
-            console.log(`   Base: Tasa actual ${currentRate.toFixed(4)}`);
-            
-            // Typical daily FX volatility by currency type
             const volatilityMap = {
-                'VES': 0.008,    // 0.8% daily (alta volatilidad)
-                'ARS': 0.006,   // 0.6% daily (alta volatilidad)
-                'COP': 0.004,   // 0.4% daily (volatilidad media)
-                'PEN': 0.003,   // 0.3% daily (volatilidad baja)
-                'USD_EC': 0.002, // 0.2% daily (muy estable)
-                'DOP': 0.003    // 0.3% daily (volatilidad baja)
+                'VES': 0.008,
+                'ARS': 0.006,
+                'COP': 0.004,
+                'PEN': 0.003,
+                'USD_EC': 0.002,
+                'DOP': 0.003
             };
             
             const dailyVol = volatilityMap[currency] || 0.004;
-            
-            // Generate 14 days of historical rates with realistic drift
             const historicalRates = [];
-            
-            // Create a slight trend bias (±0.3% over 14 days)
-            const trendBias = (Math.random() - 0.5) * 0.006; // ±0.3% total trend
+            const trendBias = (Math.random() - 0.5) * 0.006;
             
             for (let i = 14; i >= 1; i--) {
                 const date = new Date(today);
                 date.setDate(today.getDate() - i);
                 const dateStr = date.toISOString().split('T')[0];
                 
-                // Random walk with mean reversion
                 const randomWalk = (Math.random() - 0.5) * 2 * dailyVol;
-                const meanReversion = -trendBias * (i / 14); // Gradual trend
+                const meanReversion = -trendBias * (i / 14);
                 const dailyChange = randomWalk + meanReversion;
-                
                 const historicalRate = currentRate * (1 + dailyChange);
                 
-                historicalRates.push({
-                    date: dateStr,
-                    rate: historicalRate
-                });
+                historicalRates.push({ date: dateStr, rate: historicalRate });
             }
             
-            // Calculate SMA-14 from simulated data
             const sum = historicalRates.reduce((acc, entry) => acc + entry.rate, 0);
             const sma14 = sum / historicalRates.length;
-            
-            // Today's rate is slightly different from average (simulates market movement)
             const todayVariance = (Math.random() - 0.5) * dailyVol * 2;
             const todayRate = currentRate * (1 + todayVariance);
-            
-            console.log(`   ✅ Datos simulados generados`);
-            console.log(`   - Tasa HOY (simulada): ${todayRate.toFixed(6)}`);
-            console.log(`   - SMA-14 (simulado): ${sma14.toFixed(6)}`);
-            console.log(`   - Diferencia: ${((todayRate - sma14) / sma14 * 100).toFixed(2)}%`);
-            console.log(`   - Volatilidad aplicada: ${(dailyVol * 100).toFixed(2)}% diaria`);
             
             return {
                 success: true,
@@ -583,25 +689,16 @@
             };
         }
         
-        /**
-         * Fetches 14-day historical rates with intelligent fallback
-         * ALWAYS returns valid data - never fails
-         */
         async function fetchAndCalculateSMA14(currency) {
             const today = new Date();
             const todayStr = today.toISOString().split('T')[0];
             
-            // CRITICAL: Ensure we have current rates loaded first
             if (!ratesLoadedFromAPI) {
-                console.log(`⚠️ Tasas no cargadas aún, obteniendo ahora...`);
                 await fetchLiveExchangeRates();
             }
             
             const currentRateForCurrency = EXCHANGE_RATES[currency];
-            console.log(`📊 Analizando ${currency}...`);
-            console.log(`   Tasa base para cálculos: ${currentRateForCurrency.toFixed(6)}`);
             
-            // Try to get real data from API first
             try {
                 const startDate = new Date(today);
                 startDate.setDate(today.getDate() - 15);
@@ -628,10 +725,7 @@
                         const allRates = [];
                         for (const [date, rateData] of Object.entries(data.rates)) {
                             if (rateData[currencyKey]) {
-                                allRates.push({
-                                    date: date,
-                                    rate: rateData[currencyKey]
-                                });
+                                allRates.push({ date: date, rate: rateData[currencyKey] });
                             }
                         }
                         
@@ -659,11 +753,6 @@
                                 const sum = last14.reduce((acc, entry) => acc + entry.rate, 0);
                                 const sma14 = sum / last14.length;
                                 
-                                console.log(`   ✅ Datos REALES de API obtenidos`);
-                                console.log(`   - Tasa HOY: ${todayRate.toFixed(6)}`);
-                                console.log(`   - SMA-14: ${sma14.toFixed(6)}`);
-                                console.log(`   - Diferencia: ${((todayRate - sma14) / sma14 * 100).toFixed(2)}%`);
-                                
                                 return {
                                     success: true,
                                     sma14: sma14,
@@ -682,178 +771,39 @@
                 console.log(`   ⚠️ API no disponible: ${error.message}`);
             }
             
-            // Fallback: ALWAYS generate realistic data if API fails
-            console.log(`   📊 Usando modelo de simulación realista`);
             return generateRealisticHistoricalData(currency, today);
         }
 
-        /**
-         * Simulates 14-day historical data based on current rates
-         * Only used as fallback when API fails or on first load
-         * Uses smaller variance (0.3-0.5%) for more realistic SMA-14
-         */
-        function simulateHistoricalData() {
-            console.log('📊 Generating simulated 14-day history (SMA-14) from current rates...');
-            
-            const today = new Date();
-            
-            for (const currency in EXCHANGE_RATES) {
-                const currentRate = EXCHANGE_RATES[currency];
-                HISTORICAL_RATES[currency] = [];
-                
-                // Generate 14 days of simulated data with realistic variance
-                // For SMA-14, use smaller daily variance (0.3-0.5%) to avoid distortion
-                for (let i = 13; i >= 0; i--) {
-                    const date = new Date(today);
-                    date.setDate(today.getDate() - i);
-                    
-                    // Random variance between -0.5% and +0.5% (more conservative than SMA-7)
-                    const variance = (Math.random() - 0.5) * 0.01; // ±0.5%
-                    const simulatedRate = currentRate * (1 + variance);
-                    
-                    HISTORICAL_RATES[currency].push({
-                        date: date.toISOString().split('T')[0],
-                        rate: simulatedRate
-                    });
-                }
-            }
-            
-            // Save simulated data
-            try {
-                localStorage.setItem('historicalRates', JSON.stringify(HISTORICAL_RATES));
-                localStorage.setItem('historicalRatesSimulated', 'true');
-                console.log('✅ Simulated 14-day historical data created');
-            } catch (error) {
-                console.warn('Could not save simulated rates:', error);
-            }
-        }
-
-        // Save current rate to history (maintains 14-day window for SMA-14)
-        function saveRateToHistory(currency, rate) {
-            if (!HISTORICAL_RATES[currency]) {
-                HISTORICAL_RATES[currency] = [];
-            }
-            
-            const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
-            const history = HISTORICAL_RATES[currency];
-            
-            // Check if we already have a rate for today
-            const todayIndex = history.findIndex(entry => entry.date === today);
-            
-            if (todayIndex >= 0) {
-                // Update today's rate only if it's different (use latest value from API)
-                if (Math.abs(history[todayIndex].rate - rate) > 0.01) {
-                    console.log(`Updating ${currency} rate for ${today}: ${history[todayIndex].rate} → ${rate}`);
-                    history[todayIndex] = { date: today, rate: rate };
-                }
-            } else {
-                // Add new entry for today
-                console.log(`Adding new ${currency} rate for ${today}: ${rate}`);
-                history.push({ date: today, rate: rate });
-            }
-            
-            // Sort by date (oldest to newest)
-            history.sort((a, b) => new Date(a.date) - new Date(b.date));
-            
-            // Keep only last 15 days (14 previous + today)
-            if (history.length > 15) {
-                HISTORICAL_RATES[currency] = history.slice(-15);
-            }
-            
-            // Save to localStorage
-            try {
-                localStorage.setItem('historicalRates', JSON.stringify(HISTORICAL_RATES));
-                localStorage.setItem('historicalRatesUpdated', new Date().toISOString());
-            } catch (error) {
-                console.warn('Could not save historical rates:', error);
-            }
-        }
-
-        // Calculate 14-day Simple Moving Average (SMA-14) for a currency
-        // IMPORTANT: Excludes today's rate - calculates average of PREVIOUS 14 days
-        function get14DaySMA(currency) {
-            const history = HISTORICAL_RATES[currency];
-            
-            if (!history || history.length === 0) {
-                return EXCHANGE_RATES[currency]; // Use current rate if no history
-            }
-            
-            const today = new Date().toISOString().split('T')[0];
-            
-            // Filter out today's entry if it exists (we want to compare AGAINST today)
-            const previousDays = history.filter(entry => entry.date !== today);
-            
-            if (previousDays.length === 0) {
-                // If we only have today's data, return current rate
-                return EXCHANGE_RATES[currency];
-            }
-            
-            // Take last 14 days (or less if we don't have 14 yet)
-            const last14Days = previousDays.slice(-14);
-            
-            // Calculate SMA-14 (simple average of last 14 days EXCLUDING today)
-            const sum = last14Days.reduce((acc, entry) => acc + entry.rate, 0);
-            const sma = sum / last14Days.length;
-            
-            console.log(`SMA-14 for ${currency}:`, {
-                daysUsed: last14Days.length,
-                sma: sma.toFixed(2),
-                currentRate: EXCHANGE_RATES[currency].toFixed(2),
-                diff: ((EXCHANGE_RATES[currency] - sma) / sma * 100).toFixed(2) + '%'
-            });
-            
-            return sma;
-        }
-
-        // Analyze market conditions for a currency using SMA-14
-        // Analyze market conditions for a currency using SMA-14
-        // Fetches fresh 14-day data from API each time
         async function analyzeMarketPulse(currency) {
             const today = new Date().toISOString().split('T')[0];
-            
-            console.log(`\n📊 ===== ANÁLISIS DE MERCADO para ${currency} =====`);
-            
-            // Fetch historical data AND today's rate from API
             const smaData = await fetchAndCalculateSMA14(currency);
             
-            // Use the fresh rate from API (not cached EXCHANGE_RATES)
             const currentRate = smaData.todayRate;
             const sma14 = smaData.sma14;
             const absoluteDiff = currentRate - sma14;
             const percentageDiff = (absoluteDiff / sma14) * 100;
             
-            console.log(`   📍 RESUMEN DE COMPARACIÓN:`);
-            console.log(`   Tasa HOY (${today}): ${currentRate.toFixed(6)}`);
-            console.log(`   Promedio 14 días: ${sma14.toFixed(6)}`);
-            console.log(`   Diferencia: ${absoluteDiff > 0 ? '+' : ''}${absoluteDiff.toFixed(6)} (${percentageDiff > 0 ? '+' : ''}${percentageDiff.toFixed(2)}%)`);
-            
             let status, color, message, emoji, recommendation;
             
-            // Using ±1.5% thresholds for SMA-14
             if (percentageDiff > 1.5) {
                 status = 'excellent';
                 color = '#2ECC71';
                 emoji = '🚀';
                 message = '¡Tasa excelente!';
                 recommendation = 'La tasa está por encima del promedio de 2 semanas. Buen momento para enviar tu remesa.';
-                console.log(`   ✅ RESULTADO: EXCELENTE (${percentageDiff.toFixed(2)}% > +1.5%)`);
             } else if (percentageDiff < -1.5) {
                 status = 'low';
                 color = '#E74C3C';
                 emoji = '⏳';
                 message = 'Tasa por debajo del promedio';
                 recommendation = 'La tasa está por debajo del promedio de 2 semanas. Si no es urgente, podrías esperar.';
-                console.log(`   ⚠️ RESULTADO: BAJA (${percentageDiff.toFixed(2)}% < -1.5%)`);
             } else {
                 status = 'stable';
                 color = '#FFB627';
                 emoji = '✓';
                 message = 'Tasa estable';
                 recommendation = 'El mercado está dentro de rangos normales. Buen momento para enviar.';
-                console.log(`   📊 RESULTADO: ESTABLE (${percentageDiff.toFixed(2)}% dentro de ±1.5%)`);
             }
-            
-            console.log(`========================================\n`);
             
             return {
                 status,
@@ -871,7 +821,6 @@
             };
         }
 
-        // Calculate savings vs SMA-14
         function calculateSavingsVsAverage(amount, sma14, currentRate, currency) {
             const currentAmount = amount * currentRate;
             const avgAmount = amount * sma14;
@@ -885,7 +834,6 @@
             };
         }
 
-        // Currency Symbols
         const CURRENCY_SYMBOLS = {
             VES: 'Bs',
             COP: '$',
@@ -895,7 +843,6 @@
             DOP: 'RD$'
         };
 
-        // Currency Names
         const CURRENCY_NAMES = {
             VES: 'Bolívares',
             COP: 'Pesos colombianos',
@@ -905,32 +852,30 @@
             DOP: 'Pesos dominicanos'
         };
 
-        // Remittance Services Configuration
-        // Based on real published fees from each service's website
         const REMITTANCE_SERVICES = {
             wise: {
                 name: 'Wise',
                 logo: '🔷',
                 color: 'from-blue-500 to-blue-600',
                 fees: {
-                    once: { percentage: 0.59, fixed: 0.41 },      // 2025 global avg
+                    once: { percentage: 0.59, fixed: 0.41 },
                     monthly: { percentage: 0.59, fixed: 0.41 },
                     annual: { percentage: 0.59, fixed: 0.41 }
                 },
-                exchangeMarkup: 0,      // Wise uses mid-market rate
+                exchangeMarkup: 0,
                 speed: '< 24h',
-                paymentMethods: ['Transferencia bancaria', 'Tarjeta débito']
+                paymentMethods: ['Transferencia', 'Tarjeta']
             },
             remitly: {
                 name: 'Remitly',
                 logo: '💜',
                 color: 'from-purple-500 to-purple-600',
                 fees: {
-                    once: { percentage: 0, fixed: 3.99 },         // Express tier 2025
-                    monthly: { percentage: 0, fixed: 1.99 },      // Economy tier for recurring
-                    annual: { percentage: 0, fixed: 1.49 }        // Best rate for volume
+                    once: { percentage: 0, fixed: 3.99 },
+                    monthly: { percentage: 0, fixed: 1.99 },
+                    annual: { percentage: 0, fixed: 1.49 }
                 },
-                exchangeMarkup: 2.2,    // Updated 2025: 0.5%-3% range, using 2.2% avg
+                exchangeMarkup: 2.2,
                 speed: 'Instantáneo',
                 paymentMethods: ['Tarjeta', 'Transferencia']
             },
@@ -941,11 +886,11 @@
                 fees: {
                     once: { percentage: 0, fixed: 4.90 },
                     monthly: { percentage: 0, fixed: 4.90 },
-                    annual: { percentage: 0, fixed: 3.99 }        // Volume discount 2025
+                    annual: { percentage: 0, fixed: 3.99 }
                 },
-                exchangeMarkup: 4.2,    // 2025: 0-6% range, using 4.2% realistic avg
+                exchangeMarkup: 4.2,
                 speed: 'Minutos',
-                paymentMethods: ['Tarjeta', 'Efectivo', 'Transferencia']
+                paymentMethods: ['Tarjeta', 'Efectivo']
             },
             worldremit: {
                 name: 'WorldRemit',
@@ -954,9 +899,9 @@
                 fees: {
                     once: { percentage: 0, fixed: 3.99 },
                     monthly: { percentage: 0, fixed: 2.99 },
-                    annual: { percentage: 0, fixed: 0.99 }        // Competitive 2025 pricing
+                    annual: { percentage: 0, fixed: 0.99 }
                 },
-                exchangeMarkup: 2.0,    // Improved rates for 2025
+                exchangeMarkup: 2.0,
                 speed: 'Minutos',
                 paymentMethods: ['Tarjeta', 'Transferencia']
             },
@@ -971,10 +916,10 @@
                 },
                 exchangeMarkup: 3.5,
                 speed: '30 min',
-                paymentMethods: ['PayPal', 'Tarjeta', 'Banco']
+                paymentMethods: ['PayPal', 'Tarjeta']
             },
             ria: {
-                name: 'Ria Money Transfer',
+                name: 'Ria Money',
                 logo: '🟠',
                 color: 'from-orange-500 to-orange-600',
                 fees: {
@@ -984,31 +929,13 @@
                 },
                 exchangeMarkup: 2.8,
                 speed: 'Minutos',
-                paymentMethods: ['Tarjeta', 'Transferencia', 'Efectivo']
+                paymentMethods: ['Tarjeta', 'Efectivo']
             }
         };
 
-        // ==========================================
-        // STATE MANAGEMENT
-        // ==========================================
         let currentFrequency = 'monthly';
 
-        // ==========================================
-        // REAL-TIME EXCHANGE RATE FETCHING
-        // ==========================================
-
-        /**
-         * Fetches live exchange rates from API
-         * Using exchangerate.host - Free, no API key, CORS-friendly
-         * Backup: currency-api by fawazahmed0
-         * 
-         * Alternative free APIs if this one fails:
-         * 1. https://api.exchangerate.host/latest?base=EUR
-         * 2. https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/eur.json
-         * 3. https://api.frankfurter.app/latest?from=EUR (ECB data)
-         */
         async function fetchLiveExchangeRates() {
-            // Try multiple APIs in order until one works
             const apis = [
                 {
                     name: 'ExchangeRate-API (v4)',
@@ -1039,112 +966,56 @@
                             DOP: data.rates.DOP || FALLBACK_EXCHANGE_RATES.DOP
                         };
                     }
-                },
-                {
-                    name: 'ExchangeRate.host',
-                    url: 'https://api.exchangerate.host/latest?base=EUR',
-                    parser: (data) => {
-                        if (!data.rates) return null;
-                        return {
-                            VES: data.rates.VES || FALLBACK_EXCHANGE_RATES.VES,
-                            COP: data.rates.COP || FALLBACK_EXCHANGE_RATES.COP,
-                            ARS: data.rates.ARS || FALLBACK_EXCHANGE_RATES.ARS,
-                            PEN: data.rates.PEN || FALLBACK_EXCHANGE_RATES.PEN,
-                            USD_EC: data.rates.USD || FALLBACK_EXCHANGE_RATES.USD_EC,
-                            DOP: data.rates.DOP || FALLBACK_EXCHANGE_RATES.DOP
-                        };
-                    }
                 }
             ];
 
-            // Try each API until one succeeds
             for (const api of apis) {
                 try {
-                    console.log(`🔄 Intentando obtener tasas de ${api.name}...`);
-                    
-                    // Create manual timeout controller (compatible with all browsers)
                     const controller = new AbortController();
                     const timeoutId = setTimeout(() => controller.abort(), 5000);
                     
                     const response = await fetch(api.url, {
                         method: 'GET',
-                        headers: {
-                            'Accept': 'application/json',
-                        },
+                        headers: { 'Accept': 'application/json' },
                         signal: controller.signal
                     });
                     
-                    clearTimeout(timeoutId); // Clear timeout if fetch succeeds
+                    clearTimeout(timeoutId);
                     
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}`);
-                    }
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
                     
                     const data = await response.json();
                     const newRates = api.parser(data);
                     
-                    // Validate that we got at least some rates
                     if (!newRates || !newRates.COP || !newRates.USD_EC) {
-                        throw new Error('Invalid API response - missing rates');
+                        throw new Error('Invalid API response');
                     }
                     
-                    // Log the rates we obtained
-                    console.log(`✅ Tasas obtenidas de ${api.name} (EN TIEMPO REAL):`);
-                    console.log(`   EUR → USD (Ecuador): ${newRates.USD_EC.toFixed(4)}`);
-                    console.log(`   EUR → PEN (Perú): ${newRates.PEN.toFixed(4)}`);
-                    console.log(`   EUR → COP (Colombia): ${newRates.COP.toFixed(4)}`);
-                    console.log(`   EUR → VES (Venezuela): ${newRates.VES.toFixed(4)}`);
-                    console.log(`   EUR → ARS (Argentina): ${newRates.ARS.toFixed(4)}`);
-                    console.log(`   EUR → DOP (Rep. Dom.): ${newRates.DOP.toFixed(4)}`);
-                    console.log(`   📅 Fecha: ${new Date().toLocaleDateString('es-ES', {year: 'numeric', month: 'long', day: 'numeric'})}`);
-                    console.log(`   ⏰ Hora: ${new Date().toLocaleTimeString('es-ES')}`);
-                    console.log(`   ✅ Estas tasas están ACTUALIZADAS y son precisas`);
-                    
-                    // Success! Update global rates
                     EXCHANGE_RATES = newRates;
                     lastRateUpdate = new Date();
                     ratesLoadedFromAPI = true;
                     
-                    // Update UI indicator
                     updateRateIndicator(true, api.name);
                     
-                    // Cache in localStorage (valid for 1 hour)
                     localStorage.setItem('exchangeRates', JSON.stringify({
                         rates: newRates,
                         timestamp: lastRateUpdate.getTime(),
                         source: api.name
                     }));
                     
-                    console.log(`✅ Exchange rates updated from ${api.name}:`, lastRateUpdate.toLocaleTimeString('es-ES'));
                     return true;
                     
                 } catch (error) {
                     console.warn(`⚠️ ${api.name} failed:`, error.message);
-                    // Continue to next API
                 }
             }
             
-            // All APIs failed - SHOW ERROR, don't use outdated data
-            console.error('❌ ERROR: No se pudieron obtener tasas de cambio actuales');
-            console.error('❌ Ninguna API respondió correctamente');
-            console.error('❌ La calculadora NO puede funcionar sin tasas actualizadas');
-            console.error('💡 Por favor:');
-            console.error('   1. Verifica tu conexión a internet');
-            console.error('   2. Recarga la página (Ctrl+F5)');
-            console.error('   3. Si el problema persiste, intenta más tarde');
-            
             ratesLoadedFromAPI = false;
-            updateRateIndicator(false, 'ERROR: Sin conexión');
-            
-            // Show error message to user
-            alert('❌ ERROR: No se pudieron obtener las tasas de cambio actuales.\n\nLa calculadora necesita tasas en tiempo real para funcionar correctamente.\n\nPor favor:\n- Verifica tu conexión a internet\n- Recarga la página\n- Si el problema persiste, intenta más tarde');
-            
+            updateRateIndicator(false, 'ERROR');
+            alert('❌ No se pudieron obtener las tasas de cambio actuales.\n\nVerifica tu conexión a internet y recarga la página.');
             return false;
         }
 
-        /**
-         * Load rates from cache if they're less than 1 hour old
-         */
         function loadCachedRates() {
             try {
                 const cached = localStorage.getItem('exchangeRates');
@@ -1158,20 +1029,15 @@
                     lastRateUpdate = new Date(timestamp);
                     ratesLoadedFromAPI = true;
                     updateRateIndicator(true, source || 'Cache');
-                    console.log(`✅ Using cached exchange rates from ${source || 'unknown'}:`, lastRateUpdate.toLocaleTimeString('es-ES'));
                     return true;
                 }
                 
                 return false;
             } catch (error) {
-                console.warn('Could not load cached rates:', error);
                 return false;
             }
         }
 
-        /**
-         * Updates the UI to show if rates are live or fallback
-         */
         function updateRateIndicator(isLive, apiSource = '') {
             const indicator = document.getElementById('rateIndicator');
             if (!indicator) return;
@@ -1179,70 +1045,54 @@
             if (isLive) {
                 const timeStr = lastRateUpdate ? lastRateUpdate.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) : 'ahora';
                 indicator.innerHTML = `
-                    <svg class="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="w-3.5 md:w-4 h-3.5 md:h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                     </svg>
-                    <span class="text-xs text-slate-600 font-medium">
-                        Tasas actualizadas a las ${timeStr}
-                    </span>
+                    <span class="text-[10px] md:text-xs text-slate-600 font-medium">Tasas actualizadas a las ${timeStr}</span>
                 `;
             } else {
                 indicator.innerHTML = `
-                    <svg class="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="w-3.5 md:w-4 h-3.5 md:h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
                     </svg>
-                    <span class="text-xs text-amber-600 font-medium">Usando tasas de referencia</span>
+                    <span class="text-[10px] md:text-xs text-amber-600 font-medium">Usando tasas de referencia</span>
                 `;
             }
         }
 
-        /**
-         * Updates the Market Pulse thermometer for selected currency
-         */
         async function updateMarketPulse(currency) {
-            const currencyName = CURRENCY_NAMES[currency];
-            
-            // Show the market pulse section with loading state
             const marketPulse = document.getElementById('marketPulse');
             marketPulse.style.display = 'block';
             
-            // Show loading indicator
             document.getElementById('pulseTitle').textContent = 'Analizando mercado...';
-            document.getElementById('pulseRecommendation').textContent = 'Obteniendo datos del mercado...';
+            document.getElementById('pulseRecommendation').textContent = 'Obteniendo datos...';
             document.getElementById('pulseEmoji').textContent = '⏳';
             
-            // Fetch and analyze (this now gets TODAY's rate from API + historical)
             const pulse = await analyzeMarketPulse(currency);
             
-            // Update global EXCHANGE_RATES with fresh rate for calculations
             EXCHANGE_RATES[currency] = pulse.currentRate;
             
-            // Update status badge
             const statusBadge = document.getElementById('pulseStatus');
             if (pulse.status === 'excellent') {
-                statusBadge.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-success text-white';
+                statusBadge.className = 'px-2.5 md:px-3 py-1 md:py-1.5 rounded-lg text-[10px] md:text-xs font-bold bg-success text-white';
                 statusBadge.textContent = '🚀 Excelente';
             } else if (pulse.status === 'low') {
-                statusBadge.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-red-500 text-white';
+                statusBadge.className = 'px-2.5 md:px-3 py-1 md:py-1.5 rounded-lg text-[10px] md:text-xs font-bold bg-red-500 text-white';
                 statusBadge.textContent = '⏳ Esperar';
             } else {
-                statusBadge.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-400 text-navy';
+                statusBadge.className = 'px-2.5 md:px-3 py-1 md:py-1.5 rounded-lg text-[10px] md:text-xs font-bold bg-amber-400 text-navy';
                 statusBadge.textContent = '✓ Normal';
             }
             
-            // Update thermometer
             const thermometerFill = document.getElementById('thermometerFill');
             const thermometerEmoji = document.getElementById('thermometerEmoji');
             
-            // Calculate thermometer width (0-100%)
-            // -5% = 0%, 0% = 50%, +5% = 100%
-            let width = 50 + (pulse.percentageDiff * 10); // Each 1% = 10 width points
-            width = Math.max(5, Math.min(95, width)); // Clamp between 5-95%
+            let width = 50 + (pulse.percentageDiff * 10);
+            width = Math.max(5, Math.min(95, width));
             
             thermometerFill.style.width = width + '%';
             thermometerEmoji.textContent = pulse.emoji;
             
-            // Set thermometer color based on status
             if (pulse.status === 'excellent') {
                 thermometerFill.style.background = 'linear-gradient(90deg, #2ECC71, #27AE60)';
             } else if (pulse.status === 'low') {
@@ -1251,57 +1101,41 @@
                 thermometerFill.style.background = 'linear-gradient(90deg, #FFB627, #FF9500)';
             }
             
-            // Update message card
             const pulseMessage = document.getElementById('pulseMessage');
             document.getElementById('pulseTitle').textContent = pulse.message;
             document.getElementById('pulseRecommendation').textContent = pulse.recommendation;
             document.getElementById('pulseEmoji').textContent = pulse.emoji;
             
-            // Update message card colors
             if (pulse.status === 'excellent') {
-                pulseMessage.className = 'alert-excellent rounded-2xl p-5 mb-5';
+                pulseMessage.className = 'alert-excellent rounded-xl md:rounded-2xl p-4 md:p-5';
             } else if (pulse.status === 'low') {
-                pulseMessage.className = 'alert-low rounded-2xl p-5 mb-5';
+                pulseMessage.className = 'alert-low rounded-xl md:rounded-2xl p-4 md:p-5';
             } else {
-                pulseMessage.className = 'alert-stable rounded-2xl p-5 mb-5';
+                pulseMessage.className = 'alert-stable rounded-xl md:rounded-2xl p-4 md:p-5';
             }
             
-            // Update rate displays
             document.getElementById('currentRateDisplay').textContent = formatCurrency(pulse.currentRate, 2);
             document.getElementById('avgRateDisplay').textContent = formatCurrency(pulse.sma14, 2);
             
-            // Update history info
             const historyDays = document.getElementById('historyDays');
             if (pulse.daysOfHistory > 0) {
-                const dataSourceText = pulse.dataSource || 'Datos obtenidos';
-                const smaLabel = pulse.daysOfHistory >= 14 ? 'SMA-14 completo' : `SMA-${pulse.daysOfHistory} parcial`;
-                historyDays.textContent = `${smaLabel}: ${pulse.daysOfHistory} días (${dataSourceText})`;
-                historyDays.className = 'mt-3 text-xs text-navy-muted text-center font-medium';
-            } else {
-                historyDays.textContent = '⚠️ Error en el sistema';
-                historyDays.className = 'mt-3 text-xs text-red-600 font-semibold text-center';
+                const smaLabel = pulse.daysOfHistory >= 14 ? 'SMA-14' : `SMA-${pulse.daysOfHistory}`;
+                historyDays.textContent = `${smaLabel}: ${pulse.daysOfHistory} días (${pulse.dataSource})`;
             }
             
-            // Hide savings impact initially (will be updated when amount is calculated)
             document.getElementById('savingsImpact').style.display = 'none';
             
-            // Return pulse data for use in calculateRemittances
             return pulse;
         }
 
-        /**
-         * Updates savings impact when amount is calculated
-         */
         function updateSavingsImpact(amount, currency, pulse) {
             const savings = calculateSavingsVsAverage(amount, pulse.sma14, pulse.currentRate, currency);
             const currencySymbol = CURRENCY_SYMBOLS[currency];
-            const currencyName = CURRENCY_NAMES[currency];
             
             const savingsText = document.getElementById('savingsText');
             const savingsImpact = document.getElementById('savingsImpact');
             
             if (Math.abs(savings.difference) < 1) {
-                // Too small to matter
                 savingsImpact.style.display = 'none';
                 return;
             }
@@ -1309,52 +1143,38 @@
             savingsImpact.style.display = 'block';
             
             if (savings.difference > 0) {
-                savingsText.innerHTML = `Enviando <strong>€${formatCurrency(amount)}</strong> hoy, tu familia recibe <strong class="text-success">${currencySymbol}${formatCurrency(Math.abs(savings.difference), 0)} más</strong> que el promedio de 2 semanas.`;
-                savingsImpact.className = 'mt-4 bg-green-50 rounded-xl p-4 border border-green-200';
+                savingsText.innerHTML = `Enviando <strong>€${formatCurrency(amount)}</strong> hoy, reciben <strong class="text-success">${currencySymbol}${formatCurrency(Math.abs(savings.difference), 0)} más</strong> que el promedio.`;
+                savingsImpact.className = 'bg-green-50 rounded-lg md:rounded-xl p-3 md:p-4 border border-green-200';
             } else {
-                savingsText.innerHTML = `Hoy recibirías <strong class="text-red-600">${currencySymbol}${formatCurrency(Math.abs(savings.difference), 0)} menos</strong> que el promedio. Si no es urgente, considera esperar.`;
-                savingsImpact.className = 'mt-4 bg-red-50 rounded-xl p-4 border border-red-200';
+                savingsText.innerHTML = `Hoy recibirían <strong class="text-red-600">${currencySymbol}${formatCurrency(Math.abs(savings.difference), 0)} menos</strong> que el promedio.`;
+                savingsImpact.className = 'bg-red-50 rounded-lg md:rounded-xl p-3 md:p-4 border border-red-200';
             }
         }
 
-        /**
-         * Manually refresh market pulse for current currency
-         */
         async function refreshHistoricalData() {
             const btn = document.getElementById('refreshHistoryBtn');
             const currency = document.getElementById('destination').value;
             
             if (!btn || !currency) return;
             
-            btn.textContent = '⏳ Cargando...';
+            btn.textContent = '⏳...';
             btn.disabled = true;
             
             try {
                 await updateMarketPulse(currency);
-                btn.textContent = '✓ Actualizado';
-                
+                btn.textContent = '✓ OK';
                 setTimeout(() => {
                     btn.textContent = '↻ Actualizar';
                     btn.disabled = false;
                 }, 2000);
-                
             } catch (error) {
                 btn.textContent = '✕ Error';
-                console.error('Error refreshing:', error);
                 setTimeout(() => {
                     btn.textContent = '↻ Actualizar';
                     btn.disabled = false;
                 }, 2000);
             }
         }
-
-        // ==========================================
-        // STATE MANAGEMENT (continued)
-        // ==========================================
-
-        // ==========================================
-        // UTILITY FUNCTIONS
-        // ==========================================
 
         function formatCurrency(amount, decimals = 2) {
             return new Intl.NumberFormat('es-ES', {
@@ -1366,7 +1186,6 @@
         function setFrequency(freq) {
             currentFrequency = freq;
             
-            // Update button styles
             document.querySelectorAll('.freq-btn').forEach(btn => {
                 btn.classList.remove('freq-active');
                 btn.classList.add('text-navy-muted');
@@ -1377,25 +1196,18 @@
             activeBtn.classList.remove('text-navy-muted');
         }
 
-        // ==========================================
-        // CALCULATION LOGIC
-        // ==========================================
-
         function calculateRemittance(amount, currency, serviceKey, frequency) {
             const service = REMITTANCE_SERVICES[serviceKey];
             const baseRate = EXCHANGE_RATES[currency];
             const fees = service.fees[frequency];
             
-            // Step 1: Calculate total fees
             const percentageFee = amount * (fees.percentage / 100);
             const totalFee = percentageFee + fees.fixed;
             const amountAfterFees = amount - totalFee;
             
-            // Step 2: Apply exchange rate markup (hidden cost)
             const effectiveRate = baseRate * (1 - service.exchangeMarkup / 100);
             const recipientReceives = amountAfterFees * effectiveRate;
             
-            // Step 3: Calculate true cost vs mid-market
             const midMarketAmount = amount * baseRate;
             const totalCost = midMarketAmount - recipientReceives;
             const effectiveFeePercentage = (totalCost / (amount * baseRate)) * 100;
@@ -1422,33 +1234,22 @@
             
             for (const serviceKey in REMITTANCE_SERVICES) {
                 const result = calculateRemittance(amount, currency, serviceKey, frequency);
-                results.push({
-                    serviceKey: serviceKey,
-                    ...result
-                });
+                results.push({ serviceKey: serviceKey, ...result });
             }
             
-            // Sort by amount recipient receives (descending)
             results.sort((a, b) => b.recipientReceives - a.recipientReceives);
-            
             return results;
         }
-
-        // ==========================================
-        // UI RENDERING
-        // ==========================================
 
         async function calculateRemittances() {
             const amount = parseFloat(document.getElementById('amount').value);
             const currency = document.getElementById('destination').value;
             
-            // CRITICAL: Block if rates are not from live API
             if (!ratesLoadedFromAPI) {
-                alert('❌ No se pueden calcular remesas sin tasas actuales\n\nLa calculadora necesita obtener tasas de cambio en tiempo real.\n\nPor favor:\n- Verifica tu conexión a internet\n- Recarga la página (Ctrl+F5)\n- Intenta de nuevo');
+                alert('❌ No se pueden calcular remesas sin tasas actuales.\n\nRecarga la página e intenta de nuevo.');
                 return;
             }
             
-            // Validation
             if (!amount || amount < 10) {
                 alert('Por favor, ingresa un monto mínimo de €10');
                 return;
@@ -1458,7 +1259,6 @@
                 return;
             }
             
-            // Show loading state
             const btn = document.getElementById('calculateBtn');
             const btnText = document.getElementById('btnText');
             const btnArrow = document.getElementById('btnArrow');
@@ -1470,26 +1270,19 @@
             btn.disabled = true;
             
             try {
-                // Update Market Pulse for selected currency (fetches SMA-14 from API)
                 const pulse = await updateMarketPulse(currency);
-                
-                // Calculate savings vs average
                 updateSavingsImpact(amount, currency, pulse);
-                
-                // Calculate comparison results
                 const results = compareAllServices(amount, currency, currentFrequency);
                 renderResults(results, currency, amount);
                 
-                // Scroll to market pulse first
                 document.getElementById('marketPulse').scrollIntoView({ 
                     behavior: 'smooth', 
                     block: 'start' 
                 });
             } catch (error) {
-                console.error('Error calculating remittances:', error);
-                alert('Hubo un error al calcular. Por favor intenta de nuevo.');
+                console.error('Error:', error);
+                alert('Hubo un error. Por favor intenta de nuevo.');
             } finally {
-                // Reset button
                 btnText.classList.remove('hidden');
                 btnArrow.classList.remove('hidden');
                 btnLoader.classList.add('hidden');
@@ -1505,15 +1298,12 @@
             const currencySymbol = CURRENCY_SYMBOLS[currency];
             const currencyName = CURRENCY_NAMES[currency];
             
-            // Show results section
             resultsSection.classList.remove('hidden');
             
-            // Best and worst
             const best = results[0];
             const worst = results[results.length - 1];
             const savingsPerTransfer = best.recipientReceives - worst.recipientReceives;
             
-            // Calculate annual impact
             let multiplier = 1;
             let periodText = 'en este envío';
             if (currentFrequency === 'monthly') {
@@ -1524,31 +1314,29 @@
                 periodText = 'en tus 12 envíos';
             }
             
-            const annualSavings = savingsPerTransfer * multiplier;
             const annualSavingsEUR = (best.totalCost - worst.totalCost) * multiplier * -1;
             
-            // Render summary card
             summaryCard.innerHTML = `
                 <div class="flex items-start justify-between">
                     <div class="flex-1">
-                        <div class="flex items-center space-x-3 mb-4">
-                            <div class="w-12 h-12 bg-success/10 rounded-2xl flex items-center justify-center">
-                                <span class="text-2xl">🏆</span>
+                        <div class="flex items-center space-x-2 md:space-x-3 mb-3 md:mb-4">
+                            <div class="w-10 md:w-12 h-10 md:h-12 bg-success/10 rounded-xl md:rounded-2xl flex items-center justify-center">
+                                <span class="text-xl md:text-2xl">🏆</span>
                             </div>
                             <div>
-                                <p class="text-xs text-success font-bold uppercase tracking-wide">Mejor opción</p>
-                                <h3 class="text-2xl font-black text-navy">${best.service}</h3>
+                                <p class="text-[10px] md:text-xs text-success font-bold uppercase tracking-wide">Mejor opción</p>
+                                <h3 class="text-xl md:text-2xl font-black text-navy">${best.service}</h3>
                             </div>
                         </div>
                         <div class="space-y-2">
-                            <p class="text-navy-muted">
-                                Tu familia recibe <span class="font-black text-3xl text-success">${currencySymbol}${formatCurrency(best.recipientReceives, 0)}</span> <span class="text-sm">${currencyName}</span>
+                            <p class="text-navy-muted text-sm md:text-base">
+                                Tu familia recibe <span class="font-black text-2xl md:text-3xl text-success">${currencySymbol}${formatCurrency(best.recipientReceives, 0)}</span> <span class="text-xs md:text-sm">${currencyName}</span>
                             </p>
                             ${annualSavingsEUR > 0 ? `
-                                <div class="bg-white rounded-xl p-4 mt-4 border border-success/20">
-                                    <p class="text-sm text-navy">
+                                <div class="bg-white rounded-lg md:rounded-xl p-3 md:p-4 mt-3 md:mt-4 border border-success/20">
+                                    <p class="text-xs md:text-sm text-navy">
                                         <span class="font-bold">Ahorro ${periodText}:</span> 
-                                        <span class="text-success font-black text-lg">€${formatCurrency(annualSavingsEUR)}</span> 
+                                        <span class="text-success font-black text-base md:text-lg">€${formatCurrency(annualSavingsEUR)}</span> 
                                         vs. la peor opción
                                     </p>
                                 </div>
@@ -1558,38 +1346,34 @@
                 </div>
             `;
             
-            // Render result cards
             resultsGrid.innerHTML = results.map((result, index) => {
                 const isBest = index === 0;
                 const savingsVsBest = best.recipientReceives - result.recipientReceives;
                 
                 return `
-                    <div class="card card-hover p-5 ${isBest ? 'best-deal' : 'shadow-sm'} relative">
+                    <div class="card card-hover p-4 md:p-5 ${isBest ? 'best-deal' : 'shadow-sm'} relative">
                         ${isBest ? `
-                            <div class="absolute -top-3 -right-3 badge-best text-white px-3 py-1 rounded-full text-xs font-bold">
+                            <div class="absolute -top-2.5 md:-top-3 -right-2.5 md:-right-3 badge-best text-white px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-bold">
                                 ⭐ Mejor
                             </div>
                         ` : ''}
                         
-                        <!-- Header -->
-                        <div class="flex items-center justify-between mb-4">
-                            <div class="flex items-center space-x-3">
-                                <span class="text-2xl">${result.logo}</span>
-                                <h4 class="font-bold text-navy">${result.service}</h4>
+                        <div class="flex items-center justify-between mb-3 md:mb-4">
+                            <div class="flex items-center space-x-2 md:space-x-3">
+                                <span class="text-xl md:text-2xl">${result.logo}</span>
+                                <h4 class="font-bold text-navy text-sm md:text-base">${result.service}</h4>
                             </div>
-                            <span class="text-xs bg-slate-100 text-navy-muted px-2 py-1 rounded-lg font-medium">${result.speed}</span>
+                            <span class="text-[10px] md:text-xs bg-slate-100 text-navy-muted px-1.5 md:px-2 py-0.5 md:py-1 rounded-md md:rounded-lg font-medium">${result.speed}</span>
                         </div>
                         
-                        <!-- Amount Received -->
-                        <div class="bg-slate-50 rounded-xl p-4 mb-4">
-                            <p class="text-xs text-navy-muted font-semibold mb-1">Reciben</p>
-                            <p class="text-2xl font-black text-navy">
+                        <div class="bg-slate-50 rounded-lg md:rounded-xl p-3 md:p-4 mb-3 md:mb-4">
+                            <p class="text-[10px] md:text-xs text-navy-muted font-semibold mb-0.5 md:mb-1">Reciben</p>
+                            <p class="text-xl md:text-2xl font-black text-navy">
                                 ${currencySymbol}${formatCurrency(result.recipientReceives, 0)}
                             </p>
                         </div>
                         
-                        <!-- Fee Breakdown -->
-                        <div class="space-y-2 text-sm mb-4">
+                        <div class="space-y-1.5 md:space-y-2 text-xs md:text-sm mb-3 md:mb-4">
                             <div class="flex justify-between">
                                 <span class="text-navy-muted">Comisión:</span>
                                 <span class="font-semibold text-navy">€${formatCurrency(result.explicitFee)}</span>
@@ -1602,14 +1386,14 @@
                                 <span class="text-navy-muted">Margen oculto:</span>
                                 <span class="font-semibold text-primary">${result.exchangeMarkup}%</span>
                             </div>
-                            <div class="border-t border-slate-100 pt-2 mt-2 flex justify-between">
+                            <div class="border-t border-slate-100 pt-1.5 md:pt-2 mt-1.5 md:mt-2 flex justify-between">
                                 <span class="text-navy font-semibold">Costo total:</span>
                                 <span class="font-black text-primary">${formatCurrency(result.effectiveFeePercentage, 2)}%</span>
                             </div>
                         </div>
                         
                         ${!isBest && savingsVsBest > 0 ? `
-                            <div class="bg-amber-50 rounded-lg p-2.5 text-xs text-center border border-amber-100">
+                            <div class="bg-amber-50 rounded-md md:rounded-lg p-2 md:p-2.5 text-[10px] md:text-xs text-center border border-amber-100">
                                 <span class="text-amber-800">
                                     -${currencySymbol}${formatCurrency(savingsVsBest, 0)} vs ${best.service}
                                 </span>
@@ -1619,7 +1403,6 @@
                 `;
             }).join('');
             
-            // Generate insight
             const averageFee = results.reduce((sum, r) => sum + r.effectiveFeePercentage, 0) / results.length;
             insightText.innerHTML = `
                 La comisión promedio del mercado es <strong>${formatCurrency(averageFee, 2)}%</strong>, 
@@ -1629,83 +1412,35 @@
             `;
         }
 
-        // ==========================================
-        // EVENT LISTENERS
-        // ==========================================
-
         document.addEventListener('DOMContentLoaded', () => {
-            // Welcome message with debug tip
-            console.log('🚀 Manda Mejor - Iniciando...');
-            console.log('📡 Obteniendo tasas de cambio EN TIEMPO REAL...');
-            console.log('💡 Tip: Escribe debugRates() para verificar las tasas cargadas');
-            console.log('⚠️ IMPORTANTE: Esta calculadora SOLO funciona con tasas actuales (no usa valores hardcoded)');
+            console.log('🚀 Manda Mejor v2 - Iniciando...');
             
-            // Initialize exchange rates on page load (includes historical data)
             initializeExchangeRates();
             
-            // Update market pulse when destination changes
             document.getElementById('destination').addEventListener('change', async (e) => {
                 const currency = e.target.value;
-                // Only show market pulse if we have rates loaded
                 if (ratesLoadedFromAPI || EXCHANGE_RATES[currency]) {
                     await updateMarketPulse(currency);
                 }
             });
             
-            // Calculate on Enter key
             document.getElementById('amount').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') calculateRemittances();
             });
             
-            // Auto-format amount input
             document.getElementById('amount').addEventListener('blur', (e) => {
                 const value = parseFloat(e.target.value);
                 if (value) e.target.value = Math.round(value);
             });
         });
 
-        /**
-         * Initialize exchange rates: try cache, then API, fallback to static
-         */
         async function initializeExchangeRates() {
-            // Try to load current rates from cache (if less than 1 hour old)
             const cacheLoaded = loadCachedRates();
-            
             if (!cacheLoaded) {
-                // If no valid cache, fetch from API
                 await fetchLiveExchangeRates();
             }
-            
-            // If API failed, we're already using FALLBACK_EXCHANGE_RATES
             if (!ratesLoadedFromAPI) {
                 updateRateIndicator(false);
-            }
-        }
-
-        /**
-         * Load current rates from cache if they're less than 1 hour old
-         */
-        function loadCachedRates() {
-            try {
-                const cached = localStorage.getItem('exchangeRates');
-                if (!cached) return false;
-                
-                const { rates, timestamp, source } = JSON.parse(cached);
-                const hoursSince = (Date.now() - timestamp) / (1000 * 60 * 60);
-                
-                if (hoursSince < 1) {
-                    EXCHANGE_RATES = rates;
-                    lastRateUpdate = new Date(timestamp);
-                    ratesLoadedFromAPI = true;
-                    updateRateIndicator(true, source || 'Cache');
-                    console.log(`✅ Using cached exchange rates from ${source || 'unknown'}:`, lastRateUpdate.toLocaleTimeString('es-ES'));
-                    return true;
-                }
-                
-                return false;
-            } catch (error) {
-                console.warn('Could not load cached rates:', error);
-                return false;
             }
         }
     </script>
