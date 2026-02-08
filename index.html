@@ -160,21 +160,45 @@
                 </div>
 
                 <!-- Destination Select -->
-              <div>
+<div class="relative">
     <label for="destination" class="block text-sm font-bold text-navy mb-2">
         ¿A qué país envías?
     </label>
-    <select 
-        id="destination" 
-        style="font-family: 'Twemoji Country Flags', 'Helvetica Neue', Helvetica, Arial, sans-serif;"
-        class="input-premium select-premium w-full px-5 py-5 text-lg font-semibold text-navy rounded-2xl appearance-none cursor-pointer">
-        <option value="VES">🇻🇪 Venezuela (Bolívares)</option>
-        <option value="COP">🇨🇴 Colombia (Pesos)</option>
-        <option value="ARS">🇦🇷 Argentina (Pesos)</option>
-        <option value="PEN">🇵🇪 Perú (Soles)</option>
-        <option value="USD_EC">🇪🇨 Ecuador (Dólares)</option>
-        <option value="DOP">🇩🇴 República Dominicana (Pesos)</option>
-    </select>
+    
+    <div class="relative flex items-center">
+        <div class="absolute left-4 z-10 flex items-center pointer-events-none">
+            <img id="flag-icon" 
+                 src="https://flagcdn.com/w40/ve.png" 
+                 class="w-6 h-auto rounded-sm shadow-sm border border-slate-100" 
+                 alt="Bandera">
+        </div>
+
+        <select 
+            id="destination" 
+            onchange="updateFlag(this.value)"
+            class="input-premium select-premium w-full pl-14 pr-5 py-5 text-lg font-semibold text-navy rounded-2xl appearance-none cursor-pointer">
+            <option value="VES" data-code="ve">Venezuela (Bolívares)</option>
+            <option value="COP" data-code="co">Colombia (Pesos)</option>
+            <option value="ARS" data-code="ar">Argentina (Pesos)</option>
+            <option value="PEN" data-code="pe">Perú (Soles)</option>
+            <option value="USD_EC" data-code="ec">Ecuador (Dólares)</option>
+            <option value="DOP" data-code="do">República Dominicana (Pesos)</option>
+        </select>
+    </div>
+</div>
+
+<script>
+    // Esta función cambia la foto de la bandera cuando eliges un país
+    function updateFlag(val) {
+        const flagImg = document.getElementById('flag-icon');
+        const select = document.getElementById('destination');
+        const selectedOption = select.options[select.selectedIndex];
+        const countryCode = selectedOption.getAttribute('data-code');
+        
+        // Cargamos la bandera real desde un servicio gratuito de alta calidad
+        flagImg.src = `https://flagcdn.com/w40/${countryCode}.png`;
+    }
+</script>
 </div>
             </div>
 
