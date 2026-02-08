@@ -167,87 +167,47 @@
     
     <div onclick="toggleDropdown()" 
          id="selected-country-display"
-         class="input-premium flex items-center justify-between w-full px-5 py-5 text-lg font-semibold text-navy rounded-2xl cursor-pointer bg-white">
+         class="input-premium flex items-center justify-between w-full px-5 py-5 text-lg font-semibold text-navy rounded-2xl cursor-pointer bg-white border-2 border-slate-200">
         <div class="flex items-center">
-            <img id="current-flag-img" src="https://flagcdn.com/w40/ve.png" class="w-7 h-auto mr-3 rounded-sm shadow-sm" alt="">
+            <img id="current-flag-img" src="https://flagcdn.com/w40/ve.png" class="w-7 h-auto mr-3 rounded-sm" alt="">
             <span id="current-country-text">Venezuela (Bolívares)</span>
         </div>
-        <svg id="dropdown-arrow-icon" class="w-5 h-5 text-navy transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+        <svg id="dropdown-arrow-icon" class="w-5 h-5 text-slate-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
         </svg>
     </div>
 
     <div id="custom-dropdown-list" 
-         class="hidden absolute z-50 w-full mt-2 bg-white border-2 border-slate-100 rounded-2xl shadow-2xl max-h-64 overflow-y-auto animate-fade-in">
+         class="hidden absolute z-[100] w-full mt-2 bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden animate-in fade-in zoom-in duration-200">
         
-        <div onclick="selectCountry('VES', 've', 'Venezuela (Bolívares)')" class="flex items-center px-5 py-4 hover:bg-orange-50 cursor-pointer border-b border-slate-50 transition-colors">
+        <div onclick="selectCountry('VES', 've', 'Venezuela (Bolívares)')" class="flex items-center px-5 py-4 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-50">
             <img src="https://flagcdn.com/w40/ve.png" class="w-6 h-auto mr-3 rounded-sm" alt="">
-            <span class="text-navy font-semibold">Venezuela (Bolívares)</span>
+            <span class="text-navy font-medium">Venezuela (Bolívares)</span>
         </div>
         
-        <div onclick="selectCountry('COP', 'co', 'Colombia (Pesos)')" class="flex items-center px-5 py-4 hover:bg-orange-50 cursor-pointer border-b border-slate-50 transition-colors">
+        <div onclick="selectCountry('COP', 'co', 'Colombia (Pesos)')" class="flex items-center px-5 py-4 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-50">
             <img src="https://flagcdn.com/w40/co.png" class="w-6 h-auto mr-3 rounded-sm" alt="">
-            <span class="text-navy font-semibold">Colombia (Pesos)</span>
+            <span class="text-navy font-medium">Colombia (Pesos)</span>
         </div>
 
-        <div onclick="selectCountry('ARS', 'ar', 'Argentina (Pesos)')" class="flex items-center px-5 py-4 hover:bg-orange-50 cursor-pointer border-b border-slate-50 transition-colors">
+        <div onclick="selectCountry('ARS', 'ar', 'Argentina (Pesos)')" class="flex items-center px-5 py-4 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-50">
             <img src="https://flagcdn.com/w40/ar.png" class="w-6 h-auto mr-3 rounded-sm" alt="">
-            <span class="text-navy font-semibold">Argentina (Pesos)</span>
+            <span class="text-navy font-medium">Argentina (Pesos)</span>
         </div>
 
-        <div onclick="selectCountry('PEN', 'pe', 'Perú (Soles)')" class="flex items-center px-5 py-4 hover:bg-orange-50 cursor-pointer border-b border-slate-50 transition-colors">
+        <div onclick="selectCountry('PEN', 'pe', 'Perú (Soles)')" class="flex items-center px-5 py-4 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-50">
             <img src="https://flagcdn.com/w40/pe.png" class="w-6 h-auto mr-3 rounded-sm" alt="">
-            <span class="text-navy font-semibold">Perú (Soles)</span>
+            <span class="text-navy font-medium">Perú (Soles)</span>
         </div>
 
-        <div onclick="selectCountry('USD_EC', 'ec', 'Ecuador (Dólares)')" class="flex items-center px-5 py-4 hover:bg-orange-50 cursor-pointer border-b border-slate-50 transition-colors">
-            <img src="https://flagcdn.com/w40/ec.png" class="w-6 h-auto mr-3 rounded-sm" alt="">
-            <span class="text-navy font-semibold">Ecuador (Dólares)</span>
-        </div>
-
-        <div onclick="selectCountry('DOP', 'do', 'República Dominicana (Pesos)')" class="flex items-center px-5 py-4 hover:bg-orange-50 cursor-pointer transition-colors">
+        <div onclick="selectCountry('DOP', 'do', 'República Dominicana (Pesos)')" class="flex items-center px-5 py-4 hover:bg-slate-50 cursor-pointer transition-colors">
             <img src="https://flagcdn.com/w40/do.png" class="w-6 h-auto mr-3 rounded-sm" alt="">
-            <span class="text-navy font-semibold">República Dominicana (Pesos)</span>
+            <span class="text-navy font-medium">República Dominicana (Pesos)</span>
         </div>
     </div>
     
     <input type="hidden" id="destination" value="VES">
 </div>
-
-<script>
-    function toggleDropdown() {
-        const list = document.getElementById('custom-dropdown-list');
-        const arrow = document.getElementById('dropdown-arrow-icon');
-        const isHidden = list.classList.contains('hidden');
-        
-        list.classList.toggle('hidden');
-        arrow.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
-    }
-
-    function selectCountry(val, code, text) {
-        // 1. Actualizamos el valor oculto para la calculadora
-        document.getElementById('destination').value = val;
-        
-        // 2. Actualizamos la interfaz visual
-        document.getElementById('current-flag-img').src = `https://flagcdn.com/w40/${code}.png`;
-        document.getElementById('current-country-text').innerText = text;
-        
-        // 3. Cerramos el menú
-        toggleDropdown();
-        
-        // OPCIONAL: Si quieres que calcule apenas elijas, descomenta la línea de abajo:
-        // calculateRemittances();
-    }
-
-    // Cerrar el menú si el usuario hace click en cualquier otro lado de la pantalla
-    window.addEventListener('click', function(e) {
-        const container = document.getElementById('custom-select-container');
-        if (!container.contains(e.target)) {
-            document.getElementById('custom-dropdown-list').classList.add('hidden');
-            document.getElementById('dropdown-arrow-icon').style.transform = 'rotate(0deg)';
-        }
-    });
-</script>
 
             <!-- Frequency Toggle -->
             <div class="mb-6">
