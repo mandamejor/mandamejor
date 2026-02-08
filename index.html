@@ -209,8 +209,8 @@
     <input type="hidden" id="destination" value="VES">
 </div>
 
-            <!-- Frequency Toggle -->
-           <div class="mb-6">
+ <!-- Frequency Toggle -->
+            <div class="mb-6">
                 <label class="block text-sm font-bold text-navy mb-3">
                     ¿Con qué frecuencia envías?
                 </label>
@@ -218,37 +218,35 @@
                     <button 
                         onclick="setFrequency('once')" 
                         id="btn-once"
-                        class="freq-btn px-4 py-3.5 rounded-xl font-semibold text-navy-muted border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.04)] bg-white transition-all hover:bg-slate-50">
+                        class="freq-btn px-4 py-3.5 rounded-xl font-semibold text-navy-muted">
                         Una vez
                     </button>
                     <button 
                         onclick="setFrequency('monthly')" 
                         id="btn-monthly"
-                        class="freq-btn freq-active px-4 py-3.5 rounded-xl font-semibold border-2 border-orange-100 bg-orange-50 text-primary shadow-[0_4px_12px_rgba(255,107,53,0.08)] transition-all">
+                        class="freq-btn freq-active px-4 py-3.5 rounded-xl font-semibold">
                         Mensual
                     </button>
                     <button 
                         onclick="setFrequency('annual')" 
                         id="btn-annual"
-                        class="freq-btn px-4 py-3.5 rounded-xl font-semibold text-navy-muted border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.04)] bg-white transition-all hover:bg-slate-50">
+                        class="freq-btn px-4 py-3.5 rounded-xl font-semibold text-navy-muted">
                         Anual (12x)
                     </button>
                 </div>
             </div>
 
             <!-- Calculate Button -->
-           <div class="flex justify-center">
-                <button 
-                    onclick="calculateRemittances()" 
-                    id="calculateBtn"
-                    class="btn-primary w-full max-w-[280px] text-white font-bold text-lg py-4 rounded-2xl flex items-center justify-center space-x-2 shadow-lg shadow-orange-200/50">
-                    <span id="btnText">Comparar servicios</span>
-                    <svg id="btnArrow" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                    </svg>
-                    <div id="btnLoader" class="loading hidden"></div>
-                </button>
-            </div>
+            <button 
+                onclick="calculateRemittances()" 
+                id="calculateBtn"
+                class="btn-primary w-full text-white font-bold text-lg py-5 rounded-2xl flex items-center justify-center space-x-2">
+                <span id="btnText">Comparar servicios</span>
+                <svg id="btnArrow" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+                <div id="btnLoader" class="loading hidden"></div>
+            </button>
 
             <!-- Exchange Rate Indicator -->
             <div id="rateIndicator" class="mt-4 flex items-center justify-center space-x-2 text-sm bg-slate-50 rounded-xl py-3 px-4">
@@ -1712,3 +1710,4 @@
     </script>
 </body>
 </html>
+
