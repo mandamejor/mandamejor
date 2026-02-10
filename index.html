@@ -11,11 +11,9 @@
             theme: {
                 extend: {
                     colors: {
-                        // Warm cream backgrounds
                         'cream': '#FDFBF7',
                         'cream-warm': '#FBF8F3',
                         'sand': '#F5F1EB',
-                        // Sophisticated Teal/Emerald (trust + money + growth)
                         'teal': {
                             50: '#F0FDFA',
                             100: '#CCFBF1',
@@ -29,7 +27,6 @@
                             900: '#134E4A',
                             950: '#0A3D38',
                         },
-                        // Warm gold accent (warmth + premium)
                         'gold': {
                             100: '#FEF9E7',
                             200: '#FCF0C3',
@@ -38,13 +35,11 @@
                             500: '#EAB308',
                             600: '#CA8A04',
                         },
-                        // Terracotta for warnings/emphasis
                         'terra': {
                             400: '#E07B5B',
                             500: '#C9684A',
                             600: '#B85A3D',
                         },
-                        // Warm neutrals
                         'warm': {
                             50: '#FAFAF9',
                             100: '#F5F5F4',
@@ -77,18 +72,14 @@
         html { scroll-behavior: smooth; }
         body { background-color: #FDFBF7; color: #1C1917; }
         
-        /* ================================
-           HERO GRADIENT BACKGROUND
-           ================================ */
+        /* Hero gradient */
         .hero-gradient {
             background: linear-gradient(135deg, #0F766E 0%, #0D9488 40%, #14B8A6 70%, #2DD4BF 100%);
             position: relative;
             overflow: hidden;
         }
         
-        /* ================================
-           FLOATING CURRENCY SYMBOLS (Visible in Hero)
-           ================================ */
+        /* Floating symbols */
         .floating-symbols {
             position: absolute;
             inset: 0;
@@ -112,7 +103,6 @@
             75% { transform: translateY(-25px) rotate(3deg); }
         }
         
-        /* Position symbols around the hero */
         .currency-symbol:nth-child(1) { top: 10%; left: 5%; font-size: 3rem; animation-delay: 0s; }
         .currency-symbol:nth-child(2) { top: 20%; left: 15%; font-size: 2rem; animation-delay: 1s; }
         .currency-symbol:nth-child(3) { top: 5%; left: 25%; font-size: 2.5rem; animation-delay: 2s; }
@@ -126,14 +116,11 @@
         .currency-symbol:nth-child(11) { top: 50%; left: 20%; font-size: 1.8rem; animation-delay: 0.3s; }
         .currency-symbol:nth-child(12) { bottom: 40%; right: 15%; font-size: 2.2rem; animation-delay: 1.8s; }
         
-        /* Alternate opacity for depth */
         .currency-symbol:nth-child(odd) { color: rgba(255, 255, 255, 0.12); }
         .currency-symbol:nth-child(even) { color: rgba(255, 255, 255, 0.08); }
-        .currency-symbol:nth-child(3n) { color: rgba(234, 179, 8, 0.15); } /* Gold tint */
+        .currency-symbol:nth-child(3n) { color: rgba(234, 179, 8, 0.15); }
         
-        /* ================================
-           HEADER
-           ================================ */
+        /* Header */
         .nav-header {
             transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
             background: transparent;
@@ -151,9 +138,19 @@
         .nav-header.scrolled .nav-link:hover { color: #0D9488; }
         .nav-header.scrolled .mobile-menu-btn { color: #0F766E; }
         
-        /* ================================
-           MOBILE MENU
-           ================================ */
+        /* Force dark header on article pages */
+        .nav-header.article-mode {
+            background: rgba(253, 251, 247, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .nav-header.article-mode .nav-logo { color: #0F766E; }
+        .nav-header.article-mode .nav-link { color: #44403C; }
+        .nav-header.article-mode .nav-link:hover { color: #0D9488; }
+        .nav-header.article-mode .mobile-menu-btn { color: #0F766E; }
+        .nav-header.article-mode .logo-icon { background: linear-gradient(135deg, #0F766E, #0D9488); }
+        
+        /* Mobile menu */
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -167,9 +164,7 @@
             box-shadow: -10px 0 40px rgba(0,0,0,0.1);
         }
         
-        .mobile-menu.open {
-            right: 0;
-        }
+        .mobile-menu.open { right: 0; }
         
         .mobile-overlay {
             position: fixed;
@@ -181,25 +176,16 @@
             transition: all 0.3s;
         }
         
-        .mobile-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
+        .mobile-overlay.open { opacity: 1; visibility: visible; }
         
-        /* ================================
-           REVEAL ANIMATIONS
-           ================================ */
+        /* Reveal animations */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
             transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
         
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
+        .reveal.active { opacity: 1; transform: translateY(0); }
         .reveal-delay-1 { transition-delay: 0.1s; }
         .reveal-delay-2 { transition-delay: 0.2s; }
         .reveal-delay-3 { transition-delay: 0.3s; }
@@ -216,30 +202,20 @@
         .stagger.active > *:nth-child(4) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
         .stagger.active > *:nth-child(5) { transition-delay: 0.5s; opacity: 1; transform: translateY(0); }
         
-        /* ================================
-           CALCULATOR CARD
-           ================================ */
+        /* Calculator card */
         .calculator-card {
             background: white;
             border-radius: 24px;
-            box-shadow: 
-                0 4px 6px rgba(0,0,0,0.02),
-                0 12px 24px rgba(15, 118, 110, 0.08),
-                0 32px 64px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02), 0 12px 24px rgba(15, 118, 110, 0.08), 0 32px 64px rgba(0,0,0,0.06);
             transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
         
         .calculator-card:hover {
             transform: translateY(-4px);
-            box-shadow: 
-                0 8px 16px rgba(0,0,0,0.03),
-                0 20px 40px rgba(15, 118, 110, 0.12),
-                0 48px 80px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.03), 0 20px 40px rgba(15, 118, 110, 0.12), 0 48px 80px rgba(0,0,0,0.08);
         }
         
-        /* ================================
-           INPUTS
-           ================================ */
+        /* Inputs */
         .input-field {
             background: #F5F1EB;
             border: 2px solid transparent;
@@ -247,9 +223,7 @@
             transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
         }
         
-        .input-field:hover {
-            background: #F0EBE3;
-        }
+        .input-field:hover { background: #F0EBE3; }
         
         .input-field:focus {
             outline: none;
@@ -258,9 +232,7 @@
             box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.12);
         }
         
-        /* ================================
-           BUTTONS
-           ================================ */
+        /* Buttons */
         .btn-primary {
             background: linear-gradient(135deg, #0F766E 0%, #0D9488 100%);
             border-radius: 14px;
@@ -280,16 +252,9 @@
             transition: left 0.5s;
         }
         
-        .btn-primary:hover::before {
-            left: 100%;
-        }
+        .btn-primary:hover::before { left: 100%; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(15, 118, 110, 0.35); }
         
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(15, 118, 110, 0.35);
-        }
-        
-        /* Frequency buttons */
         .freq-btn {
             background: white;
             border: 2px solid #E7E5E4;
@@ -298,11 +263,7 @@
             color: #57534E;
         }
         
-        .freq-btn:hover:not(.freq-active) {
-            border-color: #14B8A6;
-            color: #0D9488;
-            background: #F0FDFA;
-        }
+        .freq-btn:hover:not(.freq-active) { border-color: #14B8A6; color: #0D9488; background: #F0FDFA; }
         
         .freq-active {
             background: linear-gradient(135deg, #0F766E 0%, #0D9488 100%);
@@ -311,9 +272,7 @@
             box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
         }
         
-        /* ================================
-           CARDS
-           ================================ */
+        /* Cards */
         .card-base {
             background: white;
             border-radius: 20px;
@@ -327,15 +286,12 @@
             transform: translateY(-3px);
         }
         
-        /* Feature icons */
         .feature-icon {
             background: linear-gradient(135deg, #F0FDFA 0%, #CCFBF1 100%);
             border: 1px solid rgba(20, 184, 166, 0.15);
         }
         
-        /* ================================
-           RESOURCE CARDS
-           ================================ */
+        /* Resource cards */
         .resource-card {
             display: grid;
             gap: 1.5rem;
@@ -345,6 +301,7 @@
             border-radius: 20px;
             border: 1px solid rgba(0,0,0,0.04);
             transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            cursor: pointer;
         }
         
         .resource-card:hover {
@@ -369,13 +326,9 @@
             flex-shrink: 0;
         }
         
-        @media (min-width: 768px) {
-            .resource-visual { width: 120px; height: 120px; }
-        }
+        @media (min-width: 768px) { .resource-visual { width: 120px; height: 120px; } }
         
-        /* ================================
-           RESULT CARDS
-           ================================ */
+        /* Result cards */
         .result-card {
             background: white;
             border-radius: 18px;
@@ -383,10 +336,7 @@
             transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
         
-        .result-card:hover {
-            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-            transform: translateY(-3px);
-        }
+        .result-card:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.08); transform: translateY(-3px); }
         
         .best-deal {
             border: 2px solid #14B8A6;
@@ -414,9 +364,7 @@
             box-shadow: 0 4px 10px rgba(15, 118, 110, 0.3);
         }
         
-        /* ================================
-           THERMOMETER
-           ================================ */
+        /* Thermometer */
         .thermometer-track {
             background: linear-gradient(90deg, #FECACA, #FEF3C7, #CCFBF1);
             border-radius: 999px;
@@ -424,20 +372,13 @@
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
         }
         
-        .thermometer-fill {
-            height: 100%;
-            border-radius: 999px;
-            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-        }
+        .thermometer-fill { height: 100%; border-radius: 999px; transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
         
-        /* Alerts */
         .alert-excellent { background: linear-gradient(135deg, #F0FDFA, #CCFBF1); border: 1px solid #99F6E4; }
         .alert-low { background: linear-gradient(135deg, #FEF2F2, #FECACA); border: 1px solid #FECACA; }
         .alert-stable { background: linear-gradient(135deg, #FFFBEB, #FEF3C7); border: 1px solid #FDE68A; }
         
-        /* ================================
-           AUTHOR SECTION
-           ================================ */
+        /* Author section */
         .author-card {
             position: relative;
             overflow: hidden;
@@ -466,13 +407,9 @@
             box-shadow: 0 8px 24px rgba(15, 118, 110, 0.15);
         }
         
-        @media (min-width: 768px) {
-            .author-photo { width: 140px; height: 140px; }
-        }
+        @media (min-width: 768px) { .author-photo { width: 140px; height: 140px; } }
         
-        /* ================================
-           MISC
-           ================================ */
+        /* Loading */
         .loading {
             width: 20px;
             height: 20px;
@@ -498,21 +435,234 @@
             background-clip: text;
         }
         
-        /* Section backgrounds */
         .section-cream { background: #FDFBF7; }
         .section-sand { background: linear-gradient(180deg, #F5F1EB 0%, #FDFBF7 100%); }
+        
+        /* ================================
+           ARTICLE STYLES
+           ================================ */
+        .article-container {
+            display: none;
+        }
+        
+        .article-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .article-hero {
+            background: linear-gradient(135deg, #F0FDFA 0%, #CCFBF1 50%, #F0FDFA 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .article-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(20, 184, 166, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .article-content {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+        
+        .article-content p {
+            font-size: 1.0625rem;
+            line-height: 1.8;
+            color: #44403C;
+            margin-bottom: 1.5rem;
+        }
+        
+        .article-content h2 {
+            font-family: 'Instrument Sans', system-ui, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0F766E;
+            margin: 2.5rem 0 1rem;
+        }
+        
+        .article-content h3 {
+            font-family: 'Instrument Sans', system-ui, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1C1917;
+            margin: 2rem 0 0.75rem;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        
+        .article-content li {
+            font-size: 1.0625rem;
+            line-height: 1.8;
+            color: #44403C;
+            margin-bottom: 0.5rem;
+        }
+        
+        .article-content strong {
+            color: #1C1917;
+            font-weight: 600;
+        }
+        
+        /* Callout boxes */
+        .callout {
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .callout-tip {
+            background: linear-gradient(135deg, #F0FDFA, #CCFBF1);
+            border-left: 4px solid #14B8A6;
+        }
+        
+        .callout-warning {
+            background: linear-gradient(135deg, #FEF9E7, #FCF0C3);
+            border-left: 4px solid #EAB308;
+        }
+        
+        .callout-example {
+            background: linear-gradient(135deg, #F5F1EB, #FDFBF7);
+            border-left: 4px solid #0F766E;
+        }
+        
+        .callout-title {
+            font-family: 'Instrument Sans', system-ui, sans-serif;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .callout-tip .callout-title { color: #0F766E; }
+        .callout-warning .callout-title { color: #CA8A04; }
+        .callout-example .callout-title { color: #0F766E; }
+        
+        .callout p:last-child { margin-bottom: 0; }
+        
+        /* Checklist */
+        .checklist {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #E7E5E4;
+        }
+        
+        .checklist-item:last-child { border-bottom: none; }
+        
+        .checklist-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #0F766E, #14B8A6);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        /* Error cards */
+        .error-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            border-left: 4px solid #C9684A;
+        }
+        
+        .error-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #C9684A, #E07B5B);
+            color: white;
+            font-weight: 700;
+            border-radius: 8px;
+            margin-right: 0.75rem;
+        }
+        
+        .solution-box {
+            background: linear-gradient(135deg, #F0FDFA, #CCFBF1);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        /* Sidebar illustration */
+        .article-sidebar {
+            position: sticky;
+            top: 100px;
+        }
+        
+        .illustration-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #CCFBF1, #F0FDFA);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 0 8px 32px rgba(15, 118, 110, 0.1);
+        }
+        
+        /* Back button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #0F766E;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            transition: all 0.3s;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        
+        .back-btn:hover {
+            background: #F0FDFA;
+            transform: translateX(-4px);
+        }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- ================================
-         MOBILE MENU OVERLAY
-         ================================ -->
+    <!-- Mobile Overlay -->
     <div id="mobileOverlay" class="mobile-overlay" onclick="closeMobileMenu()"></div>
     
-    <!-- ================================
-         MOBILE MENU
-         ================================ -->
+    <!-- Mobile Menu -->
     <div id="mobileMenu" class="mobile-menu">
         <div class="p-6">
             <div class="flex items-center justify-between mb-10">
@@ -524,27 +674,20 @@
                 </button>
             </div>
             <nav class="space-y-2">
-                <a href="#calculator" onclick="closeMobileMenu()" class="block px-4 py-3 text-lg font-medium text-warm-700 hover:bg-teal-50 hover:text-teal-700 rounded-xl transition-colors">
-                    Calculadora
-                </a>
-                <a href="#about" onclick="closeMobileMenu()" class="block px-4 py-3 text-lg font-medium text-warm-700 hover:bg-teal-50 hover:text-teal-700 rounded-xl transition-colors">
-                    Nosotros
-                </a>
-                <a href="#resources" onclick="closeMobileMenu()" class="block px-4 py-3 text-lg font-medium text-warm-700 hover:bg-teal-50 hover:text-teal-700 rounded-xl transition-colors">
-                    Recursos
-                </a>
+                <a href="#" onclick="navigateHome(); closeMobileMenu();" class="block px-4 py-3 text-lg font-medium text-warm-700 hover:bg-teal-50 hover:text-teal-700 rounded-xl transition-colors">Inicio</a>
+                <a href="#calculator" onclick="navigateHome(); closeMobileMenu();" class="block px-4 py-3 text-lg font-medium text-warm-700 hover:bg-teal-50 hover:text-teal-700 rounded-xl transition-colors">Calculadora</a>
+                <a href="#about" onclick="navigateHome(); closeMobileMenu();" class="block px-4 py-3 text-lg font-medium text-warm-700 hover:bg-teal-50 hover:text-teal-700 rounded-xl transition-colors">Nosotros</a>
+                <a href="#resources" onclick="navigateHome(); closeMobileMenu();" class="block px-4 py-3 text-lg font-medium text-warm-700 hover:bg-teal-50 hover:text-teal-700 rounded-xl transition-colors">Recursos</a>
             </nav>
         </div>
     </div>
 
-    <!-- ================================
-         NAVIGATION
-         ================================ -->
+    <!-- Navigation -->
     <nav id="navbar" class="nav-header fixed top-0 left-0 right-0 z-50 py-4">
         <div class="container mx-auto px-5 md:px-8 max-w-6xl">
             <div class="flex items-center justify-between">
-                <a href="#" class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center border border-white/20">
+                <a href="#" onclick="navigateHome(); return false;" class="flex items-center space-x-3">
+                    <div class="logo-icon w-10 h-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center border border-white/20">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                         </svg>
@@ -553,8 +696,8 @@
                 </a>
                 
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#about" class="nav-link text-white/90 hover:text-white font-medium transition-colors">Nosotros</a>
-                    <a href="#resources" class="nav-link text-white/90 hover:text-white font-medium transition-colors">Recursos</a>
+                    <a href="#about" onclick="navigateHome();" class="nav-link text-white/90 hover:text-white font-medium transition-colors">Nosotros</a>
+                    <a href="#resources" onclick="navigateHome();" class="nav-link text-white/90 hover:text-white font-medium transition-colors">Recursos</a>
                 </div>
                 
                 <button onclick="openMobileMenu()" class="mobile-menu-btn md:hidden text-white p-2 -mr-2">
@@ -567,510 +710,901 @@
     </nav>
 
     <!-- ================================
-         HERO SECTION
+         MAIN CONTENT (HOME)
          ================================ -->
-    <section class="hero-gradient pt-24 md:pt-28 pb-16 md:pb-24 min-h-[90vh] flex items-center">
-        <!-- Floating currency symbols -->
-        <div class="floating-symbols">
-            <span class="currency-symbol">€</span>
-            <span class="currency-symbol">$</span>
-            <span class="currency-symbol">€</span>
-            <span class="currency-symbol">$</span>
-            <span class="currency-symbol">€</span>
-            <span class="currency-symbol">$</span>
-            <span class="currency-symbol">€</span>
-            <span class="currency-symbol">$</span>
-            <span class="currency-symbol">€</span>
-            <span class="currency-symbol">$</span>
-            <span class="currency-symbol">€</span>
-            <span class="currency-symbol">$</span>
-        </div>
-        
-        <div class="container mx-auto px-5 md:px-8 max-w-6xl relative z-10">
-            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-                
-                <!-- Left: Copy -->
-                <div class="text-center lg:text-left">
-                    <div class="reveal inline-flex items-center space-x-2 bg-white/15 backdrop-blur border border-white/20 text-white rounded-full px-4 py-2 mb-6">
-                        <span class="w-2 h-2 bg-gold-400 rounded-full animate-pulse"></span>
-                        <span class="text-sm font-medium">Gratis y sin registro</span>
-                    </div>
-                    
-                    <h1 class="reveal reveal-delay-1 font-display text-4xl md:text-5xl lg:text-[3.25rem] font-semibold text-white leading-[1.1] mb-6 tracking-tight">
-                        Que tu esfuerzo<br>
-                        <span class="gradient-text">llegue completo</span><br>
-                        a quienes amas
-                    </h1>
-                    
-                    <p class="reveal reveal-delay-2 text-lg md:text-xl text-white/80 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                        Compara en segundos las comisiones reales de todos los servicios de remesas. 
-                        <strong class="text-white">Descubre cuánto más puede recibir tu familia.</strong>
-                    </p>
-                    
-                    <div class="reveal reveal-delay-3 flex flex-wrap gap-4 justify-center lg:justify-start">
-                        <div class="flex items-center space-x-2 text-white/80">
-                            <svg class="w-5 h-5 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                            </svg>
-                            <span class="text-sm font-medium">Tasas en tiempo real</span>
-                        </div>
-                        <div class="flex items-center space-x-2 text-white/80">
-                            <svg class="w-5 h-5 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                            </svg>
-                            <span class="text-sm font-medium">Sin publicidad</span>
-                        </div>
-                        <div class="flex items-center space-x-2 text-white/80">
-                            <svg class="w-5 h-5 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                            </svg>
-                            <span class="text-sm font-medium">100% transparente</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Right: Calculator -->
-                <div id="calculator" class="reveal reveal-delay-2">
-                    <div class="calculator-card p-5 md:p-7">
-                        <div class="mb-6">
-                            <h2 class="font-display text-xl md:text-2xl font-semibold text-warm-800 mb-1">
-                                Calcula tu ahorro
-                            </h2>
-                            <p class="text-warm-500 text-sm">Compara y encuentra la mejor opción</p>
+    <main id="homeContent">
+        <!-- Hero Section -->
+        <section class="hero-gradient pt-24 md:pt-28 pb-16 md:pb-24 min-h-[90vh] flex items-center">
+            <div class="floating-symbols">
+                <span class="currency-symbol">€</span>
+                <span class="currency-symbol">$</span>
+                <span class="currency-symbol">€</span>
+                <span class="currency-symbol">$</span>
+                <span class="currency-symbol">€</span>
+                <span class="currency-symbol">$</span>
+                <span class="currency-symbol">€</span>
+                <span class="currency-symbol">$</span>
+                <span class="currency-symbol">€</span>
+                <span class="currency-symbol">$</span>
+                <span class="currency-symbol">€</span>
+                <span class="currency-symbol">$</span>
+            </div>
+            
+            <div class="container mx-auto px-5 md:px-8 max-w-6xl relative z-10">
+                <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                    <div class="text-center lg:text-left">
+                        <div class="reveal inline-flex items-center space-x-2 bg-white/15 backdrop-blur border border-white/20 text-white rounded-full px-4 py-2 mb-6">
+                            <span class="w-2 h-2 bg-gold-400 rounded-full animate-pulse"></span>
+                            <span class="text-sm font-medium">Gratis y sin registro</span>
                         </div>
                         
-                        <div class="space-y-4">
-                            <!-- Amount -->
-                            <div>
-                                <label for="amount" class="block text-sm font-medium text-warm-700 mb-2">
-                                    Monto a enviar
-                                </label>
-                                <div class="relative">
-                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-semibold text-warm-800">€</span>
-                                    <input 
-                                        type="number" 
-                                        id="amount" 
-                                        value="500"
-                                        min="10"
-                                        max="10000"
-                                        step="10"
-                                        class="input-field w-full pl-12 pr-4 py-3.5 text-2xl font-semibold text-warm-800"
-                                        placeholder="500"
-                                    >
-                                </div>
-                                <p class="text-xs text-warm-400 mt-1.5">Entre €10 y €10,000</p>
-                            </div>
-                            
-                            <!-- Country -->
-                            <div class="relative" id="custom-select-container">
-                                <label class="block text-sm font-medium text-warm-700 mb-2">
-                                    País destino
-                                </label>
-                                <div onclick="toggleDropdown()" id="selected-country-display" class="input-field flex items-center justify-between w-full px-4 py-3.5 cursor-pointer">
-                                    <div class="flex items-center">
-                                        <img id="current-flag-img" src="https://flagcdn.com/w40/ve.png" class="w-6 h-auto mr-3 rounded shadow-sm" alt="">
-                                        <span id="current-country-text" class="font-medium text-warm-800">Venezuela</span>
-                                    </div>
-                                    <svg id="dropdown-arrow-icon" class="w-5 h-5 text-warm-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                    </svg>
-                                </div>
-                                
-                                <div id="custom-dropdown-list" class="hidden absolute z-50 w-full mt-2 bg-white rounded-xl shadow-xl border border-warm-200 overflow-hidden">
-                                    <div onclick="selectCountry('VES', 've', 'Venezuela')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer transition-colors">
-                                        <img src="https://flagcdn.com/w40/ve.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Venezuela</span>
-                                    </div>
-                                    <div onclick="selectCountry('COP', 'co', 'Colombia')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer transition-colors">
-                                        <img src="https://flagcdn.com/w40/co.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Colombia</span>
-                                    </div>
-                                    <div onclick="selectCountry('ARS', 'ar', 'Argentina')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer transition-colors">
-                                        <img src="https://flagcdn.com/w40/ar.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Argentina</span>
-                                    </div>
-                                    <div onclick="selectCountry('PEN', 'pe', 'Perú')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer transition-colors">
-                                        <img src="https://flagcdn.com/w40/pe.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Perú</span>
-                                    </div>
-                                    <div onclick="selectCountry('DOP', 'do', 'Rep. Dominicana')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer transition-colors">
-                                        <img src="https://flagcdn.com/w40/do.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Rep. Dominicana</span>
-                                    </div>
-                                </div>
-                                <input type="hidden" id="destination" value="VES">
-                            </div>
-                            
-                            <!-- Frequency -->
-                            <div>
-                                <label class="block text-sm font-medium text-warm-700 mb-2">Frecuencia de envío</label>
-                                <div class="grid grid-cols-3 gap-2">
-                                    <button onclick="setFrequency('once')" id="btn-once" class="freq-btn px-2 py-2.5 text-sm font-medium">Único</button>
-                                    <button onclick="setFrequency('monthly')" id="btn-monthly" class="freq-btn freq-active px-2 py-2.5 text-sm font-medium">Mensual</button>
-                                    <button onclick="setFrequency('annual')" id="btn-annual" class="freq-btn px-2 py-2.5 text-sm font-medium">Anual</button>
-                                </div>
-                            </div>
-                            
-                            <!-- Button -->
-                            <button onclick="calculateRemittances()" id="calculateBtn" class="btn-primary w-full text-white font-semibold text-base py-3.5 flex items-center justify-center space-x-2 mt-2">
-                                <span id="btnText">Comparar servicios</span>
-                                <svg id="btnArrow" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        <h1 class="reveal reveal-delay-1 font-display text-4xl md:text-5xl lg:text-[3.25rem] font-semibold text-white leading-[1.1] mb-6 tracking-tight">
+                            Que tu esfuerzo<br>
+                            <span class="gradient-text">llegue completo</span><br>
+                            a quienes amas
+                        </h1>
+                        
+                        <p class="reveal reveal-delay-2 text-lg md:text-xl text-white/80 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                            Compara en segundos las comisiones reales de todos los servicios de remesas. 
+                            <strong class="text-white">Descubre cuánto más puede recibir tu familia.</strong>
+                        </p>
+                        
+                        <div class="reveal reveal-delay-3 flex flex-wrap gap-4 justify-center lg:justify-start">
+                            <div class="flex items-center space-x-2 text-white/80">
+                                <svg class="w-5 h-5 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                                 </svg>
-                                <div id="btnLoader" class="loading hidden"></div>
-                            </button>
-                            
-                            <!-- Rate indicator -->
-                            <div id="rateIndicator" class="flex items-center justify-center space-x-2 py-2">
-                                <svg class="w-4 h-4 text-warm-400 animate-spin" fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                                <span class="text-sm font-medium">Tasas en tiempo real</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-white/80">
+                                <svg class="w-5 h-5 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                                 </svg>
-                                <span class="text-xs text-warm-400">Cargando tasas...</span>
+                                <span class="text-sm font-medium">Sin publicidad</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-white/80">
+                                <svg class="w-5 h-5 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-sm font-medium">100% transparente</span>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ================================
-         RESULTS SECTION
-         ================================ -->
-    <section id="resultsSection" class="hidden py-16 md:py-20 section-sand">
-        <div class="container mx-auto px-5 md:px-8 max-w-5xl">
-            
-            <!-- Market Pulse -->
-            <div id="marketPulse" class="card-base p-5 md:p-7 mb-6 shadow-lg" style="display: none;">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-11 h-11 feature-icon rounded-xl flex items-center justify-center">
-                            <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="font-display text-lg font-semibold text-warm-800">Análisis de mercado</h3>
-                            <p class="text-xs text-warm-500">Comparación con media de 14 días</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <button onclick="refreshHistoricalData()" id="refreshHistoryBtn" class="text-xs text-warm-500 hover:text-teal-600 px-3 py-1.5 rounded-lg border border-warm-200 hover:border-teal-300 hover:bg-teal-50 transition-all">
-                            ↻ Actualizar
-                        </button>
-                        <div id="pulseStatus" class="px-3 py-1.5 rounded-lg text-xs font-medium"></div>
-                    </div>
-                </div>
-                
-                <!-- Thermometer -->
-                <div class="mb-5">
-                    <div class="thermometer-track">
-                        <div id="thermometerFill" class="thermometer-fill" style="width: 50%; background: linear-gradient(90deg, #FCD34D, #FBBF24);"></div>
-                    </div>
-                    <div class="flex justify-between text-xs text-warm-400 mt-2 font-medium">
-                        <span>Baja</span><span>Normal</span><span>Excelente</span>
-                    </div>
-                </div>
-                
-                <!-- Alert + Rates -->
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div id="pulseMessage" class="alert-stable rounded-xl p-4">
-                        <div class="flex items-start space-x-3">
-                            <span id="pulseEmoji" class="text-xl">📊</span>
-                            <div>
-                                <p class="font-semibold text-warm-800 text-sm" id="pulseTitle">Analizando...</p>
-                                <p class="text-xs text-warm-600 mt-1" id="pulseRecommendation">Cargando datos...</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="bg-teal-50 rounded-xl p-3">
-                            <p class="text-xs text-warm-500 font-medium mb-1">Tasa actual</p>
-                            <p class="text-lg font-semibold text-warm-800" id="currentRateDisplay">-</p>
-                        </div>
-                        <div class="bg-teal-50 rounded-xl p-3">
-                            <p class="text-xs text-warm-500 font-medium mb-1">Media 14 días</p>
-                            <p class="text-lg font-semibold text-warm-800" id="avgRateDisplay">-</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div id="savingsImpact" class="mt-4 bg-teal-50 rounded-xl p-4 border border-teal-100" style="display: none;">
-                    <p class="text-sm text-teal-800" id="savingsText">-</p>
-                </div>
-                
-                <p id="historyDays" class="text-center text-xs text-warm-400 mt-4">Datos basados en histórico de 14 días</p>
-            </div>
-            
-            <!-- Summary -->
-            <div id="summaryCard" class="card-base border-2 border-teal-400 p-5 md:p-7 mb-6 shadow-lg"></div>
-            
-            <!-- Results Grid -->
-            <div class="mb-6">
-                <h3 class="font-display text-lg font-semibold text-warm-800 mb-5 flex items-center">
-                    <span class="w-9 h-9 feature-icon rounded-lg flex items-center justify-center mr-3">
-                        <svg class="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                        </svg>
-                    </span>
-                    Comparación detallada
-                </h3>
-                <div id="resultsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-            </div>
-            
-            <!-- Insight -->
-            <div class="card-base bg-gradient-to-br from-teal-50 to-cream p-5 md:p-6 border border-teal-100">
-                <div class="flex items-start space-x-4">
-                    <div class="w-9 h-9 feature-icon rounded-lg flex items-center justify-center flex-shrink-0">
-                        <svg class="w-4 h-4 text-teal-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h4 class="font-display font-semibold text-warm-800 mb-1 text-sm">¿Sabías que...?</h4>
-                        <p id="insightText" class="text-warm-600 leading-relaxed text-sm"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ================================
-         ABOUT SECTION
-         ================================ -->
-    <section id="about" class="py-16 md:py-24 section-cream">
-        <div class="container mx-auto px-5 md:px-8 max-w-5xl">
-            
-            <!-- Header -->
-            <div class="text-center mb-12 md:mb-16">
-                <span class="reveal inline-block text-sm font-medium text-teal-600 mb-3">Sobre el proyecto</span>
-                <h2 class="reveal reveal-delay-1 font-display text-2xl md:text-4xl font-semibold text-warm-900 mb-5 tracking-tight">
-                    Una herramienta pensada para<br>
-                    <span class="gradient-text-dark">quienes dan todo por su familia</span>
-                </h2>
-                <p class="reveal reveal-delay-2 text-base md:text-lg text-warm-600 max-w-2xl mx-auto leading-relaxed">
-                    Cada euro que envías representa horas de trabajo, sacrificio y amor. 
-                    Manda Mejor existe para que ese esfuerzo llegue completo a quienes más quieres.
-                </p>
-            </div>
-            
-            <!-- Features -->
-            <div class="reveal stagger grid md:grid-cols-3 gap-6 mb-16">
-                <div class="text-center">
-                    <div class="w-14 h-14 feature-icon rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-teal-500/10">
-                        <svg class="w-7 h-7 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-display text-base font-semibold text-warm-800 mb-2">100% transparente</h3>
-                    <p class="text-warm-600 text-sm leading-relaxed">
-                        Mostramos el costo real total: la comisión visible más el margen oculto en el tipo de cambio.
-                    </p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="w-14 h-14 feature-icon rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-teal-500/10">
-                        <svg class="w-7 h-7 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-display text-base font-semibold text-warm-800 mb-2">Datos actualizados</h3>
-                    <p class="text-warm-600 text-sm leading-relaxed">
-                        Tasas del Banco Central Europeo actualizadas al momento. Información precisa y confiable.
-                    </p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="w-14 h-14 feature-icon rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-teal-500/10">
-                        <svg class="w-7 h-7 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-display text-base font-semibold text-warm-800 mb-2">Iniciativa gratuita</h3>
-                    <p class="text-warm-600 text-sm leading-relaxed">
-                        Sin anuncios, sin registro, sin vender datos. Un proyecto personal para la comunidad.
-                    </p>
-                </div>
-            </div>
-            
-            <!-- Author Card -->
-            <div class="reveal author-card card-base p-6 md:p-10 shadow-xl">
-                <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10">
-                    <div class="author-photo flex-shrink-0">
-                        <!-- Replace with: <img src="tu-foto.jpg" class="w-full h-full object-cover rounded-full"> -->
-                        <svg class="w-12 h-12 text-teal-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                        </svg>
                     </div>
                     
-                    <div class="text-center md:text-left">
-                        <p class="text-base md:text-lg text-warm-600 leading-relaxed mb-5 italic">
-                            "Como latina en España, entiendo lo que significa enviar dinero a casa. 
-                            Cada transferencia lleva consigo el peso de la distancia y el amor por los nuestros. 
-                            Creé Manda Mejor para que todos podamos tomar decisiones informadas y que 
-                            <strong class="text-warm-800">nuestra familia reciba el máximo posible</strong>."
-                        </p>
+                    <div id="calculator" class="reveal reveal-delay-2">
+                        <div class="calculator-card p-5 md:p-7">
+                            <div class="mb-6">
+                                <h2 class="font-display text-xl md:text-2xl font-semibold text-warm-800 mb-1">Calcula tu ahorro</h2>
+                                <p class="text-warm-500 text-sm">Compara y encuentra la mejor opción</p>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="amount" class="block text-sm font-medium text-warm-700 mb-2">Monto a enviar</label>
+                                    <div class="relative">
+                                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-semibold text-warm-800">€</span>
+                                        <input type="number" id="amount" value="500" min="10" max="10000" step="10" class="input-field w-full pl-12 pr-4 py-3.5 text-2xl font-semibold text-warm-800" placeholder="500">
+                                    </div>
+                                    <p class="text-xs text-warm-400 mt-1.5">Entre €10 y €10,000</p>
+                                </div>
+                                
+                                <div class="relative" id="custom-select-container">
+                                    <label class="block text-sm font-medium text-warm-700 mb-2">País destino</label>
+                                    <div onclick="toggleDropdown()" id="selected-country-display" class="input-field flex items-center justify-between w-full px-4 py-3.5 cursor-pointer">
+                                        <div class="flex items-center">
+                                            <img id="current-flag-img" src="https://flagcdn.com/w40/ve.png" class="w-6 h-auto mr-3 rounded shadow-sm" alt="">
+                                            <span id="current-country-text" class="font-medium text-warm-800">Venezuela</span>
+                                        </div>
+                                        <svg id="dropdown-arrow-icon" class="w-5 h-5 text-warm-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </div>
+                                    
+                                    <div id="custom-dropdown-list" class="hidden absolute z-50 w-full mt-2 bg-white rounded-xl shadow-xl border border-warm-200 overflow-hidden">
+                                        <div onclick="selectCountry('VES', 've', 'Venezuela')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer transition-colors">
+                                            <img src="https://flagcdn.com/w40/ve.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Venezuela</span>
+                                        </div>
+                                        <div onclick="selectCountry('COP', 'co', 'Colombia')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer transition-colors">
+                                            <img src="https://flagcdn.com/w40/co.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Colombia</span>
+                                        </div>
+                                        <div onclick="selectCountry('ARS', 'ar', 'Argentina')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer transition-colors">
+                                            <img src="https://flagcdn.com/w40/ar.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Argentina</span>
+                                        </div>
+                                        <div onclick="selectCountry('PEN', 'pe', 'Perú')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer transition-colors">
+                                            <img src="https://flagcdn.com/w40/pe.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Perú</span>
+                                        </div>
+                                        <div onclick="selectCountry('DOP', 'do', 'Rep. Dominicana')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer transition-colors">
+                                            <img src="https://flagcdn.com/w40/do.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Rep. Dominicana</span>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="destination" value="VES">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-warm-700 mb-2">Frecuencia de envío</label>
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <button onclick="setFrequency('once')" id="btn-once" class="freq-btn px-2 py-2.5 text-sm font-medium">Único</button>
+                                        <button onclick="setFrequency('monthly')" id="btn-monthly" class="freq-btn freq-active px-2 py-2.5 text-sm font-medium">Mensual</button>
+                                        <button onclick="setFrequency('annual')" id="btn-annual" class="freq-btn px-2 py-2.5 text-sm font-medium">Anual</button>
+                                    </div>
+                                </div>
+                                
+                                <button onclick="calculateRemittances()" id="calculateBtn" class="btn-primary w-full text-white font-semibold text-base py-3.5 flex items-center justify-center space-x-2 mt-2">
+                                    <span id="btnText">Comparar servicios</span>
+                                    <svg id="btnArrow" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                    </svg>
+                                    <div id="btnLoader" class="loading hidden"></div>
+                                </button>
+                                
+                                <div id="rateIndicator" class="flex items-center justify-center space-x-2 py-2">
+                                    <svg class="w-4 h-4 text-warm-400 animate-spin" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                                    </svg>
+                                    <span class="text-xs text-warm-400">Cargando tasas...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="hidden py-16 md:py-20 section-sand">
+            <div class="container mx-auto px-5 md:px-8 max-w-5xl">
+                <div id="marketPulse" class="card-base p-5 md:p-7 mb-6 shadow-lg" style="display: none;">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-11 h-11 feature-icon rounded-xl flex items-center justify-center">
+                                <svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-display text-lg font-semibold text-warm-800">Análisis de mercado</h3>
+                                <p class="text-xs text-warm-500">Comparación con media de 14 días</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button onclick="refreshHistoricalData()" id="refreshHistoryBtn" class="text-xs text-warm-500 hover:text-teal-600 px-3 py-1.5 rounded-lg border border-warm-200 hover:border-teal-300 hover:bg-teal-50 transition-all">↻ Actualizar</button>
+                            <div id="pulseStatus" class="px-3 py-1.5 rounded-lg text-xs font-medium"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-5">
+                        <div class="thermometer-track">
+                            <div id="thermometerFill" class="thermometer-fill" style="width: 50%; background: linear-gradient(90deg, #FCD34D, #FBBF24);"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-warm-400 mt-2 font-medium">
+                            <span>Baja</span><span>Normal</span><span>Excelente</span>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div id="pulseMessage" class="alert-stable rounded-xl p-4">
+                            <div class="flex items-start space-x-3">
+                                <span id="pulseEmoji" class="text-xl">📊</span>
+                                <div>
+                                    <p class="font-semibold text-warm-800 text-sm" id="pulseTitle">Analizando...</p>
+                                    <p class="text-xs text-warm-600 mt-1" id="pulseRecommendation">Cargando datos...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-teal-50 rounded-xl p-3">
+                                <p class="text-xs text-warm-500 font-medium mb-1">Tasa actual</p>
+                                <p class="text-lg font-semibold text-warm-800" id="currentRateDisplay">-</p>
+                            </div>
+                            <div class="bg-teal-50 rounded-xl p-3">
+                                <p class="text-xs text-warm-500 font-medium mb-1">Media 14 días</p>
+                                <p class="text-lg font-semibold text-warm-800" id="avgRateDisplay">-</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="savingsImpact" class="mt-4 bg-teal-50 rounded-xl p-4 border border-teal-100" style="display: none;">
+                        <p class="text-sm text-teal-800" id="savingsText">-</p>
+                    </div>
+                    
+                    <p id="historyDays" class="text-center text-xs text-warm-400 mt-4">Datos basados en histórico de 14 días</p>
+                </div>
+                
+                <div id="summaryCard" class="card-base border-2 border-teal-400 p-5 md:p-7 mb-6 shadow-lg"></div>
+                
+                <div class="mb-6">
+                    <h3 class="font-display text-lg font-semibold text-warm-800 mb-5 flex items-center">
+                        <span class="w-9 h-9 feature-icon rounded-lg flex items-center justify-center mr-3">
+                            <svg class="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                            </svg>
+                        </span>
+                        Comparación detallada
+                    </h3>
+                    <div id="resultsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                </div>
+                
+                <div class="card-base bg-gradient-to-br from-teal-50 to-cream p-5 md:p-6 border border-teal-100">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-9 h-9 feature-icon rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-4 h-4 text-teal-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
                         <div>
-                            <p class="font-display font-semibold text-warm-800">Ariana Acosta</p>
-                            <p class="text-sm text-warm-500">Creadora de Manda Mejor</p>
+                            <h4 class="font-display font-semibold text-warm-800 mb-1 text-sm">¿Sabías que...?</h4>
+                            <p id="insightText" class="text-warm-600 leading-relaxed text-sm"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-16 md:py-24 section-cream">
+            <div class="container mx-auto px-5 md:px-8 max-w-5xl">
+                <div class="text-center mb-12 md:mb-16">
+                    <span class="reveal inline-block text-sm font-medium text-teal-600 mb-3">Sobre el proyecto</span>
+                    <h2 class="reveal reveal-delay-1 font-display text-2xl md:text-4xl font-semibold text-warm-900 mb-5 tracking-tight">
+                        Una herramienta pensada para<br>
+                        <span class="gradient-text-dark">quienes dan todo por su familia</span>
+                    </h2>
+                    <p class="reveal reveal-delay-2 text-base md:text-lg text-warm-600 max-w-2xl mx-auto leading-relaxed">
+                        Cada euro que envías representa horas de trabajo, sacrificio y amor. 
+                        Manda Mejor existe para que ese esfuerzo llegue completo a quienes más quieres.
+                    </p>
+                </div>
+                
+                <div class="reveal stagger grid md:grid-cols-3 gap-6 mb-16">
+                    <div class="text-center">
+                        <div class="w-14 h-14 feature-icon rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-teal-500/10">
+                            <svg class="w-7 h-7 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-display text-base font-semibold text-warm-800 mb-2">100% transparente</h3>
+                        <p class="text-warm-600 text-sm leading-relaxed">Mostramos el costo real total: la comisión visible más el margen oculto en el tipo de cambio.</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-14 h-14 feature-icon rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-teal-500/10">
+                            <svg class="w-7 h-7 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-display text-base font-semibold text-warm-800 mb-2">Datos actualizados</h3>
+                        <p class="text-warm-600 text-sm leading-relaxed">Tasas del Banco Central Europeo actualizadas al momento. Información precisa y confiable.</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-14 h-14 feature-icon rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-teal-500/10">
+                            <svg class="w-7 h-7 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-display text-base font-semibold text-warm-800 mb-2">Iniciativa gratuita</h3>
+                        <p class="text-warm-600 text-sm leading-relaxed">Sin anuncios, sin registro, sin vender datos. Un proyecto personal para la comunidad.</p>
+                    </div>
+                </div>
+                
+                <div class="reveal author-card card-base p-6 md:p-10 shadow-xl">
+                    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+                        <div class="author-photo flex-shrink-0">
+                            <svg class="w-12 h-12 text-teal-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                        </div>
+                        
+                        <div class="text-center md:text-left">
+                            <p class="text-base md:text-lg text-warm-600 leading-relaxed mb-5 italic">
+                                "Como latina en España, entiendo lo que significa enviar dinero a casa. 
+                                Cada transferencia lleva consigo el peso de la distancia y el amor por los nuestros. 
+                                Creé Manda Mejor para que todos podamos tomar decisiones informadas y que 
+                                <strong class="text-warm-800">nuestra familia reciba el máximo posible</strong>."
+                            </p>
+                            <div>
+                                <p class="font-display font-semibold text-warm-800">Ariana Acosta</p>
+                                <p class="text-sm text-warm-500">Creadora de Manda Mejor</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources" class="py-16 md:py-24 section-sand">
+            <div class="container mx-auto px-5 md:px-8 max-w-5xl">
+                <div class="text-center mb-12">
+                    <span class="reveal inline-block text-sm font-medium text-teal-600 mb-3">Aprende más</span>
+                    <h2 class="reveal reveal-delay-1 font-display text-2xl md:text-3xl font-semibold text-warm-900 mb-3 tracking-tight">Recursos adicionales</h2>
+                    <p class="reveal reveal-delay-2 text-warm-600 max-w-xl mx-auto text-sm">Guías prácticas para enviar dinero de forma más inteligente</p>
+                </div>
+                
+                <div class="reveal stagger space-y-4">
+                    <!-- Resource 1 -->
+                    <div class="resource-card" onclick="showArticle('article1')">
+                        <div>
+                            <span class="inline-block text-xs font-semibold text-teal-600 uppercase tracking-wide mb-2">Guía básica</span>
+                            <h3 class="font-display text-lg md:text-xl font-semibold text-warm-800 mb-2">Cómo entender la tasa interbancaria</h3>
+                            <p class="text-warm-600 leading-relaxed text-sm mb-3">La tasa interbancaria es el tipo de cambio real que usan los bancos entre sí. Es la referencia más justa para comparar servicios.</p>
+                            <span class="inline-flex items-center text-teal-600 font-medium text-sm">
+                                Leer artículo
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="resource-visual bg-gradient-to-br from-teal-100 to-teal-200">
+                            <svg class="w-10 h-10 md:w-12 md:h-12 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Resource 2 -->
+                    <div class="resource-card" onclick="showArticle('article2')">
+                        <div>
+                            <span class="inline-block text-xs font-semibold text-gold-600 uppercase tracking-wide mb-2">Evita errores</span>
+                            <h3 class="font-display text-lg md:text-xl font-semibold text-warm-800 mb-2">Guía para evitar comisiones ocultas</h3>
+                            <p class="text-warm-600 leading-relaxed text-sm mb-3">Muchos servicios anuncian "0% comisión" pero compensan con un tipo de cambio desfavorable. Aprende a detectarlo.</p>
+                            <span class="inline-flex items-center text-teal-600 font-medium text-sm">
+                                Leer artículo
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="resource-visual bg-gradient-to-br from-gold-100 to-gold-200">
+                            <svg class="w-10 h-10 md:w-12 md:h-12 text-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Resource 3 -->
+                    <div class="resource-card" onclick="showArticle('article3')">
+                        <div>
+                            <span class="inline-block text-xs font-semibold text-terra-500 uppercase tracking-wide mb-2">Imprescindible</span>
+                            <h3 class="font-display text-lg md:text-xl font-semibold text-warm-800 mb-2">5 errores comunes al enviar remesas y cómo evitarlos</h3>
+                            <p class="text-warm-600 leading-relaxed text-sm mb-3">Desde no comparar servicios hasta ignorar el margen de cambio. Estos errores pueden costarte cientos de euros al año.</p>
+                            <span class="inline-flex items-center text-teal-600 font-medium text-sm">
+                                Leer artículo
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="resource-visual bg-gradient-to-br from-terra-400/20 to-terra-400/40">
+                            <svg class="w-10 h-10 md:w-12 md:h-12 text-terra-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Resource 4 -->
+                    <div class="resource-card" onclick="showArticle('article4')">
+                        <div>
+                            <span class="inline-block text-xs font-semibold text-teal-600 uppercase tracking-wide mb-2">Consejos</span>
+                            <h3 class="font-display text-lg md:text-xl font-semibold text-warm-800 mb-2">Cuándo es el mejor momento para enviar dinero</h3>
+                            <p class="text-warm-600 leading-relaxed text-sm mb-3">Las tasas de cambio fluctúan constantemente. Hay patrones que pueden ayudarte a maximizar el valor de tus transferencias.</p>
+                            <span class="inline-flex items-center text-teal-600 font-medium text-sm">
+                                Leer artículo
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="resource-visual bg-gradient-to-br from-teal-100 to-gold-100">
+                            <svg class="w-10 h-10 md:w-12 md:h-12 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================================
+         ARTICLE 1: Tasa Interbancaria
+         ================================ -->
+    <div id="article1" class="article-container">
+        <div class="article-hero pt-24 pb-16 md:pt-28 md:pb-20">
+            <div class="container mx-auto px-5 md:px-8 max-w-5xl">
+                <button onclick="navigateHome()" class="back-btn mb-8">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    Volver a inicio
+                </button>
+                
+                <div class="grid lg:grid-cols-3 gap-10 items-center">
+                    <div class="lg:col-span-2">
+                        <span class="inline-block bg-teal-600 text-white text-xs font-semibold uppercase tracking-wide px-3 py-1 rounded-full mb-4">Guía básica</span>
+                        <h1 class="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-warm-900 leading-tight mb-4">Cómo entender la tasa interbancaria</h1>
+                        <p class="text-lg text-warm-600">La clave para saber si te están cobrando de más en tus transferencias internacionales.</p>
+                    </div>
+                    <div class="hidden lg:block">
+                        <div class="illustration-circle">
+                            <svg class="w-24 h-24 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- ================================
-         RESOURCES SECTION
-         ================================ -->
-    <section id="resources" class="py-16 md:py-24 section-sand">
-        <div class="container mx-auto px-5 md:px-8 max-w-5xl">
-            
-            <!-- Header -->
-            <div class="text-center mb-12">
-                <span class="reveal inline-block text-sm font-medium text-teal-600 mb-3">Aprende más</span>
-                <h2 class="reveal reveal-delay-1 font-display text-2xl md:text-3xl font-semibold text-warm-900 mb-3 tracking-tight">
-                    Recursos adicionales
-                </h2>
-                <p class="reveal reveal-delay-2 text-warm-600 max-w-xl mx-auto text-sm">
-                    Guías prácticas para enviar dinero de forma más inteligente
-                </p>
-            </div>
-            
-            <!-- Resource Cards -->
-            <div class="reveal stagger space-y-4">
-                
-                <!-- Resource 1 -->
-                <div class="resource-card">
-                    <div>
-                        <span class="inline-block text-xs font-semibold text-teal-600 uppercase tracking-wide mb-2">Guía básica</span>
-                        <h3 class="font-display text-lg md:text-xl font-semibold text-warm-800 mb-2">
-                            Cómo entender la tasa interbancaria
-                        </h3>
-                        <p class="text-warm-600 leading-relaxed text-sm mb-3">
-                            La tasa interbancaria es el tipo de cambio real que usan los bancos entre sí. 
-                            Es la referencia más justa para comparar servicios y calcular cuánto te cobran realmente.
-                        </p>
-                        <span class="inline-flex items-center text-teal-600 font-medium text-sm">
-                            Próximamente
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        
+        <div class="py-12 md:py-16 section-cream">
+            <div class="container mx-auto px-5 md:px-8">
+                <div class="article-content">
+                    <p><strong>¿Alguna vez te has preguntado por qué el tipo de cambio que te ofrece tu servicio de remesas es diferente al que ves en Google?</strong> La respuesta está en la tasa interbancaria, y entenderla es fundamental para que no te cobren de más.</p>
+                    
+                    <h2>¿Qué es exactamente la tasa interbancaria?</h2>
+                    
+                    <p>La tasa interbancaria, también conocida como "mid-market rate" o tasa media del mercado, es el punto medio entre el precio de compra y venta de una divisa en los mercados financieros globales. Es, en pocas palabras, <strong>el tipo de cambio "real" y justo</strong>.</p>
+                    
+                    <p>Cuando un banco grande como el Santander necesita comprar dólares para sus operaciones, usa esta tasa. Cuando Google o tu app de finanzas te muestra el tipo de cambio EUR/USD, están mostrando esta tasa.</p>
+                    
+                    <div class="callout callout-example">
+                        <div class="callout-title">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Ejemplo práctico
+                        </div>
+                        <p>Imagina que la tasa interbancaria EUR/COP es de 4.500 pesos por euro. Si envías €100, con la tasa real tu familia debería recibir <strong>450.000 pesos colombianos</strong>.</p>
+                        <p>Sin embargo, si el servicio de remesas te ofrece una tasa de 4.350, tu familia recibirá solo 435.000 pesos. Esos 15.000 pesos de diferencia (unos €3,33) son el "margen oculto" que se queda la empresa.</p>
+                    </div>
+                    
+                    <h2>¿Por qué ninguna empresa te da la tasa interbancaria exacta?</h2>
+                    
+                    <p>Las empresas de remesas son negocios, y necesitan ganar dinero para operar. Sus costes incluyen:</p>
+                    
+                    <ul>
+                        <li>Infraestructura tecnológica y seguridad</li>
+                        <li>Cumplimiento de regulaciones en múltiples países</li>
+                        <li>Red de agentes y corresponsales</li>
+                        <li>Atención al cliente</li>
+                    </ul>
+                    
+                    <p>La cuestión no es que ganen dinero, <strong>sino cuánto ganan y si son transparentes al respecto</strong>.</p>
+                    
+                    <div class="callout callout-tip">
+                        <div class="callout-title">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            ¿Sabías que...?
+                        </div>
+                        <p><strong>Wise (antes TransferWise) es el único servicio importante que usa la tasa interbancaria exacta</strong> y cobra solo una comisión fija transparente. Por eso suele salir como la mejor opción en nuestras comparaciones.</p>
+                    </div>
+                    
+                    <h2>Cómo calcular el margen oculto</h2>
+                    
+                    <p>Es más fácil de lo que parece. Sigue estos pasos:</p>
+                    
+                    <ol>
+                        <li><strong>Busca la tasa interbancaria actual</strong> en Google (escribe "EUR a [tu moneda]")</li>
+                        <li><strong>Mira la tasa que te ofrece</strong> tu servicio de remesas</li>
+                        <li><strong>Calcula la diferencia:</strong> (Tasa real - Tasa ofrecida) / Tasa real × 100</li>
+                    </ol>
+                    
+                    <div class="callout callout-example">
+                        <div class="callout-title">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            Cálculo real
+                        </div>
+                        <p>Tasa interbancaria EUR/VES: <strong>45,00</strong><br>
+                        Tasa que te ofrece la remesadora: <strong>43,20</strong><br>
+                        Margen oculto: (45 - 43,20) / 45 × 100 = <strong>4%</strong></p>
+                        <p>Ese 4% extra es lo que te cobran "sin que lo veas" además de cualquier comisión que ya te hayan cobrado.</p>
+                    </div>
+                    
+                    <h2>Conclusión: La transparencia es tu mejor aliada</h2>
+                    
+                    <p>No todos los servicios son iguales. Algunos cobran una comisión pequeña pero usan un tipo de cambio malo. Otros no cobran comisión pero su tasa es mucho peor que la del mercado.</p>
+                    
+                    <p><strong>Lo importante es calcular el costo total:</strong> comisión + margen de cambio. Eso es exactamente lo que hacemos en Manda Mejor por ti.</p>
+                    
+                    <div class="mt-12 text-center">
+                        <button onclick="navigateHome()" class="btn-primary inline-flex items-center text-white font-semibold px-8 py-4">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                             </svg>
-                        </span>
-                    </div>
-                    <div class="resource-visual bg-gradient-to-br from-teal-100 to-teal-200">
-                        <svg class="w-10 h-10 md:w-12 md:h-12 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
-                    </div>
-                </div>
-                
-                <!-- Resource 2 -->
-                <div class="resource-card">
-                    <div>
-                        <span class="inline-block text-xs font-semibold text-gold-600 uppercase tracking-wide mb-2">Evita errores</span>
-                        <h3 class="font-display text-lg md:text-xl font-semibold text-warm-800 mb-2">
-                            Guía para evitar comisiones ocultas
-                        </h3>
-                        <p class="text-warm-600 leading-relaxed text-sm mb-3">
-                            Muchos servicios anuncian "0% comisión" pero compensan con un tipo de cambio desfavorable. 
-                            Este margen oculto puede representar entre el 2% y el 5% de tu envío.
-                        </p>
-                        <span class="inline-flex items-center text-teal-600 font-medium text-sm">
-                            Próximamente
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                            </svg>
-                        </span>
-                    </div>
-                    <div class="resource-visual bg-gradient-to-br from-gold-100 to-gold-200">
-                        <svg class="w-10 h-10 md:w-12 md:h-12 text-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-                        </svg>
-                    </div>
-                </div>
-                
-                <!-- Resource 3 - 5 ERRORES -->
-                <div class="resource-card">
-                    <div>
-                        <span class="inline-block text-xs font-semibold text-terra-500 uppercase tracking-wide mb-2">Imprescindible</span>
-                        <h3 class="font-display text-lg md:text-xl font-semibold text-warm-800 mb-2">
-                            5 errores comunes al enviar remesas y cómo evitarlos
-                        </h3>
-                        <p class="text-warm-600 leading-relaxed text-sm mb-3">
-                            Desde no comparar servicios hasta ignorar el margen de cambio. 
-                            Estos errores pueden costarte cientos de euros al año. Aprende a identificarlos y a proteger tu dinero.
-                        </p>
-                        <span class="inline-flex items-center text-teal-600 font-medium text-sm">
-                            Próximamente
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                            </svg>
-                        </span>
-                    </div>
-                    <div class="resource-visual bg-gradient-to-br from-terra-400/20 to-terra-400/40">
-                        <svg class="w-10 h-10 md:w-12 md:h-12 text-terra-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                </div>
-                
-                <!-- Resource 4 -->
-                <div class="resource-card">
-                    <div>
-                        <span class="inline-block text-xs font-semibold text-teal-600 uppercase tracking-wide mb-2">Comparativa</span>
-                        <h3 class="font-display text-lg md:text-xl font-semibold text-warm-800 mb-2">
-                            Wise vs Remitly vs Western Union: ¿cuál elegir?
-                        </h3>
-                        <p class="text-warm-600 leading-relaxed text-sm mb-3">
-                            Cada servicio tiene sus ventajas según el país destino, monto y urgencia. 
-                            Analizamos cuándo usar cada uno para que tomes la mejor decisión.
-                        </p>
-                        <span class="inline-flex items-center text-teal-600 font-medium text-sm">
-                            Próximamente
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                            </svg>
-                        </span>
-                    </div>
-                    <div class="resource-visual bg-gradient-to-br from-teal-100 to-teal-200">
-                        <svg class="w-10 h-10 md:w-12 md:h-12 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
-                        </svg>
-                    </div>
-                </div>
-                
-                <!-- Resource 5 -->
-                <div class="resource-card">
-                    <div>
-                        <span class="inline-block text-xs font-semibold text-teal-600 uppercase tracking-wide mb-2">Consejos</span>
-                        <h3 class="font-display text-lg md:text-xl font-semibold text-warm-800 mb-2">
-                            Cuándo es el mejor momento para enviar dinero
-                        </h3>
-                        <p class="text-warm-600 leading-relaxed text-sm mb-3">
-                            Las tasas de cambio fluctúan constantemente. Hay patrones que pueden ayudarte a 
-                            maximizar el valor de tus transferencias.
-                        </p>
-                        <span class="inline-flex items-center text-teal-600 font-medium text-sm">
-                            Próximamente
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                            </svg>
-                        </span>
-                    </div>
-                    <div class="resource-visual bg-gradient-to-br from-teal-100 to-gold-100">
-                        <svg class="w-10 h-10 md:w-12 md:h-12 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
+                            Comparar servicios ahora
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- ================================
-         FOOTER
+         ARTICLE 2: Comisiones Ocultas
+         ================================ -->
+    <div id="article2" class="article-container">
+        <div class="article-hero pt-24 pb-16 md:pt-28 md:pb-20">
+            <div class="container mx-auto px-5 md:px-8 max-w-5xl">
+                <button onclick="navigateHome()" class="back-btn mb-8">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    Volver a inicio
+                </button>
+                
+                <div class="grid lg:grid-cols-3 gap-10 items-center">
+                    <div class="lg:col-span-2">
+                        <span class="inline-block bg-gold-500 text-white text-xs font-semibold uppercase tracking-wide px-3 py-1 rounded-full mb-4">Evita errores</span>
+                        <h1 class="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-warm-900 leading-tight mb-4">Guía para evitar comisiones ocultas</h1>
+                        <p class="text-lg text-warm-600">Checklist completo de qué revisar antes de cada transferencia internacional.</p>
+                    </div>
+                    <div class="hidden lg:block">
+                        <div class="illustration-circle" style="background: linear-gradient(135deg, #FEF9E7, #FCF0C3);">
+                            <svg class="w-24 h-24 text-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="py-12 md:py-16 section-cream">
+            <div class="container mx-auto px-5 md:px-8">
+                <div class="article-content">
+                    <p><strong>"¡Envía dinero GRATIS!"</strong>, <strong>"0% de comisión"</strong>... Seguramente has visto estos anuncios cientos de veces. Pero aquí viene la pregunta incómoda: si no cobran comisión, ¿cómo ganan dinero estas empresas?</p>
+                    
+                    <p>La respuesta está en lo que llamamos <strong>comisiones ocultas</strong>: costos que no ves a primera vista pero que reducen significativamente lo que recibe tu familia.</p>
+                    
+                    <h2>Las 3 formas más comunes de comisiones ocultas</h2>
+                    
+                    <h3>1. El margen en el tipo de cambio</h3>
+                    <p>Es la más común y la menos visible. La empresa te ofrece un tipo de cambio peor que el del mercado real. La diferencia (que puede ser del 2% al 5%) es su ganancia.</p>
+                    
+                    <h3>2. Comisiones del banco receptor</h3>
+                    <p>Algunas transferencias llegan al banco destino, que cobra una comisión adicional antes de entregar el dinero. Esto rara vez se menciona al inicio.</p>
+                    
+                    <h3>3. Costos por método de pago/entrega</h3>
+                    <p>Pagar con tarjeta de crédito suele tener recargo. Recibir en efectivo puede costar más que en cuenta bancaria. Estos extras se suman.</p>
+                    
+                    <div class="callout callout-warning">
+                        <div class="callout-title">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            Ojo con esto
+                        </div>
+                        <p>Un servicio que anuncia "0% comisión" pero usa un tipo de cambio 3% peor que el mercado, <strong>en realidad te está cobrando un 3% de comisión</strong>. Solo que no lo llaman así.</p>
+                    </div>
+                    
+                    <h2>Tu checklist antes de cada envío</h2>
+                    
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <div class="checklist-icon">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <strong>Compara el tipo de cambio con Google</strong>
+                                <p class="text-sm text-warm-600 mt-1">Busca "EUR a [moneda destino]" y compara con la tasa que te ofrecen. Diferencias mayores al 1% son una señal de alerta.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="checklist-item">
+                            <div class="checklist-icon">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <strong>Mira el monto FINAL que recibirán</strong>
+                                <p class="text-sm text-warm-600 mt-1">No te fijes solo en la comisión. Lo que importa es cuántos pesos/bolívares/soles llegan al final.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="checklist-item">
+                            <div class="checklist-icon">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <strong>Pregunta por comisiones del lado receptor</strong>
+                                <p class="text-sm text-warm-600 mt-1">¿El banco o agente en destino cobra algo? ¿Hay límite de retiro diario en efectivo?</p>
+                            </div>
+                        </div>
+                        
+                        <div class="checklist-item">
+                            <div class="checklist-icon">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <strong>Verifica el costo según método de pago</strong>
+                                <p class="text-sm text-warm-600 mt-1">Transferencia bancaria suele ser más barato que tarjeta. Revisa antes de confirmar.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="checklist-item">
+                            <div class="checklist-icon">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <strong>Lee las "tarifas" o "fees" en la letra pequeña</strong>
+                                <p class="text-sm text-warm-600 mt-1">A veces hay comisiones por cancelación, por montos pequeños, o por ciertos países.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="checklist-item">
+                            <div class="checklist-icon">
+                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <strong>Compara al menos 3 servicios</strong>
+                                <p class="text-sm text-warm-600 mt-1">O mejor aún, usa Manda Mejor para ver todos a la vez 😉</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="callout callout-tip">
+                        <div class="callout-title">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            Consejo profesional
+                        </div>
+                        <p>Si envías dinero regularmente, <strong>crea una hoja de cálculo simple</strong> donde anotes: fecha, servicio usado, monto enviado, monto recibido, y costo total (%). En pocos meses tendrás datos reales de cuál te conviene más.</p>
+                    </div>
+                    
+                    <h2>La regla de oro</h2>
+                    
+                    <p>Nunca te fíes de un solo número. Una comisión de €0 con un tipo de cambio malo puede ser peor que una comisión de €5 con un tipo de cambio excelente.</p>
+                    
+                    <p><strong>Lo que importa al final es una sola pregunta: ¿Cuánto dinero llegará a las manos de mi familia?</strong></p>
+                    
+                    <div class="mt-12 text-center">
+                        <button onclick="navigateHome()" class="btn-primary inline-flex items-center text-white font-semibold px-8 py-4">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                            </svg>
+                            Comparar servicios ahora
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================
+         ARTICLE 3: 5 Errores
+         ================================ -->
+    <div id="article3" class="article-container">
+        <div class="article-hero pt-24 pb-16 md:pt-28 md:pb-20">
+            <div class="container mx-auto px-5 md:px-8 max-w-5xl">
+                <button onclick="navigateHome()" class="back-btn mb-8">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    Volver a inicio
+                </button>
+                
+                <div class="grid lg:grid-cols-3 gap-10 items-center">
+                    <div class="lg:col-span-2">
+                        <span class="inline-block bg-terra-500 text-white text-xs font-semibold uppercase tracking-wide px-3 py-1 rounded-full mb-4">Imprescindible</span>
+                        <h1 class="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-warm-900 leading-tight mb-4">5 errores comunes al enviar remesas y cómo evitarlos</h1>
+                        <p class="text-lg text-warm-600">Estos errores pueden costarte cientos de euros al año. La buena noticia: son fáciles de evitar.</p>
+                    </div>
+                    <div class="hidden lg:block">
+                        <div class="illustration-circle" style="background: linear-gradient(135deg, rgba(201, 104, 74, 0.1), rgba(224, 123, 91, 0.2));">
+                            <svg class="w-24 h-24 text-terra-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="py-12 md:py-16 section-cream">
+            <div class="container mx-auto px-5 md:px-8">
+                <div class="article-content">
+                    <p>Después de analizar cientos de transferencias y hablar con decenas de personas que envían dinero regularmente, hemos identificado los <strong>5 errores más costosos</strong> que se repiten una y otra vez. ¿Te identificas con alguno?</p>
+                    
+                    <!-- Error 1 -->
+                    <div class="error-card">
+                        <h3 class="flex items-center font-display text-xl font-semibold text-warm-900 mb-3">
+                            <span class="error-number">1</span>
+                            Usar siempre el mismo servicio "por costumbre"
+                        </h3>
+                        <p class="text-warm-600 mb-3">Es cómodo, ya tienes la cuenta creada, ya sabes cómo funciona... Pero las condiciones cambian constantemente. El servicio que era el mejor hace 6 meses puede ser hoy uno de los más caros.</p>
+                        <div class="solution-box">
+                            <p class="text-sm text-teal-800"><strong>✓ Solución:</strong> Compara al menos una vez al mes. No tienes que cambiar de servicio cada vez, pero sí verificar que sigues con la mejor opción.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Error 2 -->
+                    <div class="error-card">
+                        <h3 class="flex items-center font-display text-xl font-semibold text-warm-900 mb-3">
+                            <span class="error-number">2</span>
+                            Fijarse solo en la comisión visible
+                        </h3>
+                        <p class="text-warm-600 mb-3">"Este cobra €2 y aquel cobra €5, obvio elijo el de €2". Pero si el de €2 usa un tipo de cambio 3% peor, en un envío de €500 estás perdiendo €15 adicionales. Total: €17 vs €5.</p>
+                        <div class="solution-box">
+                            <p class="text-sm text-teal-800"><strong>✓ Solución:</strong> Mira siempre el monto final que recibirá tu familia. Es el único número que importa.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Error 3 -->
+                    <div class="error-card">
+                        <h3 class="flex items-center font-display text-xl font-semibold text-warm-900 mb-3">
+                            <span class="error-number">3</span>
+                            Enviar montos pequeños con demasiada frecuencia
+                        </h3>
+                        <p class="text-warm-600 mb-3">Muchos servicios cobran una comisión fija por transacción. Si envías €100 cuatro veces al mes pagando €3 cada vez (€12 total), es mejor enviar €400 una vez y pagar solo €3.</p>
+                        <div class="solution-box">
+                            <p class="text-sm text-teal-800"><strong>✓ Solución:</strong> Si es posible, agrupa tus envíos. Enviar €400-€500 una vez al mes suele ser más eficiente que varios envíos pequeños.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Error 4 -->
+                    <div class="error-card">
+                        <h3 class="flex items-center font-display text-xl font-semibold text-warm-900 mb-3">
+                            <span class="error-number">4</span>
+                            No verificar el tipo de cambio del día
+                        </h3>
+                        <p class="text-warm-600 mb-3">Las divisas fluctúan. A veces un 1-2% en una semana. Si necesitas enviar dinero pero no es urgente, puede valer la pena esperar unos días si la tasa está especialmente baja.</p>
+                        <div class="solution-box">
+                            <p class="text-sm text-teal-800"><strong>✓ Solución:</strong> Usa nuestro indicador de "Análisis de mercado" para ver si la tasa actual está por encima o por debajo del promedio reciente.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Error 5 -->
+                    <div class="error-card">
+                        <h3 class="flex items-center font-display text-xl font-semibold text-warm-900 mb-3">
+                            <span class="error-number">5</span>
+                            Pagar con tarjeta de crédito sin saberlo
+                        </h3>
+                        <p class="text-warm-600 mb-3">Muchos servicios cobran un recargo del 1-3% si pagas con tarjeta de crédito en lugar de transferencia bancaria o débito. Es fácil no darse cuenta si no lees los detalles.</p>
+                        <div class="solution-box">
+                            <p class="text-sm text-teal-800"><strong>✓ Solución:</strong> Siempre revisa el método de pago antes de confirmar. La transferencia bancaria directa suele ser la opción más económica.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="callout callout-tip">
+                        <div class="callout-title">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            El impacto real
+                        </div>
+                        <p>Si envías €500 mensuales y optimizas un 3% (pasando de un servicio caro a uno eficiente), <strong>tu familia recibe €180 más al año</strong>. Eso son compras del supermercado, medicinas, o un regalo especial.</p>
+                    </div>
+                    
+                    <h2>Resumen: Tu plan de acción</h2>
+                    
+                    <ol>
+                        <li><strong>Compara</strong> servicios regularmente (Manda Mejor te lo pone fácil)</li>
+                        <li><strong>Mira</strong> el monto final, no solo la comisión</li>
+                        <li><strong>Agrupa</strong> envíos cuando sea posible</li>
+                        <li><strong>Monitorea</strong> el tipo de cambio</li>
+                        <li><strong>Paga</strong> con transferencia bancaria</li>
+                    </ol>
+                    
+                    <p>Pequeños cambios, grandes resultados. Tu familia lo merece. 💚</p>
+                    
+                    <div class="mt-12 text-center">
+                        <button onclick="navigateHome()" class="btn-primary inline-flex items-center text-white font-semibold px-8 py-4">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                            </svg>
+                            Comparar servicios ahora
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================
+         ARTICLE 4: Mejor momento
+         ================================ -->
+    <div id="article4" class="article-container">
+        <div class="article-hero pt-24 pb-16 md:pt-28 md:pb-20">
+            <div class="container mx-auto px-5 md:px-8 max-w-5xl">
+                <button onclick="navigateHome()" class="back-btn mb-8">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    Volver a inicio
+                </button>
+                
+                <div class="grid lg:grid-cols-3 gap-10 items-center">
+                    <div class="lg:col-span-2">
+                        <span class="inline-block bg-teal-600 text-white text-xs font-semibold uppercase tracking-wide px-3 py-1 rounded-full mb-4">Consejos</span>
+                        <h1 class="font-display text-3xl md:text-4xl lg:text-5xl font-semibold text-warm-900 leading-tight mb-4">Cuándo es el mejor momento para enviar dinero</h1>
+                        <p class="text-lg text-warm-600">Entender el timing puede ahorrarte dinero sin cambiar de servicio.</p>
+                    </div>
+                    <div class="hidden lg:block">
+                        <div class="illustration-circle">
+                            <svg class="w-24 h-24 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="py-12 md:py-16 section-cream">
+            <div class="container mx-auto px-5 md:px-8">
+                <div class="article-content">
+                    <p>Vamos a ser honestos desde el principio: <strong>nadie puede predecir el mercado de divisas con certeza</strong>. Ni los bancos, ni los economistas, ni mucho menos una app. Pero sí hay patrones y consejos prácticos que pueden ayudarte.</p>
+                    
+                    <div class="callout callout-warning">
+                        <div class="callout-title">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            Importante
+                        </div>
+                        <p>Si tu familia necesita el dinero con urgencia, <strong>envíalo</strong>. No vale la pena arriesgar su bienestar por intentar "ganarle" al mercado. Estos consejos son para cuando tienes flexibilidad.</p>
+                    </div>
+                    
+                    <h2>Lo que SÍ sabemos sobre el timing</h2>
+                    
+                    <h3>Los lunes suelen ser más volátiles</h3>
+                    <p>El mercado de divisas "despierta" el lunes con todas las noticias del fin de semana. Esto puede causar movimientos bruscos. Si no tienes prisa, esperar al martes o miércoles puede darte una tasa más estable.</p>
+                    
+                    <h3>Eventos económicos importantes afectan las tasas</h3>
+                    <p>Decisiones del Banco Central Europeo, datos de inflación de EE.UU., elecciones en países latinoamericanos... Todos estos eventos pueden mover las divisas. Si sabes que viene un evento importante, puede ser prudente enviar antes o esperar a que pase la volatilidad.</p>
+                    
+                    <h3>Final e inicio de mes pueden ser diferentes</h3>
+                    <p>Muchas personas envían dinero a principios de mes (para gastos de sus familias). Esta mayor demanda a veces afecta ligeramente las tasas. No es una regla fija, pero vale la pena observar el patrón en tu corredor específico.</p>
+                    
+                    <div class="callout callout-tip">
+                        <div class="callout-title">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            Cómo usar Manda Mejor para el timing
+                        </div>
+                        <p>Nuestro indicador de <strong>"Análisis de mercado"</strong> compara la tasa actual con el promedio de los últimos 14 días. Si ves un emoji de 🚀 y "Tasa excelente", significa que hoy el tipo de cambio está mejor que lo habitual. Buen momento para enviar.</p>
+                    </div>
+                    
+                    <h2>Estrategias prácticas</h2>
+                    
+                    <h3>1. Establece un "precio objetivo"</h3>
+                    <p>Si normalmente el euro se cambia a 4.300 pesos colombianos y hoy está a 4.450, es una buena oportunidad. Define tu umbral y actúa cuando lo veas.</p>
+                    
+                    <h3>2. Divide envíos grandes</h3>
+                    <p>Si vas a enviar €2.000, considera dividirlo en 2-4 envíos a lo largo de varias semanas. Así promedias el tipo de cambio y reduces el riesgo de enviar todo en un mal momento.</p>
+                    
+                    <h3>3. Ten el dinero listo</h3>
+                    <p>Cuando veas una buena tasa, no quieres perder tiempo buscando tu tarjeta o configurando la cuenta. Ten todo preparado para actuar rápido.</p>
+                    
+                    <div class="callout callout-example">
+                        <div class="callout-title">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Ejemplo real
+                        </div>
+                        <p>María envía €400 mensuales a Venezuela. En lugar de enviar siempre el día 1, empezó a revisar Manda Mejor durante la primera semana y enviar cuando veía una tasa por encima del promedio.</p>
+                        <p>Resultado: <strong>su familia recibió un 2% más</strong> en promedio durante 6 meses. Eso son unos €48 extra al año, sin cambiar de servicio.</p>
+                    </div>
+                    
+                    <h2>Conclusión: Sé pragmático</h2>
+                    
+                    <p>El timing puede ayudarte, pero no te obsesiones. La diferencia entre un día bueno y uno malo rara vez supera el 2-3%. Elegir el servicio correcto tiene mucho más impacto (puede ser 5-10% de diferencia).</p>
+                    
+                    <p><strong>Prioridades:</strong></p>
+                    <ol>
+                        <li>Usa el servicio más eficiente (mayor impacto)</li>
+                        <li>Si tienes flexibilidad, busca un buen momento (impacto moderado)</li>
+                        <li>Si es urgente, envía sin preocuparte (tu familia es lo primero)</li>
+                    </ol>
+                    
+                    <div class="mt-12 text-center">
+                        <button onclick="navigateHome()" class="btn-primary inline-flex items-center text-white font-semibold px-8 py-4">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                            </svg>
+                            Ver análisis de mercado actual
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================
+         FOOTER (Always visible)
          ================================ -->
     <footer class="bg-teal-900 text-white py-10 md:py-12">
         <div class="container mx-auto px-5 md:px-8 max-w-5xl">
             <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                
                 <div class="flex items-center space-x-3">
                     <div class="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1082,9 +1616,7 @@
                 
                 <div class="text-center md:text-right">
                     <p class="text-white/40 text-sm mb-1">Datos: Banco Central Europeo</p>
-                    <p class="text-white/60 text-sm">
-                        © <span id="year"></span> · Desarrollado por <span class="text-white font-medium">Ariana Acosta</span>
-                    </p>
+                    <p class="text-white/60 text-sm">© <span id="year"></span> · Desarrollado por <span class="text-white font-medium">Ariana Acosta</span></p>
                 </div>
             </div>
         </div>
@@ -1094,6 +1626,22 @@
          JAVASCRIPT
          ================================ -->
     <script>
+        // === NAVIGATION SPA ===
+        function showArticle(articleId) {
+            document.getElementById('homeContent').style.display = 'none';
+            document.querySelectorAll('.article-container').forEach(a => a.classList.remove('active'));
+            document.getElementById(articleId).classList.add('active');
+            document.getElementById('navbar').classList.add('article-mode');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function navigateHome() {
+            document.querySelectorAll('.article-container').forEach(a => a.classList.remove('active'));
+            document.getElementById('homeContent').style.display = 'block';
+            document.getElementById('navbar').classList.remove('article-mode');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
         // === MOBILE MENU ===
         function openMobileMenu() {
             document.getElementById('mobileMenu').classList.add('open');
@@ -1109,7 +1657,11 @@
         
         // === STICKY HEADER ===
         const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.pageYOffset > 50); });
+        window.addEventListener('scroll', () => { 
+            if (!navbar.classList.contains('article-mode')) {
+                navbar.classList.toggle('scrolled', window.pageYOffset > 50); 
+            }
+        });
         
         // === REVEAL ANIMATIONS ===
         const revealElements = document.querySelectorAll('.reveal, .stagger');
