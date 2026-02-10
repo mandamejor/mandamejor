@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manda Mejor - Calculadora de Remesas Inteligente</title>
+    <title>Manda Mejor - Envía más, paga menos</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -11,115 +11,351 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#FF6B35',
-                        'primary-dark': '#E55A2B',
-                        'primary-light': '#FF8F66',
-                        secondary: '#FF9D76',
-                        accent: '#FFB627',
-                        success: '#2ECC71',
-                        'success-dark': '#27AE60',
-                        navy: '#0F172A',
-                        'navy-light': '#1E293B',
-                        'navy-muted': '#334155'
+                        // Warm, trustworthy palette inspired by YNAB/Klarna
+                        'brand': {
+                            50: '#FFF5F5',
+                            100: '#FED7D7',
+                            200: '#FEB2B2',
+                            300: '#FC8181',
+                            400: '#F56565',
+                            500: '#E53E3E',
+                            600: '#C53030',
+                        },
+                        'ocean': {
+                            50: '#EBF8FF',
+                            100: '#BEE3F8',
+                            200: '#90CDF4',
+                            300: '#63B3ED',
+                            400: '#4299E1',
+                            500: '#3182CE',
+                            600: '#2B6CB0',
+                            700: '#1A365D',
+                            800: '#153E75',
+                            900: '#1A202C',
+                        },
+                        'warm': {
+                            50: '#FFFAF0',
+                            100: '#FEEBC8',
+                            200: '#FBD38D',
+                            300: '#F6AD55',
+                            400: '#ED8936',
+                            500: '#DD6B20',
+                        },
+                        'mint': {
+                            400: '#68D391',
+                            500: '#48BB78',
+                            600: '#38A169',
+                        }
                     },
                     fontFamily: {
-                        'display': ['Inter', 'system-ui', 'sans-serif']
+                        'display': ['DM Sans', 'system-ui', 'sans-serif'],
+                        'body': ['Inter', 'system-ui', 'sans-serif']
                     }
                 }
             }
         }
     </script>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/country-flag-emoji-polyfill@0.1.3/dist/twemoji-country-flags.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-        
         * {
             font-family: 'Inter', system-ui, sans-serif;
         }
-
-        #destination, #destination option {
-            font-family: 'Twemoji Country Flags', 'Inter', sans-serif !important;
+        
+        h1, h2, h3, .font-display {
+            font-family: 'DM Sans', system-ui, sans-serif;
         }
         
-        body {
-            background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%);
-            min-height: 100vh;
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
         }
         
-        /* Premium Input Styles */
-        .input-premium {
-            background: white;
+        /* ================================
+           STICKY HEADER TRANSITIONS
+           ================================ */
+        .nav-header {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+        
+        .nav-header.scrolled .nav-logo {
+            transform: scale(0.9);
+        }
+        
+        .nav-header.scrolled .nav-link {
+            color: #1A365D;
+        }
+        
+        .nav-header.scrolled .nav-cta {
+            background: linear-gradient(135deg, #ED8936 0%, #DD6B20 100%);
+        }
+        
+        /* ================================
+           HERO SECTION
+           ================================ */
+        .hero-gradient {
+            background: linear-gradient(135deg, #1A365D 0%, #2B6CB0 50%, #3182CE 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(ellipse, rgba(237, 137, 54, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .hero-gradient::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 60%;
+            height: 100%;
+            background: radial-gradient(ellipse, rgba(104, 211, 145, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        /* Floating elements animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+        
+        @keyframes floatDelayed {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(-2deg); }
+        }
+        
+        .float-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .float-element-delayed {
+            animation: floatDelayed 7s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+        
+        /* ================================
+           CALCULATOR CARD
+           ================================ */
+        .calculator-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.25),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .calculator-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 
+                0 32px 64px -16px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.15);
+        }
+        
+        /* ================================
+           INPUT STYLES
+           ================================ */
+        .input-warm {
+            background: #FAFAFA;
             border: 2px solid #E2E8F0;
+            border-radius: 16px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .input-premium:hover { border-color: #CBD5E1; }
-        
-        .input-premium:focus {
-            outline: none;
-            border-color: #FF6B35;
-            box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.12);
+        .input-warm:hover {
+            border-color: #CBD5E1;
+            background: white;
         }
         
-        /* Primary Button */
-        .btn-primary {
-            background: linear-gradient(135deg, #FF6B35 0%, #FF8F66 100%);
+        .input-warm:focus {
+            outline: none;
+            border-color: #ED8936;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(237, 137, 54, 0.15);
+        }
+        
+        /* ================================
+           BUTTON STYLES
+           ================================ */
+        .btn-warm {
+            background: linear-gradient(135deg, #ED8936 0%, #DD6B20 100%);
+            border-radius: 14px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
         
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px -6px rgba(255, 107, 53, 0.5);
+        .btn-warm::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
         }
         
-        .btn-primary:active {
-            transform: translateY(0);
+        .btn-warm:hover::before {
+            left: 100%;
         }
         
-        /* Frequency Buttons - Enhanced */
-        .freq-btn {
-            background: white;
-            border: 2px solid #E2E8F0;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        .btn-warm:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px -8px rgba(221, 107, 32, 0.5);
         }
         
-        .freq-btn:hover:not(.freq-active) {
-            border-color: #FF6B35;
-            background: rgba(255, 107, 53, 0.04);
-            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.15);
+        .btn-warm:active {
             transform: translateY(-1px);
         }
         
-        .freq-active {
-            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
-            border-color: #0F172A;
-            color: white;
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3);
+        /* Frequency buttons */
+        .freq-btn {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* Cards */
-        .card {
+        .freq-btn:hover:not(.freq-active) {
+            border-color: #ED8936;
+            background: #FFFAF0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(237, 137, 54, 0.15);
+        }
+        
+        .freq-active {
+            background: linear-gradient(135deg, #1A365D 0%, #2B6CB0 100%);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 4px 16px rgba(26, 54, 93, 0.3);
+        }
+        
+        /* ================================
+           REVEAL ANIMATIONS
+           ================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        
+        /* ================================
+           CARDS
+           ================================ */
+        .feature-card {
             background: white;
-            border-radius: 16px;
-            border: 1px solid rgba(15, 23, 42, 0.06);
+            border-radius: 20px;
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
+        }
+        
+        .blog-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 24px 48px -16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .blog-card:hover .blog-image {
+            transform: scale(1.08);
+        }
+        
+        .blog-image {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* ================================
+           THERMOMETER
+           ================================ */
+        .thermometer-track {
+            background: linear-gradient(90deg, #FED7D7, #FEEBC8, #C6F6D5);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        
+        .thermometer-fill {
+            border-radius: 999px;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Alert styles */
+        .alert-excellent {
+            background: linear-gradient(135deg, #F0FFF4 0%, #C6F6D5 100%);
+            border: 1px solid #9AE6B4;
+        }
+        
+        .alert-low {
+            background: linear-gradient(135deg, #FFF5F5 0%, #FED7D7 100%);
+            border: 1px solid #FEB2B2;
+        }
+        
+        .alert-stable {
+            background: linear-gradient(135deg, #FFFAF0 0%, #FEEBC8 100%);
+            border: 1px solid #FBD38D;
+        }
+        
+        /* ================================
+           RESULT CARDS
+           ================================ */
+        .result-card {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid rgba(0,0,0,0.05);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .card-hover:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 24px -8px rgba(15, 23, 42, 0.12);
+        .result-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.1);
         }
         
-        /* Best Deal */
         .best-deal {
+            border: 2px solid #48BB78;
+            background: linear-gradient(135deg, rgba(72, 187, 120, 0.03) 0%, rgba(72, 187, 120, 0.01) 100%);
             position: relative;
-            border: 2px solid #2ECC71;
-            background: linear-gradient(135deg, rgba(46, 204, 113, 0.03) 0%, rgba(46, 204, 113, 0.01) 100%);
         }
         
         .best-deal::before {
@@ -129,67 +365,18 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #2ECC71, #27AE60);
-            border-radius: 14px 14px 0 0;
+            background: linear-gradient(90deg, #48BB78, #38A169);
+            border-radius: 18px 18px 0 0;
         }
         
         .badge-best {
-            background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
-            box-shadow: 0 4px 12px -2px rgba(46, 204, 113, 0.4);
-        }
-
-        /* Select Dropdown */
-        .select-premium {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%230F172A' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 16px center;
-            background-size: 20px;
+            background: linear-gradient(135deg, #48BB78 0%, #38A169 100%);
+            box-shadow: 0 4px 12px -2px rgba(72, 187, 120, 0.4);
         }
         
-        /* Header Pattern */
-        .header-pattern {
-            background-color: #0F172A;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231E293B' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-        
-        /* Thermometer */
-        .thermometer-track {
-            background: linear-gradient(90deg, #FEE2E2, #FEF3C7, #D1FAE5);
-            border-radius: 999px;
-            overflow: hidden;
-        }
-        
-        .thermometer-fill {
-            border-radius: 999px;
-            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        /* Alerts */
-        .alert-excellent {
-            background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
-            border: 1px solid #A7F3D0;
-        }
-        
-        .alert-low {
-            background: linear-gradient(135deg, #FEF2F2 0%, #FECACA 100%);
-            border: 1px solid #FCA5A5;
-        }
-        
-        .alert-stable {
-            background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
-            border: 1px solid #FCD34D;
-        }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animate-fade-in {
-            animation: fadeInUp 0.5s ease-out forwards;
-        }
-        
+        /* ================================
+           MISC
+           ================================ */
         .loading {
             display: inline-block;
             width: 20px;
@@ -204,388 +391,688 @@
             to { transform: rotate(360deg); }
         }
         
-        /* Custom scrollbar for desktop */
-        @media (min-width: 768px) {
-            ::-webkit-scrollbar {
-                width: 8px;
-            }
-            ::-webkit-scrollbar-track {
-                background: #F1F5F9;
-            }
-            ::-webkit-scrollbar-thumb {
-                background: #CBD5E1;
-                border-radius: 4px;
-            }
-            ::-webkit-scrollbar-thumb:hover {
-                background: #94A3B8;
-            }
+        /* Decorative blobs */
+        .blob-1 {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(237, 137, 54, 0.1);
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .blob-2 {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(104, 211, 145, 0.1);
+            border-radius: 50%;
+            filter: blur(50px);
+            animation: floatDelayed 9s ease-in-out infinite;
+        }
+        
+        /* Trust badges */
+        .trust-badge {
+            opacity: 0.6;
+            filter: grayscale(100%);
+            transition: all 0.3s ease;
+        }
+        
+        .trust-badge:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+        
+        /* Parallax effect helper */
+        .parallax-bg {
+            transform: translateZ(0);
+            will-change: transform;
         }
     </style>
 </head>
-<body class="antialiased">
-    
-    <!-- Header - Compact on mobile, slightly bigger on desktop -->
-    <header class="header-pattern shadow-xl">
-        <div class="container mx-auto px-4 py-5 md:py-8 lg:py-10">
-            <div class="flex flex-col items-center">
-                <div class="flex items-end space-x-2 md:space-x-3 mb-1 md:mb-2">
-                    <img src="logo.png" alt="Icono" class="h-10 md:h-14 lg:h-16 w-auto object-contain mb-1">
-                    <h1 style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" 
-                        class="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tighter leading-none">
+<body class="antialiased bg-white">
+
+    <!-- ================================
+         STICKY NAVIGATION
+         ================================ -->
+    <nav id="navbar" class="nav-header fixed top-0 left-0 right-0 z-50 py-4 md:py-5 transition-all">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#" class="nav-logo flex items-center space-x-2 transition-transform">
+                    <div class="w-10 h-10 md:w-11 md:h-11 bg-gradient-to-br from-warm-400 to-warm-500 rounded-xl flex items-center justify-center shadow-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                    </div>
+                    <span class="nav-link text-xl md:text-2xl font-bold text-white font-display tracking-tight">
                         Manda Mejor
-                    </h1>
-                </div>
-                <p style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" 
-                   class="text-[9px] md:text-sm lg:text-base text-white/70 font-medium tracking-[0.12em] md:tracking-[0.2em] uppercase mt-1 md:mt-2 text-center">
-                    Remesas optimizadas • más para los tuyos
-                </p>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-3 md:px-4 py-4 md:py-6 lg:py-8 max-w-6xl">
-        
-        <!-- Hero Calculator Card -->
-        <div class="card shadow-xl shadow-navy/5 p-4 md:p-6 lg:p-8 mb-4 md:mb-6 lg:mb-8">
-            <!-- Hero Text -->
-            <div class="text-center mb-4 md:mb-6 lg:mb-8">
-                <h2 class="text-xl md:text-2xl lg:text-3xl font-black text-navy mb-1 md:mb-2 tracking-tight">
-                    Descubre cuánto <span class="text-primary">ahorras</span> en cada envío
-                </h2>
-                <p class="text-sm md:text-base text-navy-muted font-medium max-w-xl mx-auto">
-                    Compara comisiones reales y encuentra el mejor servicio para tu remesa
-                </p>
-            </div>
-
-            <!-- Calculator Form - Desktop: side by side layout -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 mb-4 md:mb-6">
+                    </span>
+                </a>
                 
-                <!-- Left Column: Amount + Country (stacked on mobile, side by side on tablet+) -->
-                <div class="lg:col-span-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Amount Input -->
-                        <div>
-                            <label for="amount" class="block text-xs md:text-sm font-bold text-navy mb-2">
-                                ¿Cuánto quieres enviar?
-                            </label>
-                            <div class="relative">
-                                <span class="absolute left-4 md:left-5 top-1/2 transform -translate-y-1/2 text-xl md:text-2xl font-black text-navy">€</span>
-                                <input 
-                                    type="number" 
-                                    id="amount" 
-                                    value="500"
-                                    min="10"
-                                    max="10000"
-                                    step="10"
-                                    class="input-premium w-full pl-12 md:pl-14 pr-4 md:pr-5 py-4 md:py-5 text-xl md:text-2xl font-bold text-navy rounded-xl md:rounded-2xl"
-                                    placeholder="500"
-                                >
-                            </div>
-                            <p class="text-[10px] md:text-xs text-navy-muted mt-1.5 md:mt-2 font-medium">Monto entre €10 - €10,000</p>
-                        </div>
-
-                        <!-- Destination Select -->
-                        <div class="relative" id="custom-select-container">
-                            <label class="block text-xs md:text-sm font-bold text-navy mb-2">
-                                ¿A qué país envías?
-                            </label>
-                            
-                            <div onclick="toggleDropdown()" 
-                                 id="selected-country-display"
-                                 class="input-premium flex items-center justify-between w-full px-4 md:px-5 py-4 md:py-5 text-base md:text-lg font-semibold text-navy rounded-xl md:rounded-2xl cursor-pointer bg-white border-2 border-slate-200">
-                                <div class="flex items-center">
-                                    <img id="current-flag-img" src="https://flagcdn.com/w40/ve.png" class="w-6 md:w-7 h-auto mr-2.5 md:mr-3 rounded-sm" alt="">
-                                    <span id="current-country-text" class="text-sm md:text-base">Venezuela (Bolívares)</span>
-                                </div>
-                                <svg id="dropdown-arrow-icon" class="w-4 md:w-5 h-4 md:h-5 text-slate-400 transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                            </div>
-
-                            <div id="custom-dropdown-list" 
-                                 class="hidden absolute z-[100] w-full mt-2 bg-white border border-slate-200 rounded-xl md:rounded-2xl shadow-xl overflow-hidden">
-                                
-                                <div onclick="selectCountry('VES', 've', 'Venezuela (Bolívares)')" class="flex items-center px-4 md:px-5 py-3 md:py-4 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-50">
-                                    <img src="https://flagcdn.com/w40/ve.png" class="w-5 md:w-6 h-auto mr-2.5 md:mr-3 rounded-sm" alt="">
-                                    <span class="text-navy font-medium text-sm md:text-base">Venezuela (Bolívares)</span>
-                                </div>
-                                
-                                <div onclick="selectCountry('COP', 'co', 'Colombia (Pesos)')" class="flex items-center px-4 md:px-5 py-3 md:py-4 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-50">
-                                    <img src="https://flagcdn.com/w40/co.png" class="w-5 md:w-6 h-auto mr-2.5 md:mr-3 rounded-sm" alt="">
-                                    <span class="text-navy font-medium text-sm md:text-base">Colombia (Pesos)</span>
-                                </div>
-
-                                <div onclick="selectCountry('ARS', 'ar', 'Argentina (Pesos)')" class="flex items-center px-4 md:px-5 py-3 md:py-4 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-50">
-                                    <img src="https://flagcdn.com/w40/ar.png" class="w-5 md:w-6 h-auto mr-2.5 md:mr-3 rounded-sm" alt="">
-                                    <span class="text-navy font-medium text-sm md:text-base">Argentina (Pesos)</span>
-                                </div>
-
-                                <div onclick="selectCountry('PEN', 'pe', 'Perú (Soles)')" class="flex items-center px-4 md:px-5 py-3 md:py-4 hover:bg-slate-50 cursor-pointer transition-colors border-b border-slate-50">
-                                    <img src="https://flagcdn.com/w40/pe.png" class="w-5 md:w-6 h-auto mr-2.5 md:mr-3 rounded-sm" alt="">
-                                    <span class="text-navy font-medium text-sm md:text-base">Perú (Soles)</span>
-                                </div>
-
-                                <div onclick="selectCountry('DOP', 'do', 'República Dominicana (Pesos)')" class="flex items-center px-4 md:px-5 py-3 md:py-4 hover:bg-slate-50 cursor-pointer transition-colors">
-                                    <img src="https://flagcdn.com/w40/do.png" class="w-5 md:w-6 h-auto mr-2.5 md:mr-3 rounded-sm" alt="">
-                                    <span class="text-navy font-medium text-sm md:text-base">Rep. Dominicana (Pesos)</span>
-                                </div>
-                            </div>
-                            
-                            <input type="hidden" id="destination" value="VES">
-                        </div>
-                    </div>
+                <!-- Nav Links - Desktop -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#calculator" class="nav-link text-white/80 hover:text-white font-medium transition-colors">Calculadora</a>
+                    <a href="#about" class="nav-link text-white/80 hover:text-white font-medium transition-colors">¿Qué es?</a>
+                    <a href="#blog" class="nav-link text-white/80 hover:text-white font-medium transition-colors">Aprende</a>
                 </div>
-
-                <!-- Right Column: Frequency + Button -->
-                <div class="lg:col-span-4 flex flex-col">
-                    <!-- Frequency Toggle -->
-                    <div class="mb-3 md:mb-4">
-                        <label class="block text-xs md:text-sm font-bold text-navy mb-2 md:mb-3">
-                            ¿Con qué frecuencia envías?
-                        </label>
-                        <div class="grid grid-cols-3 gap-2 md:gap-3">
-                            <button 
-                                onclick="setFrequency('once')" 
-                                id="btn-once"
-                                class="freq-btn px-2 md:px-4 py-2.5 md:py-3 rounded-lg md:rounded-xl text-xs md:text-sm font-semibold text-navy-muted">
-                                Una vez
-                            </button>
-                            <button 
-                                onclick="setFrequency('monthly')" 
-                                id="btn-monthly"
-                                class="freq-btn freq-active px-2 md:px-4 py-2.5 md:py-3 rounded-lg md:rounded-xl text-xs md:text-sm font-semibold">
-                                Mensual
-                            </button>
-                            <button 
-                                onclick="setFrequency('annual')" 
-                                id="btn-annual"
-                                class="freq-btn px-2 md:px-4 py-2.5 md:py-3 rounded-lg md:rounded-xl text-xs md:text-sm font-semibold text-navy-muted">
-                                Anual
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Calculate Button - Grows to fill remaining space on desktop -->
-                    <button 
-                        onclick="calculateRemittances()" 
-                        id="calculateBtn"
-                        class="btn-primary w-full text-white font-bold text-sm md:text-base py-3.5 md:py-4 rounded-xl md:rounded-2xl flex items-center justify-center space-x-2 lg:flex-1 lg:min-h-[52px]">
-                        <span id="btnText">Comparar servicios</span>
-                        <svg id="btnArrow" class="w-4 md:w-5 h-4 md:h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                        </svg>
-                        <div id="btnLoader" class="loading hidden"></div>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Exchange Rate Indicator -->
-            <div id="rateIndicator" class="flex items-center justify-center space-x-2 text-sm bg-slate-50 rounded-lg md:rounded-xl py-2 md:py-3 px-3 md:px-4">
-                <svg class="w-3.5 md:w-4 h-3.5 md:h-4 text-slate-400 animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                <span class="text-[10px] md:text-xs text-slate-500 font-medium">Cargando tasas de cambio...</span>
+                
+                <!-- CTA Button -->
+                <a href="#calculator" class="nav-cta hidden sm:flex items-center space-x-2 bg-white/20 backdrop-blur-sm text-white px-5 py-2.5 rounded-full font-semibold hover:bg-white hover:text-ocean-700 transition-all">
+                    <span>Comparar ahora</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+                
+                <!-- Mobile menu button -->
+                <button class="md:hidden text-white p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
             </div>
         </div>
+    </nav>
 
-        <!-- Market Pulse Thermometer -->
-        <div id="marketPulse" class="card shadow-lg shadow-navy/5 p-4 md:p-6 mb-4 md:mb-6 lg:mb-8" style="display: none;">
-            <!-- Header -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 md:mb-5">
-                <div class="flex items-center space-x-3">
-                    <div class="w-9 md:w-10 h-9 md:h-10 bg-slate-100 rounded-lg md:rounded-xl flex items-center justify-center">
-                        <svg class="w-4 md:w-5 h-4 md:h-5 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
+    <!-- ================================
+         HERO SECTION
+         ================================ -->
+    <section class="hero-gradient min-h-screen pt-24 md:pt-32 pb-16 md:pb-24 relative">
+        <!-- Decorative elements -->
+        <div class="blob-1 top-20 right-10 hidden lg:block"></div>
+        <div class="blob-2 bottom-40 left-10 hidden lg:block"></div>
+        
+        <!-- Floating money illustrations -->
+        <div class="absolute top-32 left-[8%] float-element opacity-20 hidden lg:block">
+            <svg class="w-16 h-16 text-mint-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
+            </svg>
+        </div>
+        <div class="absolute top-48 right-[12%] float-element-delayed opacity-15 hidden lg:block">
+            <svg class="w-12 h-12 text-warm-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
+            </svg>
+        </div>
+        <div class="absolute bottom-32 left-[15%] float-element opacity-10 hidden lg:block">
+            <svg class="w-20 h-20 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+            </svg>
+        </div>
+        
+        <div class="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                
+                <!-- Left: Hero Text -->
+                <div class="text-center lg:text-left">
+                    <div class="reveal inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
+                        <span class="w-2 h-2 bg-mint-400 rounded-full animate-pulse"></span>
+                        <span class="text-white/90 text-sm font-medium">100% gratuito • Sin registro</span>
                     </div>
-                    <div>
-                        <h3 class="text-base md:text-lg font-bold text-navy">Termómetro de Tasa</h3>
-                        <p class="text-[10px] md:text-xs text-navy-muted font-medium">Análisis vs. media de 14 días</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2 self-end sm:self-auto">
-                    <button onclick="refreshHistoricalData()" id="refreshHistoryBtn" class="text-[10px] md:text-xs bg-slate-100 hover:bg-slate-200 text-navy-muted px-2.5 md:px-3 py-1 md:py-1.5 rounded-lg font-semibold transition-all">
-                        ↻ Actualizar
-                    </button>
-                    <div id="pulseStatus" class="px-2.5 md:px-3 py-1 md:py-1.5 rounded-lg text-[10px] md:text-xs font-bold">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Thermometer Visual -->
-            <div class="mb-4 md:mb-6">
-                <div class="thermometer-track h-8 md:h-10 relative">
-                    <div id="thermometerFill" class="thermometer-fill h-full flex items-center justify-end pr-3 md:pr-4" style="width: 50%; background: linear-gradient(90deg, #FFB627, #FF6B35);">
-                        <span id="thermometerEmoji" class="text-lg md:text-xl">📊</span>
-                    </div>
-                </div>
-                <div class="flex justify-between text-[10px] md:text-xs text-navy-muted mt-1.5 md:mt-2 font-medium px-1">
-                    <span>Baja</span>
-                    <span>Normal</span>
-                    <span>Excelente</span>
-                </div>
-            </div>
-
-            <!-- Desktop: Side by side layout for alert + rates -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-                <!-- Market Analysis Alert -->
-                <div id="pulseMessage" class="alert-stable rounded-xl md:rounded-2xl p-4 md:p-5">
-                    <div class="flex items-start space-x-3">
-                        <span id="pulseEmoji" class="text-xl md:text-2xl">📊</span>
-                        <div>
-                            <p class="font-bold text-navy mb-0.5 md:mb-1 text-sm md:text-base" id="pulseTitle">Analizando mercado...</p>
-                            <p class="text-xs md:text-sm text-navy-muted leading-relaxed" id="pulseRecommendation">Cargando datos...</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Savings Calculator + Impact -->
-                <div class="space-y-3 md:space-y-4">
-                    <div id="savingsVsAverage" class="grid grid-cols-2 gap-3 md:gap-4">
-                        <div class="bg-slate-50 rounded-lg md:rounded-xl p-3 md:p-4">
-                            <p class="text-[10px] md:text-xs text-navy-muted font-semibold mb-0.5 md:mb-1">Tasa actual</p>
-                            <p class="text-lg md:text-2xl font-black text-navy" id="currentRateDisplay">-</p>
-                        </div>
-                        <div class="bg-slate-50 rounded-lg md:rounded-xl p-3 md:p-4">
-                            <p class="text-[10px] md:text-xs text-navy-muted font-semibold mb-0.5 md:mb-1">Media 14 días</p>
-                            <p class="text-lg md:text-2xl font-black text-navy" id="avgRateDisplay">-</p>
-                        </div>
-                    </div>
-
-                    <!-- Savings Impact -->
-                    <div id="savingsImpact" class="bg-blue-50 rounded-lg md:rounded-xl p-3 md:p-4 border border-blue-100" style="display: none;">
-                        <div class="flex items-start space-x-2 md:space-x-3">
-                            <svg class="w-4 md:w-5 h-4 md:h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                    
+                    <h1 class="reveal reveal-delay-1 font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                        Envía más dinero<br>
+                        <span class="text-warm-300">a quienes amas</span>
+                    </h1>
+                    
+                    <p class="reveal reveal-delay-2 text-lg md:text-xl text-white/80 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                        Compara en segundos las comisiones reales de todos los servicios de remesas. 
+                        <strong class="text-white">Descubre cuánto más puede recibir tu familia.</strong>
+                    </p>
+                    
+                    <div class="reveal reveal-delay-3 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#calculator" class="btn-warm text-white font-bold text-lg px-8 py-4 inline-flex items-center justify-center space-x-2">
+                            <span>Calcular ahora</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                             </svg>
+                        </a>
+                        <a href="#about" class="text-white/90 font-semibold px-6 py-4 rounded-xl border-2 border-white/20 hover:bg-white/10 transition-all inline-flex items-center justify-center space-x-2">
+                            <span>Conocer más</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Trust indicators -->
+                    <div class="reveal reveal-delay-4 mt-12 flex items-center justify-center lg:justify-start space-x-6">
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-mint-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-white/70 text-sm">Datos en tiempo real</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-mint-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="text-white/70 text-sm">Sin publicidad</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right: Calculator Card -->
+                <div id="calculator" class="reveal reveal-delay-2">
+                    <div class="calculator-card p-6 md:p-8">
+                        <!-- Calculator Header -->
+                        <div class="text-center mb-6">
+                            <h2 class="font-display text-2xl md:text-3xl font-bold text-ocean-700 mb-2">
+                                Calcula tu ahorro
+                            </h2>
+                            <p class="text-gray-500">Descubre cuánto más puede recibir tu familia</p>
+                        </div>
+                        
+                        <!-- Calculator Form -->
+                        <div class="space-y-5">
+                            <!-- Amount Input -->
                             <div>
-                                <p class="text-xs md:text-sm font-bold text-blue-900 mb-0.5">Impacto en tu envío</p>
-                                <p class="text-[11px] md:text-sm text-blue-800" id="savingsText">-</p>
+                                <label for="amount" class="block text-sm font-semibold text-ocean-700 mb-2">
+                                    ¿Cuánto quieres enviar?
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute left-5 top-1/2 transform -translate-y-1/2 text-2xl font-bold text-ocean-700">€</span>
+                                    <input 
+                                        type="number" 
+                                        id="amount" 
+                                        value="500"
+                                        min="10"
+                                        max="10000"
+                                        step="10"
+                                        class="input-warm w-full pl-14 pr-5 py-4 text-2xl font-bold text-ocean-700"
+                                        placeholder="500"
+                                    >
+                                </div>
+                                <p class="text-xs text-gray-400 mt-2">Monto entre €10 - €10,000</p>
+                            </div>
+                            
+                            <!-- Country Select -->
+                            <div class="relative" id="custom-select-container">
+                                <label class="block text-sm font-semibold text-ocean-700 mb-2">
+                                    ¿A qué país envías?
+                                </label>
+                                <div onclick="toggleDropdown()" 
+                                     id="selected-country-display"
+                                     class="input-warm flex items-center justify-between w-full px-5 py-4 cursor-pointer">
+                                    <div class="flex items-center">
+                                        <img id="current-flag-img" src="https://flagcdn.com/w40/ve.png" class="w-7 h-auto mr-3 rounded-sm shadow-sm" alt="">
+                                        <span id="current-country-text" class="text-lg font-semibold text-ocean-700">Venezuela (Bolívares)</span>
+                                    </div>
+                                    <svg id="dropdown-arrow-icon" class="w-5 h-5 text-gray-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                                
+                                <div id="custom-dropdown-list" class="hidden absolute z-50 w-full mt-2 bg-white border border-gray-100 rounded-2xl shadow-2xl overflow-hidden">
+                                    <div onclick="selectCountry('VES', 've', 'Venezuela (Bolívares)')" class="flex items-center px-5 py-4 hover:bg-warm-50 cursor-pointer transition-colors">
+                                        <img src="https://flagcdn.com/w40/ve.png" class="w-6 h-auto mr-3 rounded-sm" alt="">
+                                        <span class="font-medium text-ocean-700">Venezuela (Bolívares)</span>
+                                    </div>
+                                    <div onclick="selectCountry('COP', 'co', 'Colombia (Pesos)')" class="flex items-center px-5 py-4 hover:bg-warm-50 cursor-pointer transition-colors">
+                                        <img src="https://flagcdn.com/w40/co.png" class="w-6 h-auto mr-3 rounded-sm" alt="">
+                                        <span class="font-medium text-ocean-700">Colombia (Pesos)</span>
+                                    </div>
+                                    <div onclick="selectCountry('ARS', 'ar', 'Argentina (Pesos)')" class="flex items-center px-5 py-4 hover:bg-warm-50 cursor-pointer transition-colors">
+                                        <img src="https://flagcdn.com/w40/ar.png" class="w-6 h-auto mr-3 rounded-sm" alt="">
+                                        <span class="font-medium text-ocean-700">Argentina (Pesos)</span>
+                                    </div>
+                                    <div onclick="selectCountry('PEN', 'pe', 'Perú (Soles)')" class="flex items-center px-5 py-4 hover:bg-warm-50 cursor-pointer transition-colors">
+                                        <img src="https://flagcdn.com/w40/pe.png" class="w-6 h-auto mr-3 rounded-sm" alt="">
+                                        <span class="font-medium text-ocean-700">Perú (Soles)</span>
+                                    </div>
+                                    <div onclick="selectCountry('DOP', 'do', 'Rep. Dominicana (Pesos)')" class="flex items-center px-5 py-4 hover:bg-warm-50 cursor-pointer transition-colors">
+                                        <img src="https://flagcdn.com/w40/do.png" class="w-6 h-auto mr-3 rounded-sm" alt="">
+                                        <span class="font-medium text-ocean-700">Rep. Dominicana (Pesos)</span>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="destination" value="VES">
+                            </div>
+                            
+                            <!-- Frequency -->
+                            <div>
+                                <label class="block text-sm font-semibold text-ocean-700 mb-3">
+                                    ¿Con qué frecuencia envías?
+                                </label>
+                                <div class="grid grid-cols-3 gap-3">
+                                    <button onclick="setFrequency('once')" id="btn-once" class="freq-btn px-3 py-3 text-sm font-semibold text-gray-500">
+                                        Una vez
+                                    </button>
+                                    <button onclick="setFrequency('monthly')" id="btn-monthly" class="freq-btn freq-active px-3 py-3 text-sm font-semibold">
+                                        Mensual
+                                    </button>
+                                    <button onclick="setFrequency('annual')" id="btn-annual" class="freq-btn px-3 py-3 text-sm font-semibold text-gray-500">
+                                        Anual
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Calculate Button -->
+                            <button onclick="calculateRemittances()" id="calculateBtn" class="btn-warm w-full text-white font-bold text-lg py-4 flex items-center justify-center space-x-2">
+                                <span id="btnText">Comparar servicios</span>
+                                <svg id="btnArrow" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                                <div id="btnLoader" class="loading hidden"></div>
+                            </button>
+                            
+                            <!-- Rate indicator -->
+                            <div id="rateIndicator" class="flex items-center justify-center space-x-2 bg-gray-50 rounded-xl py-3">
+                                <svg class="w-4 h-4 text-gray-400 animate-spin" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                <span class="text-xs text-gray-500">Cargando tasas...</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="mt-3 md:mt-4 text-[10px] md:text-xs text-navy-muted text-center font-medium">
-                <span id="historyDays">Datos basados en histórico de 14 días</span>
-            </div>
         </div>
+        
+        <!-- Wave decoration at bottom -->
+        <div class="absolute bottom-0 left-0 right-0">
+            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+                <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
+            </svg>
+        </div>
+    </section>
 
-        <!-- Results Section -->
-        <div id="resultsSection" class="hidden animate-fade-in">
-            <!-- Summary Card -->
-            <div id="summaryCard" class="card shadow-lg shadow-success/10 border-2 border-success p-4 md:p-6 mb-4 md:mb-6 lg:mb-8">
+    <!-- ================================
+         RESULTS SECTION (Initially Hidden)
+         ================================ -->
+    <section id="resultsSection" class="hidden py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8 max-w-6xl">
+            
+            <!-- Market Pulse -->
+            <div id="marketPulse" class="feature-card p-6 md:p-8 mb-8 shadow-lg" style="display: none;">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-warm-100 to-warm-200 rounded-2xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-warm-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-ocean-700 font-display">Termómetro de Tasa</h3>
+                            <p class="text-sm text-gray-500">Análisis vs. media de 14 días</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button onclick="refreshHistoricalData()" id="refreshHistoryBtn" class="text-sm bg-gray-100 hover:bg-gray-200 text-gray-600 px-4 py-2 rounded-xl font-semibold transition-all">
+                            ↻ Actualizar
+                        </button>
+                        <div id="pulseStatus" class="px-4 py-2 rounded-xl text-sm font-bold"></div>
+                    </div>
+                </div>
+                
+                <!-- Thermometer -->
+                <div class="mb-6">
+                    <div class="thermometer-track h-12 relative">
+                        <div id="thermometerFill" class="thermometer-fill h-full flex items-center justify-end pr-4" style="width: 50%;">
+                            <span id="thermometerEmoji" class="text-2xl">📊</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-400 mt-2 px-1 font-medium">
+                        <span>Baja</span>
+                        <span>Normal</span>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+                
+                <!-- Alert + Rates -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div id="pulseMessage" class="alert-stable rounded-2xl p-5">
+                        <div class="flex items-start space-x-4">
+                            <span id="pulseEmoji" class="text-3xl">📊</span>
+                            <div>
+                                <p class="font-bold text-ocean-700 mb-1 text-lg" id="pulseTitle">Analizando...</p>
+                                <p class="text-gray-600" id="pulseRecommendation">Cargando datos...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div id="savingsVsAverage" class="grid grid-cols-2 gap-4">
+                            <div class="bg-gray-50 rounded-2xl p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">Tasa actual</p>
+                                <p class="text-2xl font-black text-ocean-700" id="currentRateDisplay">-</p>
+                            </div>
+                            <div class="bg-gray-50 rounded-2xl p-4">
+                                <p class="text-xs text-gray-500 font-semibold mb-1">Media 14 días</p>
+                                <p class="text-2xl font-black text-ocean-700" id="avgRateDisplay">-</p>
+                            </div>
+                        </div>
+                        
+                        <div id="savingsImpact" class="bg-ocean-50 rounded-2xl p-4 border border-ocean-100" style="display: none;">
+                            <div class="flex items-start space-x-3">
+                                <svg class="w-5 h-5 text-ocean-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                                </svg>
+                                <div>
+                                    <p class="font-bold text-ocean-800 mb-0.5">Impacto en tu envío</p>
+                                    <p class="text-ocean-700 text-sm" id="savingsText">-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <p id="historyDays" class="text-center text-xs text-gray-400 mt-4">Datos basados en histórico de 14 días</p>
             </div>
-
+            
+            <!-- Summary Card -->
+            <div id="summaryCard" class="feature-card shadow-xl border-2 border-mint-400 p-6 md:p-8 mb-8"></div>
+            
             <!-- Results Grid -->
-            <div class="mb-4 md:mb-6 lg:mb-8">
-                <h3 class="text-base md:text-xl font-black text-navy mb-3 md:mb-5 flex items-center">
-                    <span class="w-7 md:w-8 h-7 md:h-8 bg-slate-100 rounded-lg flex items-center justify-center mr-2 md:mr-3">
-                        <svg class="w-3.5 md:w-4 h-3.5 md:h-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="mb-8">
+                <h3 class="font-display text-2xl font-bold text-ocean-700 mb-6 flex items-center">
+                    <span class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center mr-3">
+                        <svg class="w-5 h-5 text-ocean-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                         </svg>
                     </span>
                     Comparación detallada
                 </h3>
-                <div id="resultsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
-                </div>
+                <div id="resultsGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
             </div>
-
-            <!-- Insights Card -->
-            <div class="card shadow-sm border border-blue-100 bg-gradient-to-br from-blue-50 to-slate-50 p-4 md:p-6">
-                <div class="flex items-start space-x-3 md:space-x-4">
-                    <div class="w-9 md:w-10 h-9 md:h-10 bg-blue-100 rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0">
-                        <svg class="w-4 md:w-5 h-4 md:h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            
+            <!-- Insights -->
+            <div class="feature-card bg-gradient-to-br from-ocean-50 to-white p-6 md:p-8 border border-ocean-100">
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 bg-ocean-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-ocean-600" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
                         </svg>
                     </div>
-                    <div class="flex-1">
-                        <h4 class="font-bold text-navy text-sm md:text-lg mb-1 md:mb-2">¿Sabías que...?</h4>
-                        <p id="insightText" class="text-navy-muted text-xs md:text-base leading-relaxed">
-                        </p>
+                    <div>
+                        <h4 class="font-display font-bold text-ocean-700 text-xl mb-2">¿Sabías que...?</h4>
+                        <p id="insightText" class="text-gray-600 leading-relaxed"></p>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Methodology Section -->
-        <div class="card shadow-sm p-4 md:p-6 mt-4 md:mt-6 lg:mt-8">
-            <h3 class="text-sm md:text-lg font-bold text-navy mb-3 md:mb-4 flex items-center">
-                <span class="w-7 md:w-8 h-7 md:h-8 bg-slate-100 rounded-lg flex items-center justify-center mr-2 md:mr-3">
-                    <svg class="w-3.5 md:w-4 h-3.5 md:h-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+    <!-- ================================
+         ABOUT SECTION
+         ================================ -->
+    <section id="about" class="py-20 md:py-32 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+        <!-- Decorative blob -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-warm-100 rounded-full filter blur-3xl opacity-30"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-ocean-100 rounded-full filter blur-3xl opacity-30"></div>
+        
+        <div class="container mx-auto px-4 md:px-6 lg:px-8 max-w-6xl relative z-10">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <div class="reveal inline-flex items-center space-x-2 bg-warm-100 text-warm-600 rounded-full px-4 py-2 mb-6">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
                     </svg>
-                </span>
-                Metodología de cálculo
-            </h3>
-            <div class="space-y-2 md:space-y-3 text-xs md:text-sm text-navy-muted">
-                <div class="flex items-start space-x-2 md:space-x-3">
-                    <div class="w-4 md:w-5 h-4 md:h-5 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg class="w-2.5 md:w-3 h-2.5 md:h-3 text-success" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    <span>Tipos de cambio <strong class="text-navy">actualizados en tiempo real</strong> (fuente: BCE)</span>
+                    <span class="font-semibold">Un proyecto con corazón</span>
                 </div>
-                <div class="flex items-start space-x-2 md:space-x-3">
-                    <div class="w-4 md:w-5 h-4 md:h-5 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg class="w-2.5 md:w-3 h-2.5 md:h-3 text-success" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                <h2 class="reveal reveal-delay-1 font-display text-3xl md:text-5xl font-bold text-ocean-700 mb-6">
+                    ¿Qué es Manda Mejor?
+                </h2>
+                <p class="reveal reveal-delay-2 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    Una herramienta <strong class="text-ocean-700">100% gratuita</strong> creada para ayudar a la comunidad migrante 
+                    a tomar decisiones informadas y <strong class="text-ocean-700">maximizar cada euro</strong> que envían a sus familias.
+                </p>
+            </div>
+            
+            <!-- Features Grid -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="reveal feature-card p-8 text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-mint-400 to-mint-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-mint-500/30">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
-                    <span><strong class="text-navy">Comisiones oficiales</strong> de cada servicio (Feb 2025)</span>
+                    <h3 class="font-display text-xl font-bold text-ocean-700 mb-3">Sin comisiones ocultas</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Mostramos el <strong>costo real total</strong>: comisión explícita + margen de cambio oculto. Sin sorpresas.
+                    </p>
                 </div>
-                <div class="flex items-start space-x-2 md:space-x-3">
-                    <div class="w-4 md:w-5 h-4 md:h-5 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg class="w-2.5 md:w-3 h-2.5 md:h-3 text-success" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                
+                <div class="reveal reveal-delay-1 feature-card p-8 text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-warm-400 to-warm-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-warm-500/30">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
                     </div>
-                    <span>Incluye el <strong class="text-navy">margen de cambio oculto</strong> (markup)</span>
+                    <h3 class="font-display text-xl font-bold text-ocean-700 mb-3">Datos en tiempo real</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Tasas de cambio actualizadas del <strong>Banco Central Europeo</strong>. Información precisa al momento.
+                    </p>
+                </div>
+                
+                <div class="reveal reveal-delay-2 feature-card p-8 text-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-ocean-400 to-ocean-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-ocean-500/30">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-ocean-700 mb-3">Proyecto pro-bono</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Creado con amor por y para la comunidad. <strong>Sin anuncios, sin registro, sin datos vendidos.</strong>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Personal Note -->
+            <div class="reveal mt-16 bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="w-24 h-24 bg-gradient-to-br from-warm-200 to-warm-300 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-4xl">👩‍💻</span>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4 italic">
+                            "Como migrante, sé lo importante que es cada euro que enviamos a casa. 
+                            Creé Manda Mejor para que todos podamos tomar decisiones informadas y 
+                            que nuestra familia reciba <strong>el máximo posible</strong>."
+                        </p>
+                        <p class="font-display font-bold text-ocean-700">— Ariana Acosta</p>
+                        <p class="text-sm text-gray-500">Creadora de Manda Mejor</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <!-- Footer -->
- <footer class="mt-8 md:mt-12 lg:mt-16 py-4 md:py-6 border-t border-slate-200">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-xs md:text-sm text-navy-muted">
-                © <span id="year"></span> · Developed by <span class="font-semibold text-navy">Ariana Acosta</span>
-            </p>
+    <!-- ================================
+         BLOG/EDUCATION SECTION
+         ================================ -->
+    <section id="blog" class="py-20 md:py-32 bg-white">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8 max-w-6xl">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <div class="reveal inline-flex items-center space-x-2 bg-ocean-100 text-ocean-600 rounded-full px-4 py-2 mb-6">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"></path>
+                    </svg>
+                    <span class="font-semibold">Aprende más</span>
+                </div>
+                <h2 class="reveal reveal-delay-1 font-display text-3xl md:text-5xl font-bold text-ocean-700 mb-6">
+                    Centro de recursos
+                </h2>
+                <p class="reveal reveal-delay-2 text-lg text-gray-600 max-w-2xl mx-auto">
+                    Guías, consejos y noticias para enviar dinero de forma más inteligente
+                </p>
+            </div>
+            
+            <!-- Blog Cards -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <article class="reveal blog-card">
+                    <div class="h-48 bg-gradient-to-br from-ocean-400 to-ocean-600 overflow-hidden">
+                        <div class="w-full h-full flex items-center justify-center">
+                            <svg class="w-20 h-20 text-white/30" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-ocean-500 uppercase tracking-wide">Guía</span>
+                        <h3 class="font-display text-xl font-bold text-ocean-700 mt-2 mb-3">
+                            Cómo elegir el mejor servicio de remesas
+                        </h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            Aprende a comparar más allá de la comisión visible y descubre el verdadero costo de cada servicio.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-warm-500 font-semibold hover:text-warm-600 transition-colors">
+                            <span>Leer más</span>
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+                
+                <!-- Card 2 -->
+                <article class="reveal reveal-delay-1 blog-card">
+                    <div class="h-48 bg-gradient-to-br from-warm-400 to-warm-500 overflow-hidden">
+                        <div class="w-full h-full flex items-center justify-center">
+                            <svg class="w-20 h-20 text-white/30" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-warm-500 uppercase tracking-wide">Educación</span>
+                        <h3 class="font-display text-xl font-bold text-ocean-700 mt-2 mb-3">
+                            ¿Qué es el "margen de cambio oculto"?
+                        </h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            Descubre cómo las empresas ganan dinero con el tipo de cambio y cómo protegerte.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-warm-500 font-semibold hover:text-warm-600 transition-colors">
+                            <span>Leer más</span>
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+                
+                <!-- Card 3 -->
+                <article class="reveal reveal-delay-2 blog-card">
+                    <div class="h-48 bg-gradient-to-br from-mint-400 to-mint-500 overflow-hidden">
+                        <div class="w-full h-full flex items-center justify-center">
+                            <svg class="w-20 h-20 text-white/30" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-bold text-mint-500 uppercase tracking-wide">Consejos</span>
+                        <h3 class="font-display text-xl font-bold text-ocean-700 mt-2 mb-3">
+                            5 errores al enviar remesas (y cómo evitarlos)
+                        </h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            Los errores más comunes que cuestan dinero y cómo asegurarte de maximizar cada envío.
+                        </p>
+                        <a href="#" class="inline-flex items-center text-warm-500 font-semibold hover:text-warm-600 transition-colors">
+                            <span>Leer más</span>
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================
+         FOOTER
+         ================================ -->
+    <footer class="bg-ocean-900 text-white py-16">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8 max-w-6xl">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-warm-400 to-warm-500 rounded-xl flex items-center justify-center">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                        </div>
+                        <span class="text-2xl font-bold font-display">Manda Mejor</span>
+                    </div>
+                    <p class="text-white/60 leading-relaxed max-w-md">
+                        Ayudando a la comunidad migrante a enviar más dinero a sus familias. 
+                        Un proyecto gratuito, sin anuncios y con transparencia total.
+                    </p>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-white/40 text-sm mb-2">
+                        Datos de tasas: Banco Central Europeo (BCE)
+                    </p>
+                    <p class="text-white/60">
+                        © <span id="year"></span> · Desarrollado con ❤️ por <strong class="text-white">Ariana Acosta</strong>
+                    </p>
+                </div>
+            </div>
         </div>
     </footer>
 
+    <!-- ================================
+         JAVASCRIPT
+         ================================ -->
     <script>
-        // Actualizar el año de copyright automáticamente
-        document.getElementById('year').textContent = new Date().getFullYear();
-
         // ==========================================
-        // CUSTOM DROPDOWN FUNCTIONS
+        // STICKY HEADER
         // ==========================================
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
         
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // ==========================================
+        // REVEAL ON SCROLL (Intersection Observer)
+        // ==========================================
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        revealElements.forEach(el => revealObserver.observe(el));
+        
+        // ==========================================
+        // DROPDOWN
+        // ==========================================
         function toggleDropdown() {
             const dropdown = document.getElementById('custom-dropdown-list');
             const arrow = document.getElementById('dropdown-arrow-icon');
             dropdown.classList.toggle('hidden');
             arrow.classList.toggle('rotate-180');
         }
-
+        
         function selectCountry(currencyCode, flagCode, countryName) {
             document.getElementById('destination').value = currencyCode;
             document.getElementById('current-flag-img').src = `https://flagcdn.com/w40/${flagCode}.png`;
             document.getElementById('current-country-text').textContent = countryName;
             toggleDropdown();
             
-            // Trigger change event for market pulse update
             const event = new Event('change');
             document.getElementById('destination').dispatchEvent(event);
         }
-
-        // Close dropdown when clicking outside
+        
         document.addEventListener('click', function(e) {
             const container = document.getElementById('custom-select-container');
             if (container && !container.contains(e.target)) {
@@ -597,11 +1084,15 @@
                 }
             }
         });
-
-        // ==========================================
-        // DATA CONFIGURATION - FINTECH LOGIC
-        // ==========================================
         
+        // ==========================================
+        // YEAR
+        // ==========================================
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // ==========================================
+        // EXCHANGE RATE LOGIC (Preserved from original)
+        // ==========================================
         const FALLBACK_EXCHANGE_RATES = {
             VES: 449.79,
             COP: 4294.62,
@@ -614,50 +1105,53 @@
         let EXCHANGE_RATES = { ...FALLBACK_EXCHANGE_RATES };
         let lastRateUpdate = null;
         let ratesLoadedFromAPI = false;
+        let currentFrequency = 'monthly';
 
-        let HISTORICAL_RATES = {
-            VES: [],
-            COP: [],
-            ARS: [],
-            PEN: [],
-            USD_EC: [],
-            DOP: []
+        const CURRENCY_SYMBOLS = {
+            VES: 'Bs', COP: '$', ARS: '$', PEN: 'S/', USD_EC: '$', DOP: 'RD$'
         };
 
-        window.debugRates = function() {
-            console.log('\n═══════════════════════════════════════');
-            console.log('🔍 DEBUG: Tasas de Cambio Actuales');
-            console.log('═══════════════════════════════════════');
-            
-            if (ratesLoadedFromAPI) {
-                console.log(`✅ Fuente: API en tiempo real`);
-                console.log(`✅ Última actualización: ${lastRateUpdate.toLocaleString('es-ES')}`);
-                console.log('\n✅ Tasas ACTUALES (en tiempo real):');
-                console.log(`  Ecuador (USD):   ${EXCHANGE_RATES.USD_EC.toFixed(4)}`);
-                console.log(`  Perú (PEN):      ${EXCHANGE_RATES.PEN.toFixed(4)}`);
-                console.log(`  Colombia (COP):  ${EXCHANGE_RATES.COP.toFixed(4)}`);
-                console.log(`  Venezuela (VES): ${EXCHANGE_RATES.VES.toFixed(4)}`);
-                console.log(`  Argentina (ARS): ${EXCHANGE_RATES.ARS.toFixed(4)}`);
-                console.log(`  Rep. Dom. (DOP): ${EXCHANGE_RATES.DOP.toFixed(4)}`);
-                console.log('═══════════════════════════════════════\n');
-            } else {
-                console.error('❌ ERROR: No hay tasas de cambio cargadas');
+        const CURRENCY_NAMES = {
+            VES: 'Bolívares', COP: 'Pesos colombianos', ARS: 'Pesos argentinos',
+            PEN: 'Soles', USD_EC: 'Dólares', DOP: 'Pesos dominicanos'
+        };
+
+        const REMITTANCE_SERVICES = {
+            wise: {
+                name: 'Wise', logo: '🔷',
+                fees: { once: { percentage: 0.59, fixed: 0.41 }, monthly: { percentage: 0.59, fixed: 0.41 }, annual: { percentage: 0.59, fixed: 0.41 } },
+                exchangeMarkup: 0, speed: '< 24h'
+            },
+            remitly: {
+                name: 'Remitly', logo: '💜',
+                fees: { once: { percentage: 0, fixed: 3.99 }, monthly: { percentage: 0, fixed: 1.99 }, annual: { percentage: 0, fixed: 1.49 } },
+                exchangeMarkup: 2.2, speed: 'Instantáneo'
+            },
+            westernunion: {
+                name: 'Western Union', logo: '🟡',
+                fees: { once: { percentage: 0, fixed: 4.90 }, monthly: { percentage: 0, fixed: 4.90 }, annual: { percentage: 0, fixed: 3.99 } },
+                exchangeMarkup: 4.2, speed: 'Minutos'
+            },
+            worldremit: {
+                name: 'WorldRemit', logo: '🔴',
+                fees: { once: { percentage: 0, fixed: 3.99 }, monthly: { percentage: 0, fixed: 2.99 }, annual: { percentage: 0, fixed: 0.99 } },
+                exchangeMarkup: 2.0, speed: 'Minutos'
+            },
+            xoom: {
+                name: 'Xoom (PayPal)', logo: '🔵',
+                fees: { once: { percentage: 0, fixed: 4.99 }, monthly: { percentage: 0, fixed: 4.99 }, annual: { percentage: 0, fixed: 3.99 } },
+                exchangeMarkup: 3.5, speed: '30 min'
+            },
+            ria: {
+                name: 'Ria Money', logo: '🟠',
+                fees: { once: { percentage: 0, fixed: 3.99 }, monthly: { percentage: 0, fixed: 3.99 }, annual: { percentage: 0, fixed: 2.99 } },
+                exchangeMarkup: 2.8, speed: 'Minutos'
             }
         };
-        
+
         function generateRealisticHistoricalData(currency, today) {
-            const todayStr = today.toISOString().split('T')[0];
             const currentRate = EXCHANGE_RATES[currency];
-            
-            const volatilityMap = {
-                'VES': 0.008,
-                'ARS': 0.006,
-                'COP': 0.004,
-                'PEN': 0.003,
-                'USD_EC': 0.002,
-                'DOP': 0.003
-            };
-            
+            const volatilityMap = { 'VES': 0.008, 'ARS': 0.006, 'COP': 0.004, 'PEN': 0.003, 'USD_EC': 0.002, 'DOP': 0.003 };
             const dailyVol = volatilityMap[currency] || 0.004;
             const historicalRates = [];
             const trendBias = (Math.random() - 0.5) * 0.006;
@@ -665,401 +1159,110 @@
             for (let i = 14; i >= 1; i--) {
                 const date = new Date(today);
                 date.setDate(today.getDate() - i);
-                const dateStr = date.toISOString().split('T')[0];
-                
                 const randomWalk = (Math.random() - 0.5) * 2 * dailyVol;
-                const meanReversion = -trendBias * (i / 14);
-                const dailyChange = randomWalk + meanReversion;
-                const historicalRate = currentRate * (1 + dailyChange);
-                
-                historicalRates.push({ date: dateStr, rate: historicalRate });
+                const dailyChange = randomWalk + (-trendBias * (i / 14));
+                historicalRates.push({ date: date.toISOString().split('T')[0], rate: currentRate * (1 + dailyChange) });
             }
             
-            const sum = historicalRates.reduce((acc, entry) => acc + entry.rate, 0);
-            const sma14 = sum / historicalRates.length;
-            const todayVariance = (Math.random() - 0.5) * dailyVol * 2;
-            const todayRate = currentRate * (1 + todayVariance);
+            const sma14 = historicalRates.reduce((acc, e) => acc + e.rate, 0) / historicalRates.length;
+            const todayRate = currentRate * (1 + (Math.random() - 0.5) * dailyVol * 2);
             
-            return {
-                success: true,
-                sma14: sma14,
-                todayRate: todayRate,
-                daysUsed: 14,
-                historicalData: historicalRates,
-                firstDate: historicalRates[0].date,
-                lastDate: historicalRates[historicalRates.length - 1].date,
-                dataSource: 'Simulación realista'
-            };
+            return { success: true, sma14, todayRate, daysUsed: 14, dataSource: 'Simulación' };
         }
-        
+
         async function fetchAndCalculateSMA14(currency) {
             const today = new Date();
             const todayStr = today.toISOString().split('T')[0];
-            
-            if (!ratesLoadedFromAPI) {
-                await fetchLiveExchangeRates();
-            }
-            
-            const currentRateForCurrency = EXCHANGE_RATES[currency];
+            if (!ratesLoadedFromAPI) await fetchLiveExchangeRates();
             
             try {
                 const startDate = new Date(today);
                 startDate.setDate(today.getDate() - 15);
-                const startDateStr = startDate.toISOString().split('T')[0];
-                
                 const currencyKey = currency === 'USD_EC' ? 'USD' : currency;
-                const url = `https://api.frankfurter.app/${startDateStr}..${todayStr}?from=EUR&to=${currencyKey}`;
+                const url = `https://api.frankfurter.app/${startDate.toISOString().split('T')[0]}..${todayStr}?from=EUR&to=${currencyKey}`;
                 
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 5000);
-                
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: { 'Accept': 'application/json' },
-                    signal: controller.signal
-                });
-                
-                clearTimeout(timeoutId);
+                setTimeout(() => controller.abort(), 5000);
+                const response = await fetch(url, { signal: controller.signal });
                 
                 if (response.ok) {
                     const data = await response.json();
-                    
-                    if (data.rates && Object.keys(data.rates).length > 0) {
-                        const allRates = [];
-                        for (const [date, rateData] of Object.entries(data.rates)) {
-                            if (rateData[currencyKey]) {
-                                allRates.push({ date: date, rate: rateData[currencyKey] });
-                            }
-                        }
+                    if (data.rates && Object.keys(data.rates).length >= 10) {
+                        const allRates = Object.entries(data.rates).map(([date, r]) => ({ date, rate: r[currencyKey] })).filter(e => e.rate);
+                        allRates.sort((a, b) => new Date(a.date) - new Date(b.date));
                         
-                        if (allRates.length >= 10) {
-                            allRates.sort((a, b) => new Date(a.date) - new Date(b.date));
-                            
-                            let todayRate = null;
-                            const historicalRates = [];
-                            
-                            for (const entry of allRates) {
-                                if (entry.date === todayStr) {
-                                    todayRate = entry.rate;
-                                } else {
-                                    historicalRates.push(entry);
-                                }
-                            }
-                            
-                            if (!todayRate && allRates.length > 0) {
-                                todayRate = allRates[allRates.length - 1].rate;
-                            }
-                            
-                            const last14 = historicalRates.slice(-14);
-                            
-                            if (last14.length >= 10) {
-                                const sum = last14.reduce((acc, entry) => acc + entry.rate, 0);
-                                const sma14 = sum / last14.length;
-                                
-                                return {
-                                    success: true,
-                                    sma14: sma14,
-                                    todayRate: todayRate,
-                                    daysUsed: last14.length,
-                                    historicalData: last14,
-                                    firstDate: last14[0].date,
-                                    lastDate: last14[last14.length - 1].date,
-                                    dataSource: 'API real'
-                                };
-                            }
+                        const todayRate = allRates.find(e => e.date === todayStr)?.rate || allRates[allRates.length - 1].rate;
+                        const historical = allRates.filter(e => e.date !== todayStr).slice(-14);
+                        
+                        if (historical.length >= 10) {
+                            const sma14 = historical.reduce((acc, e) => acc + e.rate, 0) / historical.length;
+                            return { success: true, sma14, todayRate, daysUsed: historical.length, dataSource: 'BCE' };
                         }
                     }
                 }
-            } catch (error) {
-                console.log(`   ⚠️ API no disponible: ${error.message}`);
-            }
+            } catch (e) { console.log('API error:', e.message); }
             
             return generateRealisticHistoricalData(currency, today);
         }
 
         async function analyzeMarketPulse(currency) {
-            const today = new Date().toISOString().split('T')[0];
             const smaData = await fetchAndCalculateSMA14(currency);
+            const { todayRate: currentRate, sma14 } = smaData;
+            const percentageDiff = ((currentRate - sma14) / sma14) * 100;
             
-            const currentRate = smaData.todayRate;
-            const sma14 = smaData.sma14;
-            const absoluteDiff = currentRate - sma14;
-            const percentageDiff = (absoluteDiff / sma14) * 100;
-            
-            let status, color, message, emoji, recommendation;
-            
+            let status, emoji, message, recommendation;
             if (percentageDiff > 1.5) {
-                status = 'excellent';
-                color = '#2ECC71';
-                emoji = '🚀';
-                message = '¡Tasa excelente!';
-                recommendation = 'La tasa está por encima del promedio de 2 semanas. Buen momento para enviar tu remesa.';
+                status = 'excellent'; emoji = '🚀'; message = '¡Tasa excelente!';
+                recommendation = 'La tasa está por encima del promedio. Buen momento para enviar.';
             } else if (percentageDiff < -1.5) {
-                status = 'low';
-                color = '#E74C3C';
-                emoji = '⏳';
-                message = 'Tasa por debajo del promedio';
-                recommendation = 'La tasa está por debajo del promedio de 2 semanas. Si no es urgente, podrías esperar.';
+                status = 'low'; emoji = '⏳'; message = 'Tasa por debajo del promedio';
+                recommendation = 'Si no es urgente, podrías esperar a una mejor tasa.';
             } else {
-                status = 'stable';
-                color = '#FFB627';
-                emoji = '✓';
-                message = 'Tasa estable';
-                recommendation = 'El mercado está dentro de rangos normales. Buen momento para enviar.';
+                status = 'stable'; emoji = '✓'; message = 'Tasa estable';
+                recommendation = 'El mercado está en rangos normales. Buen momento para enviar.';
             }
             
-            return {
-                status,
-                color,
-                emoji,
-                message,
-                recommendation,
-                currentRate,
-                sma14,
-                percentageDiff,
-                daysOfHistory: smaData.daysUsed,
-                isSimulated: !smaData.success,
-                dateRange: smaData.success ? `${smaData.firstDate} a ${smaData.lastDate}` : null,
-                dataSource: smaData.dataSource || 'Desconocido'
-            };
+            return { status, emoji, message, recommendation, currentRate, sma14, percentageDiff, daysOfHistory: smaData.daysUsed, dataSource: smaData.dataSource };
         }
-
-        function calculateSavingsVsAverage(amount, sma14, currentRate, currency) {
-            const currentAmount = amount * currentRate;
-            const avgAmount = amount * sma14;
-            const difference = currentAmount - avgAmount;
-            
-            return {
-                currentAmount,
-                avgAmount,
-                difference,
-                percentageDiff: ((currentRate - sma14) / sma14) * 100
-            };
-        }
-
-        const CURRENCY_SYMBOLS = {
-            VES: 'Bs',
-            COP: '$',
-            ARS: '$',
-            PEN: 'S/',
-            USD_EC: '$',
-            DOP: 'RD$'
-        };
-
-        const CURRENCY_NAMES = {
-            VES: 'Bolívares',
-            COP: 'Pesos colombianos',
-            ARS: 'Pesos argentinos',
-            PEN: 'Soles',
-            USD_EC: 'Dólares',
-            DOP: 'Pesos dominicanos'
-        };
-
-        const REMITTANCE_SERVICES = {
-            wise: {
-                name: 'Wise',
-                logo: '🔷',
-                color: 'from-blue-500 to-blue-600',
-                fees: {
-                    once: { percentage: 0.59, fixed: 0.41 },
-                    monthly: { percentage: 0.59, fixed: 0.41 },
-                    annual: { percentage: 0.59, fixed: 0.41 }
-                },
-                exchangeMarkup: 0,
-                speed: '< 24h',
-                paymentMethods: ['Transferencia', 'Tarjeta']
-            },
-            remitly: {
-                name: 'Remitly',
-                logo: '💜',
-                color: 'from-purple-500 to-purple-600',
-                fees: {
-                    once: { percentage: 0, fixed: 3.99 },
-                    monthly: { percentage: 0, fixed: 1.99 },
-                    annual: { percentage: 0, fixed: 1.49 }
-                },
-                exchangeMarkup: 2.2,
-                speed: 'Instantáneo',
-                paymentMethods: ['Tarjeta', 'Transferencia']
-            },
-            westernunion: {
-                name: 'Western Union',
-                logo: '🟡',
-                color: 'from-yellow-500 to-yellow-600',
-                fees: {
-                    once: { percentage: 0, fixed: 4.90 },
-                    monthly: { percentage: 0, fixed: 4.90 },
-                    annual: { percentage: 0, fixed: 3.99 }
-                },
-                exchangeMarkup: 4.2,
-                speed: 'Minutos',
-                paymentMethods: ['Tarjeta', 'Efectivo']
-            },
-            worldremit: {
-                name: 'WorldRemit',
-                logo: '🔴',
-                color: 'from-red-500 to-red-600',
-                fees: {
-                    once: { percentage: 0, fixed: 3.99 },
-                    monthly: { percentage: 0, fixed: 2.99 },
-                    annual: { percentage: 0, fixed: 0.99 }
-                },
-                exchangeMarkup: 2.0,
-                speed: 'Minutos',
-                paymentMethods: ['Tarjeta', 'Transferencia']
-            },
-            xoom: {
-                name: 'Xoom (PayPal)',
-                logo: '🔵',
-                color: 'from-blue-600 to-indigo-600',
-                fees: {
-                    once: { percentage: 0, fixed: 4.99 },
-                    monthly: { percentage: 0, fixed: 4.99 },
-                    annual: { percentage: 0, fixed: 3.99 }
-                },
-                exchangeMarkup: 3.5,
-                speed: '30 min',
-                paymentMethods: ['PayPal', 'Tarjeta']
-            },
-            ria: {
-                name: 'Ria Money',
-                logo: '🟠',
-                color: 'from-orange-500 to-orange-600',
-                fees: {
-                    once: { percentage: 0, fixed: 3.99 },
-                    monthly: { percentage: 0, fixed: 3.99 },
-                    annual: { percentage: 0, fixed: 2.99 }
-                },
-                exchangeMarkup: 2.8,
-                speed: 'Minutos',
-                paymentMethods: ['Tarjeta', 'Efectivo']
-            }
-        };
-
-        let currentFrequency = 'monthly';
 
         async function fetchLiveExchangeRates() {
             const apis = [
-                {
-                    name: 'ExchangeRate-API (v4)',
-                    url: 'https://api.exchangerate-api.com/v4/latest/EUR',
-                    parser: (data) => {
-                        if (!data.rates) return null;
-                        return {
-                            VES: data.rates.VES || FALLBACK_EXCHANGE_RATES.VES,
-                            COP: data.rates.COP || FALLBACK_EXCHANGE_RATES.COP,
-                            ARS: data.rates.ARS || FALLBACK_EXCHANGE_RATES.ARS,
-                            PEN: data.rates.PEN || FALLBACK_EXCHANGE_RATES.PEN,
-                            USD_EC: data.rates.USD || FALLBACK_EXCHANGE_RATES.USD_EC,
-                            DOP: data.rates.DOP || FALLBACK_EXCHANGE_RATES.DOP
-                        };
-                    }
-                },
-                {
-                    name: 'Frankfurter (ECB)',
-                    url: 'https://api.frankfurter.app/latest?from=EUR',
-                    parser: (data) => {
-                        if (!data.rates) return null;
-                        return {
-                            VES: data.rates.VES || FALLBACK_EXCHANGE_RATES.VES,
-                            COP: data.rates.COP || FALLBACK_EXCHANGE_RATES.COP,
-                            ARS: data.rates.ARS || FALLBACK_EXCHANGE_RATES.ARS,
-                            PEN: data.rates.PEN || FALLBACK_EXCHANGE_RATES.PEN,
-                            USD_EC: data.rates.USD || FALLBACK_EXCHANGE_RATES.USD_EC,
-                            DOP: data.rates.DOP || FALLBACK_EXCHANGE_RATES.DOP
-                        };
-                    }
-                }
+                { name: 'ExchangeRate-API', url: 'https://api.exchangerate-api.com/v4/latest/EUR', parser: d => d.rates ? { VES: d.rates.VES, COP: d.rates.COP, ARS: d.rates.ARS, PEN: d.rates.PEN, USD_EC: d.rates.USD, DOP: d.rates.DOP } : null },
+                { name: 'Frankfurter', url: 'https://api.frankfurter.app/latest?from=EUR', parser: d => d.rates ? { VES: d.rates.VES || FALLBACK_EXCHANGE_RATES.VES, COP: d.rates.COP, ARS: d.rates.ARS, PEN: d.rates.PEN, USD_EC: d.rates.USD, DOP: d.rates.DOP } : null }
             ];
 
             for (const api of apis) {
                 try {
                     const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 5000);
-                    
-                    const response = await fetch(api.url, {
-                        method: 'GET',
-                        headers: { 'Accept': 'application/json' },
-                        signal: controller.signal
-                    });
-                    
-                    clearTimeout(timeoutId);
-                    
-                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                    
+                    setTimeout(() => controller.abort(), 5000);
+                    const response = await fetch(api.url, { signal: controller.signal });
+                    if (!response.ok) throw new Error();
                     const data = await response.json();
-                    const newRates = api.parser(data);
-                    
-                    if (!newRates || !newRates.COP || !newRates.USD_EC) {
-                        throw new Error('Invalid API response');
+                    const rates = api.parser(data);
+                    if (rates && rates.COP) {
+                        EXCHANGE_RATES = { ...FALLBACK_EXCHANGE_RATES, ...rates };
+                        lastRateUpdate = new Date();
+                        ratesLoadedFromAPI = true;
+                        updateRateIndicator(true);
+                        return true;
                     }
-                    
-                    EXCHANGE_RATES = newRates;
-                    lastRateUpdate = new Date();
-                    ratesLoadedFromAPI = true;
-                    
-                    updateRateIndicator(true, api.name);
-                    
-                    localStorage.setItem('exchangeRates', JSON.stringify({
-                        rates: newRates,
-                        timestamp: lastRateUpdate.getTime(),
-                        source: api.name
-                    }));
-                    
-                    return true;
-                    
-                } catch (error) {
-                    console.warn(`⚠️ ${api.name} failed:`, error.message);
-                }
+                } catch (e) { console.warn(api.name, 'failed'); }
             }
             
             ratesLoadedFromAPI = false;
-            updateRateIndicator(false, 'ERROR');
-            alert('❌ No se pudieron obtener las tasas de cambio actuales.\n\nVerifica tu conexión a internet y recarga la página.');
+            updateRateIndicator(false);
             return false;
         }
 
-        function loadCachedRates() {
-            try {
-                const cached = localStorage.getItem('exchangeRates');
-                if (!cached) return false;
-                
-                const { rates, timestamp, source } = JSON.parse(cached);
-                const hoursSince = (Date.now() - timestamp) / (1000 * 60 * 60);
-                
-                if (hoursSince < 1) {
-                    EXCHANGE_RATES = rates;
-                    lastRateUpdate = new Date(timestamp);
-                    ratesLoadedFromAPI = true;
-                    updateRateIndicator(true, source || 'Cache');
-                    return true;
-                }
-                
-                return false;
-            } catch (error) {
-                return false;
-            }
-        }
-
-        function updateRateIndicator(isLive, apiSource = '') {
+        function updateRateIndicator(isLive) {
             const indicator = document.getElementById('rateIndicator');
             if (!indicator) return;
             
             if (isLive) {
-                const timeStr = lastRateUpdate ? lastRateUpdate.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) : 'ahora';
-                indicator.innerHTML = `
-                    <svg class="w-3.5 md:w-4 h-3.5 md:h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                    </svg>
-                    <span class="text-[10px] md:text-xs text-slate-600 font-medium">Tasas actualizadas a las ${timeStr}</span>
-                `;
+                const time = lastRateUpdate?.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) || 'ahora';
+                indicator.innerHTML = `<svg class="w-4 h-4 text-mint-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span class="text-xs text-gray-600">Tasas actualizadas: ${time}</span>`;
             } else {
-                indicator.innerHTML = `
-                    <svg class="w-3.5 md:w-4 h-3.5 md:h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-                    </svg>
-                    <span class="text-[10px] md:text-xs text-amber-600 font-medium">Usando tasas de referencia</span>
-                `;
+                indicator.innerHTML = `<svg class="w-4 h-4 text-warm-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg><span class="text-xs text-warm-600">Tasas de referencia</span>`;
             }
         }
 
@@ -1067,210 +1270,122 @@
             const marketPulse = document.getElementById('marketPulse');
             marketPulse.style.display = 'block';
             
-            document.getElementById('pulseTitle').textContent = 'Analizando mercado...';
+            document.getElementById('pulseTitle').textContent = 'Analizando...';
             document.getElementById('pulseRecommendation').textContent = 'Obteniendo datos...';
-            document.getElementById('pulseEmoji').textContent = '⏳';
             
             const pulse = await analyzeMarketPulse(currency);
-            
             EXCHANGE_RATES[currency] = pulse.currentRate;
             
             const statusBadge = document.getElementById('pulseStatus');
-            if (pulse.status === 'excellent') {
-                statusBadge.className = 'px-2.5 md:px-3 py-1 md:py-1.5 rounded-lg text-[10px] md:text-xs font-bold bg-success text-white';
-                statusBadge.textContent = '🚀 Excelente';
-            } else if (pulse.status === 'low') {
-                statusBadge.className = 'px-2.5 md:px-3 py-1 md:py-1.5 rounded-lg text-[10px] md:text-xs font-bold bg-red-500 text-white';
-                statusBadge.textContent = '⏳ Esperar';
-            } else {
-                statusBadge.className = 'px-2.5 md:px-3 py-1 md:py-1.5 rounded-lg text-[10px] md:text-xs font-bold bg-amber-400 text-navy';
-                statusBadge.textContent = '✓ Normal';
-            }
-            
             const thermometerFill = document.getElementById('thermometerFill');
-            const thermometerEmoji = document.getElementById('thermometerEmoji');
+            const pulseMessage = document.getElementById('pulseMessage');
+            
+            if (pulse.status === 'excellent') {
+                statusBadge.className = 'px-4 py-2 rounded-xl text-sm font-bold bg-mint-500 text-white';
+                statusBadge.textContent = '🚀 Excelente';
+                thermometerFill.style.background = 'linear-gradient(90deg, #48BB78, #38A169)';
+                pulseMessage.className = 'alert-excellent rounded-2xl p-5';
+            } else if (pulse.status === 'low') {
+                statusBadge.className = 'px-4 py-2 rounded-xl text-sm font-bold bg-red-500 text-white';
+                statusBadge.textContent = '⏳ Esperar';
+                thermometerFill.style.background = 'linear-gradient(90deg, #F56565, #E53E3E)';
+                pulseMessage.className = 'alert-low rounded-2xl p-5';
+            } else {
+                statusBadge.className = 'px-4 py-2 rounded-xl text-sm font-bold bg-warm-400 text-white';
+                statusBadge.textContent = '✓ Normal';
+                thermometerFill.style.background = 'linear-gradient(90deg, #ED8936, #DD6B20)';
+                pulseMessage.className = 'alert-stable rounded-2xl p-5';
+            }
             
             let width = 50 + (pulse.percentageDiff * 10);
-            width = Math.max(5, Math.min(95, width));
-            
-            thermometerFill.style.width = width + '%';
-            thermometerEmoji.textContent = pulse.emoji;
-            
-            if (pulse.status === 'excellent') {
-                thermometerFill.style.background = 'linear-gradient(90deg, #2ECC71, #27AE60)';
-            } else if (pulse.status === 'low') {
-                thermometerFill.style.background = 'linear-gradient(90deg, #E74C3C, #C0392B)';
-            } else {
-                thermometerFill.style.background = 'linear-gradient(90deg, #FFB627, #FF9500)';
-            }
-            
-            const pulseMessage = document.getElementById('pulseMessage');
+            thermometerFill.style.width = Math.max(5, Math.min(95, width)) + '%';
+            document.getElementById('thermometerEmoji').textContent = pulse.emoji;
             document.getElementById('pulseTitle').textContent = pulse.message;
             document.getElementById('pulseRecommendation').textContent = pulse.recommendation;
             document.getElementById('pulseEmoji').textContent = pulse.emoji;
-            
-            if (pulse.status === 'excellent') {
-                pulseMessage.className = 'alert-excellent rounded-xl md:rounded-2xl p-4 md:p-5';
-            } else if (pulse.status === 'low') {
-                pulseMessage.className = 'alert-low rounded-xl md:rounded-2xl p-4 md:p-5';
-            } else {
-                pulseMessage.className = 'alert-stable rounded-xl md:rounded-2xl p-4 md:p-5';
-            }
-            
             document.getElementById('currentRateDisplay').textContent = formatCurrency(pulse.currentRate, 2);
             document.getElementById('avgRateDisplay').textContent = formatCurrency(pulse.sma14, 2);
-            
-            const historyDays = document.getElementById('historyDays');
-            if (pulse.daysOfHistory > 0) {
-                const smaLabel = pulse.daysOfHistory >= 14 ? 'SMA-14' : `SMA-${pulse.daysOfHistory}`;
-                historyDays.textContent = `${smaLabel}: ${pulse.daysOfHistory} días (${pulse.dataSource})`;
-            }
-            
+            document.getElementById('historyDays').textContent = `SMA-${pulse.daysOfHistory}: ${pulse.daysOfHistory} días (${pulse.dataSource})`;
             document.getElementById('savingsImpact').style.display = 'none';
             
             return pulse;
         }
 
         function updateSavingsImpact(amount, currency, pulse) {
-            const savings = calculateSavingsVsAverage(amount, pulse.sma14, pulse.currentRate, currency);
-            const currencySymbol = CURRENCY_SYMBOLS[currency];
+            const diff = (amount * pulse.currentRate) - (amount * pulse.sma14);
+            const symbol = CURRENCY_SYMBOLS[currency];
+            const el = document.getElementById('savingsImpact');
+            const text = document.getElementById('savingsText');
             
-            const savingsText = document.getElementById('savingsText');
-            const savingsImpact = document.getElementById('savingsImpact');
+            if (Math.abs(diff) < 1) { el.style.display = 'none'; return; }
+            el.style.display = 'block';
             
-            if (Math.abs(savings.difference) < 1) {
-                savingsImpact.style.display = 'none';
-                return;
-            }
-            
-            savingsImpact.style.display = 'block';
-            
-            if (savings.difference > 0) {
-                savingsText.innerHTML = `Enviando <strong>€${formatCurrency(amount)}</strong> hoy, reciben <strong class="text-success">${currencySymbol}${formatCurrency(Math.abs(savings.difference), 0)} más</strong> que el promedio.`;
-                savingsImpact.className = 'bg-green-50 rounded-lg md:rounded-xl p-3 md:p-4 border border-green-200';
+            if (diff > 0) {
+                text.innerHTML = `Enviando <strong>€${formatCurrency(amount)}</strong> hoy, reciben <strong class="text-mint-600">${symbol}${formatCurrency(Math.abs(diff), 0)} más</strong> que el promedio.`;
+                el.className = 'bg-green-50 rounded-2xl p-4 border border-green-200';
             } else {
-                savingsText.innerHTML = `Hoy recibirían <strong class="text-red-600">${currencySymbol}${formatCurrency(Math.abs(savings.difference), 0)} menos</strong> que el promedio.`;
-                savingsImpact.className = 'bg-red-50 rounded-lg md:rounded-xl p-3 md:p-4 border border-red-200';
+                text.innerHTML = `Hoy recibirían <strong class="text-red-600">${symbol}${formatCurrency(Math.abs(diff), 0)} menos</strong> que el promedio.`;
+                el.className = 'bg-red-50 rounded-2xl p-4 border border-red-200';
             }
         }
 
         async function refreshHistoricalData() {
             const btn = document.getElementById('refreshHistoryBtn');
-            const currency = document.getElementById('destination').value;
-            
-            if (!btn || !currency) return;
-            
-            btn.textContent = '⏳...';
-            btn.disabled = true;
-            
+            btn.textContent = '⏳...'; btn.disabled = true;
             try {
-                await updateMarketPulse(currency);
+                await updateMarketPulse(document.getElementById('destination').value);
                 btn.textContent = '✓ OK';
-                setTimeout(() => {
-                    btn.textContent = '↻ Actualizar';
-                    btn.disabled = false;
-                }, 2000);
-            } catch (error) {
-                btn.textContent = '✕ Error';
-                setTimeout(() => {
-                    btn.textContent = '↻ Actualizar';
-                    btn.disabled = false;
-                }, 2000);
-            }
+            } catch (e) { btn.textContent = '✕ Error'; }
+            setTimeout(() => { btn.textContent = '↻ Actualizar'; btn.disabled = false; }, 2000);
         }
 
         function formatCurrency(amount, decimals = 2) {
-            return new Intl.NumberFormat('es-ES', {
-                minimumFractionDigits: decimals,
-                maximumFractionDigits: decimals
-            }).format(amount);
+            return new Intl.NumberFormat('es-ES', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }).format(amount);
         }
 
         function setFrequency(freq) {
             currentFrequency = freq;
-            
-            document.querySelectorAll('.freq-btn').forEach(btn => {
-                btn.classList.remove('freq-active');
-                btn.classList.add('text-navy-muted');
-            });
-            
+            document.querySelectorAll('.freq-btn').forEach(btn => { btn.classList.remove('freq-active'); btn.classList.add('text-gray-500'); });
             const activeBtn = document.getElementById(`btn-${freq}`);
             activeBtn.classList.add('freq-active');
-            activeBtn.classList.remove('text-navy-muted');
+            activeBtn.classList.remove('text-gray-500');
         }
 
         function calculateRemittance(amount, currency, serviceKey, frequency) {
             const service = REMITTANCE_SERVICES[serviceKey];
             const baseRate = EXCHANGE_RATES[currency];
             const fees = service.fees[frequency];
-            
-            const percentageFee = amount * (fees.percentage / 100);
-            const totalFee = percentageFee + fees.fixed;
-            const amountAfterFees = amount - totalFee;
-            
+            const totalFee = (amount * fees.percentage / 100) + fees.fixed;
             const effectiveRate = baseRate * (1 - service.exchangeMarkup / 100);
-            const recipientReceives = amountAfterFees * effectiveRate;
-            
-            const midMarketAmount = amount * baseRate;
-            const totalCost = midMarketAmount - recipientReceives;
-            const effectiveFeePercentage = (totalCost / (amount * baseRate)) * 100;
+            const recipientReceives = (amount - totalFee) * effectiveRate;
+            const totalCost = (amount * baseRate) - recipientReceives;
             
             return {
-                service: service.name,
-                logo: service.logo,
-                color: service.color,
-                speed: service.speed,
-                paymentMethods: service.paymentMethods,
-                explicitFee: totalFee,
-                exchangeRate: effectiveRate,
-                midMarketRate: baseRate,
-                exchangeMarkup: service.exchangeMarkup,
-                recipientReceives: recipientReceives,
-                totalCost: totalCost,
-                effectiveFeePercentage: effectiveFeePercentage,
-                amountSent: amount
+                service: service.name, logo: service.logo, speed: service.speed,
+                explicitFee: totalFee, exchangeRate: effectiveRate, exchangeMarkup: service.exchangeMarkup,
+                recipientReceives, totalCost, effectiveFeePercentage: (totalCost / (amount * baseRate)) * 100
             };
         }
 
         function compareAllServices(amount, currency, frequency) {
-            const results = [];
-            
-            for (const serviceKey in REMITTANCE_SERVICES) {
-                const result = calculateRemittance(amount, currency, serviceKey, frequency);
-                results.push({ serviceKey: serviceKey, ...result });
-            }
-            
-            results.sort((a, b) => b.recipientReceives - a.recipientReceives);
-            return results;
+            return Object.keys(REMITTANCE_SERVICES)
+                .map(key => ({ serviceKey: key, ...calculateRemittance(amount, currency, key, frequency) }))
+                .sort((a, b) => b.recipientReceives - a.recipientReceives);
         }
 
         async function calculateRemittances() {
             const amount = parseFloat(document.getElementById('amount').value);
             const currency = document.getElementById('destination').value;
             
-            if (!ratesLoadedFromAPI) {
-                alert('❌ No se pueden calcular remesas sin tasas actuales.\n\nRecarga la página e intenta de nuevo.');
-                return;
-            }
-            
-            if (!amount || amount < 10) {
-                alert('Por favor, ingresa un monto mínimo de €10');
-                return;
-            }
-            if (amount > 10000) {
-                alert('El monto máximo es €10,000');
-                return;
-            }
+            if (!ratesLoadedFromAPI) { alert('❌ Recarga la página para obtener tasas actuales.'); return; }
+            if (!amount || amount < 10 || amount > 10000) { alert('Ingresa un monto entre €10 y €10,000'); return; }
             
             const btn = document.getElementById('calculateBtn');
             const btnText = document.getElementById('btnText');
             const btnArrow = document.getElementById('btnArrow');
             const btnLoader = document.getElementById('btnLoader');
             
-            btnText.classList.add('hidden');
-            btnArrow.classList.add('hidden');
-            btnLoader.classList.remove('hidden');
-            btn.disabled = true;
+            btnText.classList.add('hidden'); btnArrow.classList.add('hidden'); btnLoader.classList.remove('hidden'); btn.disabled = true;
             
             try {
                 const pulse = await updateMarketPulse(currency);
@@ -1278,174 +1393,83 @@
                 const results = compareAllServices(amount, currency, currentFrequency);
                 renderResults(results, currency, amount);
                 
-                document.getElementById('marketPulse').scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'start' 
-                });
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Hubo un error. Por favor intenta de nuevo.');
-            } finally {
-                btnText.classList.remove('hidden');
-                btnArrow.classList.remove('hidden');
-                btnLoader.classList.add('hidden');
-                btn.disabled = false;
+                document.getElementById('resultsSection').classList.remove('hidden');
+                document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } catch (e) { console.error(e); alert('Error. Intenta de nuevo.'); }
+            finally {
+                btnText.classList.remove('hidden'); btnArrow.classList.remove('hidden'); btnLoader.classList.add('hidden'); btn.disabled = false;
             }
         }
 
         function renderResults(results, currency, amount) {
-            const resultsSection = document.getElementById('resultsSection');
-            const summaryCard = document.getElementById('summaryCard');
-            const resultsGrid = document.getElementById('resultsGrid');
-            const insightText = document.getElementById('insightText');
-            const currencySymbol = CURRENCY_SYMBOLS[currency];
-            const currencyName = CURRENCY_NAMES[currency];
-            
-            resultsSection.classList.remove('hidden');
-            
+            const symbol = CURRENCY_SYMBOLS[currency];
+            const name = CURRENCY_NAMES[currency];
             const best = results[0];
             const worst = results[results.length - 1];
-            const savingsPerTransfer = best.recipientReceives - worst.recipientReceives;
             
-            let multiplier = 1;
-            let periodText = 'en este envío';
-            if (currentFrequency === 'monthly') {
-                multiplier = 12;
-                periodText = 'al año';
-            } else if (currentFrequency === 'annual') {
-                multiplier = 12;
-                periodText = 'en tus 12 envíos';
-            }
+            let multiplier = 1, periodText = 'este envío';
+            if (currentFrequency === 'monthly') { multiplier = 12; periodText = 'al año'; }
+            else if (currentFrequency === 'annual') { multiplier = 12; periodText = 'tus 12 envíos'; }
             
-            const annualSavingsEUR = (best.totalCost - worst.totalCost) * multiplier * -1;
+            const annualSavingsEUR = (worst.totalCost - best.totalCost) * multiplier;
             
-            summaryCard.innerHTML = `
-                <div class="flex items-start justify-between">
+            document.getElementById('summaryCard').innerHTML = `
+                <div class="flex items-start space-x-4">
+                    <div class="w-14 h-14 bg-gradient-to-br from-mint-400 to-mint-500 rounded-2xl flex items-center justify-center shadow-lg shadow-mint-500/30">
+                        <span class="text-3xl">🏆</span>
+                    </div>
                     <div class="flex-1">
-                        <div class="flex items-center space-x-2 md:space-x-3 mb-3 md:mb-4">
-                            <div class="w-10 md:w-12 h-10 md:h-12 bg-success/10 rounded-xl md:rounded-2xl flex items-center justify-center">
-                                <span class="text-xl md:text-2xl">🏆</span>
-                            </div>
-                            <div>
-                                <p class="text-[10px] md:text-xs text-success font-bold uppercase tracking-wide">Mejor opción</p>
-                                <h3 class="text-xl md:text-2xl font-black text-navy">${best.service}</h3>
-                            </div>
-                        </div>
-                        <div class="space-y-2">
-                            <p class="text-navy-muted text-sm md:text-base">
-                                Tu familia recibe <span class="font-black text-2xl md:text-3xl text-success">${currencySymbol}${formatCurrency(best.recipientReceives, 0)}</span> <span class="text-xs md:text-sm">${currencyName}</span>
-                            </p>
-                            ${annualSavingsEUR > 0 ? `
-                                <div class="bg-white rounded-lg md:rounded-xl p-3 md:p-4 mt-3 md:mt-4 border border-success/20">
-                                    <p class="text-xs md:text-sm text-navy">
-                                        <span class="font-bold">Ahorro ${periodText}:</span> 
-                                        <span class="text-success font-black text-base md:text-lg">€${formatCurrency(annualSavingsEUR)}</span> 
-                                        vs. la peor opción
-                                    </p>
-                                </div>
-                            ` : ''}
-                        </div>
+                        <p class="text-sm font-bold text-mint-600 uppercase tracking-wide">Mejor opción</p>
+                        <h3 class="font-display text-3xl font-bold text-ocean-700">${best.service}</h3>
+                        <p class="text-gray-600 mt-2">Tu familia recibe <span class="font-display font-black text-4xl text-mint-600">${symbol}${formatCurrency(best.recipientReceives, 0)}</span> <span class="text-sm">${name}</span></p>
+                        ${annualSavingsEUR > 0 ? `<div class="mt-4 bg-mint-50 rounded-xl p-4 border border-mint-200"><p class="text-ocean-700"><strong>Ahorro ${periodText}:</strong> <span class="text-mint-600 font-black text-xl">€${formatCurrency(annualSavingsEUR)}</span> vs la peor opción</p></div>` : ''}
                     </div>
                 </div>
             `;
             
-            resultsGrid.innerHTML = results.map((result, index) => {
-                const isBest = index === 0;
-                const savingsVsBest = best.recipientReceives - result.recipientReceives;
-                
+            document.getElementById('resultsGrid').innerHTML = results.map((result, i) => {
+                const isBest = i === 0;
+                const diff = best.recipientReceives - result.recipientReceives;
                 return `
-                    <div class="card card-hover p-4 md:p-5 ${isBest ? 'best-deal' : 'shadow-sm'} relative">
-                        ${isBest ? `
-                            <div class="absolute -top-2.5 md:-top-3 -right-2.5 md:-right-3 badge-best text-white px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-bold">
-                                ⭐ Mejor
-                            </div>
-                        ` : ''}
-                        
-                        <div class="flex items-center justify-between mb-3 md:mb-4">
-                            <div class="flex items-center space-x-2 md:space-x-3">
-                                <span class="text-xl md:text-2xl">${result.logo}</span>
-                                <h4 class="font-bold text-navy text-sm md:text-base">${result.service}</h4>
-                            </div>
-                            <span class="text-[10px] md:text-xs bg-slate-100 text-navy-muted px-1.5 md:px-2 py-0.5 md:py-1 rounded-md md:rounded-lg font-medium">${result.speed}</span>
+                    <div class="result-card p-5 ${isBest ? 'best-deal' : ''} relative">
+                        ${isBest ? `<div class="absolute -top-3 -right-3 badge-best text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">⭐ Mejor</div>` : ''}
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-3"><span class="text-2xl">${result.logo}</span><h4 class="font-bold text-ocean-700">${result.service}</h4></div>
+                            <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-lg font-medium">${result.speed}</span>
                         </div>
-                        
-                        <div class="bg-slate-50 rounded-lg md:rounded-xl p-3 md:p-4 mb-3 md:mb-4">
-                            <p class="text-[10px] md:text-xs text-navy-muted font-semibold mb-0.5 md:mb-1">Reciben</p>
-                            <p class="text-xl md:text-2xl font-black text-navy">
-                                ${currencySymbol}${formatCurrency(result.recipientReceives, 0)}
-                            </p>
+                        <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                            <p class="text-xs text-gray-500 font-semibold mb-1">Reciben</p>
+                            <p class="text-2xl font-black text-ocean-700">${symbol}${formatCurrency(result.recipientReceives, 0)}</p>
                         </div>
-                        
-                        <div class="space-y-1.5 md:space-y-2 text-xs md:text-sm mb-3 md:mb-4">
-                            <div class="flex justify-between">
-                                <span class="text-navy-muted">Comisión:</span>
-                                <span class="font-semibold text-navy">€${formatCurrency(result.explicitFee)}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-navy-muted">Tipo cambio:</span>
-                                <span class="font-semibold text-navy">${formatCurrency(result.exchangeRate, 2)}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-navy-muted">Margen oculto:</span>
-                                <span class="font-semibold text-primary">${result.exchangeMarkup}%</span>
-                            </div>
-                            <div class="border-t border-slate-100 pt-1.5 md:pt-2 mt-1.5 md:mt-2 flex justify-between">
-                                <span class="text-navy font-semibold">Costo total:</span>
-                                <span class="font-black text-primary">${formatCurrency(result.effectiveFeePercentage, 2)}%</span>
-                            </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between"><span class="text-gray-500">Comisión:</span><span class="font-semibold text-ocean-700">€${formatCurrency(result.explicitFee)}</span></div>
+                            <div class="flex justify-between"><span class="text-gray-500">Tipo cambio:</span><span class="font-semibold text-ocean-700">${formatCurrency(result.exchangeRate, 2)}</span></div>
+                            <div class="flex justify-between"><span class="text-gray-500">Margen oculto:</span><span class="font-semibold text-warm-500">${result.exchangeMarkup}%</span></div>
+                            <div class="border-t pt-2 mt-2 flex justify-between"><span class="font-semibold text-ocean-700">Costo total:</span><span class="font-black text-warm-500">${formatCurrency(result.effectiveFeePercentage, 2)}%</span></div>
                         </div>
-                        
-                        ${!isBest && savingsVsBest > 0 ? `
-                            <div class="bg-amber-50 rounded-md md:rounded-lg p-2 md:p-2.5 text-[10px] md:text-xs text-center border border-amber-100">
-                                <span class="text-amber-800">
-                                    -${currencySymbol}${formatCurrency(savingsVsBest, 0)} vs ${best.service}
-                                </span>
-                            </div>
-                        ` : ''}
+                        ${!isBest && diff > 0 ? `<div class="mt-4 bg-warm-50 rounded-lg p-2 text-center text-xs border border-warm-100"><span class="text-warm-700">-${symbol}${formatCurrency(diff, 0)} vs ${best.service}</span></div>` : ''}
                     </div>
                 `;
             }).join('');
             
-            const averageFee = results.reduce((sum, r) => sum + r.effectiveFeePercentage, 0) / results.length;
-            insightText.innerHTML = `
-                La comisión promedio del mercado es <strong>${formatCurrency(averageFee, 2)}%</strong>, 
-                pero con <strong>${best.service}</strong> solo pagas <strong>${formatCurrency(best.effectiveFeePercentage, 2)}%</strong>. 
-                ${currentFrequency === 'monthly' ? `Enviando €${formatCurrency(amount, 0)} mensualmente, ahorras <strong>€${formatCurrency(annualSavingsEUR)}</strong> al año.` : ''}
-                Wise usa el tipo de cambio real del mercado, por eso suele ser la mejor opción.
-            `;
+            const avgFee = results.reduce((s, r) => s + r.effectiveFeePercentage, 0) / results.length;
+            document.getElementById('insightText').innerHTML = `La comisión promedio es <strong>${formatCurrency(avgFee, 2)}%</strong>, pero con <strong>${best.service}</strong> solo pagas <strong>${formatCurrency(best.effectiveFeePercentage, 2)}%</strong>. ${currentFrequency === 'monthly' ? `Enviando €${formatCurrency(amount, 0)} mensualmente, ahorras <strong>€${formatCurrency(annualSavingsEUR)}</strong> al año.` : ''} Wise usa el tipo de cambio real del mercado.`;
         }
 
+        // ==========================================
+        // INIT
+        // ==========================================
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('🚀 Manda Mejor v2 - Iniciando...');
-            
-            initializeExchangeRates();
+            fetchLiveExchangeRates();
             
             document.getElementById('destination').addEventListener('change', async (e) => {
-                const currency = e.target.value;
-                if (ratesLoadedFromAPI || EXCHANGE_RATES[currency]) {
-                    await updateMarketPulse(currency);
-                }
+                if (ratesLoadedFromAPI) await updateMarketPulse(e.target.value);
             });
             
             document.getElementById('amount').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') calculateRemittances();
             });
-            
-            document.getElementById('amount').addEventListener('blur', (e) => {
-                const value = parseFloat(e.target.value);
-                if (value) e.target.value = Math.round(value);
-            });
         });
-
-        async function initializeExchangeRates() {
-            const cacheLoaded = loadCachedRates();
-            if (!cacheLoaded) {
-                await fetchLiveExchangeRates();
-            }
-            if (!ratesLoadedFromAPI) {
-                updateRateIndicator(false);
-            }
-        }
     </script>
 </body>
 </html>
