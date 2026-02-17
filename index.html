@@ -37,9 +37,21 @@
         .currency-symbol:nth-child(5) { top: 8%; right: 10%; font-size: 3rem; animation-delay: 0.5s; }
         .nav-header { transition: all 0.4s; background: transparent; }
         .nav-header.scrolled { background: rgba(253,251,247,0.95); backdrop-filter: blur(20px); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-        .nav-header.scrolled .nav-logo { opacity: 1; transform: translateY(0); filter: none; }
         .nav-header.scrolled .nav-link { color: #44403C; }
-        .nav-logo { opacity: 0; transform: translateY(-10px); transition: all 0.4s ease; }
+        
+        /* Nav logo: hidden initially, appears on scroll in teal color */
+        .nav-logo { 
+            opacity: 0; 
+            transform: translateY(-10px); 
+            transition: all 0.4s ease; 
+            filter: brightness(0) invert(1); 
+        }
+        .nav-header.scrolled .nav-logo { 
+            opacity: 1; 
+            transform: translateY(0); 
+            /* Convert white to teal (#0F766E) */
+            filter: brightness(0) saturate(100%) invert(36%) sepia(52%) saturate(682%) hue-rotate(131deg) brightness(92%) contrast(89%);
+        }
         
         /* Hero logo animation */
         .hero-logo-container { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
