@@ -37,7 +37,7 @@
         .currency-symbol:nth-child(5) { top: 8%; right: 10%; font-size: 3rem; animation-delay: 0.5s; }
         .nav-header { transition: all 0.4s; background: transparent; }
         .nav-header.scrolled { background: rgba(253,251,247,0.95); backdrop-filter: blur(20px); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-        .nav-header.scrolled .nav-logo { color: #0F766E; }
+        .nav-header.scrolled .nav-logo { filter: none; }
         .nav-header.scrolled .nav-link { color: #44403C; }
         .mobile-menu { position: fixed; top: 0; right: -100%; width: 80%; max-width: 320px; height: 100vh; background: white; z-index: 100; transition: right 0.4s; }
         .mobile-menu.open { right: 0; }
@@ -76,6 +76,10 @@
         .author-card { position: relative; background: linear-gradient(135deg, #FDFBF7, #F0FDFA); }
         .author-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #0F766E, #14B8A6, #EAB308); }
         .author-photo { width: 110px; height: 110px; border-radius: 50%; background: linear-gradient(135deg, #CCFBF1, #F0FDFA); display: flex; align-items: center; justify-content: center; border: 4px solid white; overflow: hidden; box-shadow: 0 8px 24px rgba(15, 118, 110, 0.15); }
+        
+        /* Hero Logo */
+        .hero-logo { max-width: 320px; width: 100%; height: auto; filter: brightness(0) invert(1); }
+        @media (min-width: 768px) { .hero-logo { max-width: 400px; } }
         
         /* Resource Cards */
         .resource-card { display: block; padding: 1.5rem; background: white; border-radius: 20px; border: 1px solid rgba(0,0,0,0.04); transition: all 0.3s; cursor: pointer; }
@@ -126,11 +130,8 @@
     <nav id="navbar" class="nav-header fixed top-0 left-0 right-0 z-50 py-4">
         <div class="container mx-auto px-5 md:px-8 max-w-6xl">
             <div class="flex items-center justify-between">
-                <a href="#" onclick="showHome(); return false;" class="flex items-center space-x-3">
-                    <div class="logo-icon w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden transition-all">
-                        <img src="logo.png" alt="Manda Mejor" class="w-full h-full object-cover">
-                    </div>
-                    <span class="nav-logo text-xl font-semibold text-white font-display transition-colors">Manda Mejor</span>
+                <a href="#" onclick="showHome(); return false;" class="flex items-center">
+                    <img src="logo.png" alt="Manda Mejor" class="nav-logo h-10 md:h-12 w-auto" style="filter: brightness(0) invert(1);">
                 </a>
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#resources" onclick="showHome();" class="nav-link text-white/90 hover:text-white font-medium transition-colors">Recursos</a>
@@ -152,8 +153,12 @@
                             <span class="w-2 h-2 bg-gold-400 rounded-full animate-pulse"></span>
                             <span class="text-sm font-medium">Gratis y sin registro</span>
                         </div>
-                        <h1 class="reveal font-display text-4xl md:text-5xl font-semibold text-white leading-[1.1] mb-6">Que tu esfuerzo<br><span class="gradient-text">llegue completo</span><br>a quienes amas</h1>
-                        <p class="reveal text-lg md:text-xl text-white/80 mb-8 max-w-lg mx-auto lg:mx-0">Compara en segundos las comisiones reales. <strong class="text-white">Descubre cuánto más puede recibir tu familia.</strong></p>
+                        <!-- Logo grande en lugar del título -->
+                        <div class="reveal mb-6">
+                            <img src="logo.png" alt="Manda Mejor" class="hero-logo mx-auto lg:mx-0" style="filter: brightness(0) invert(1);">
+                        </div>
+                        <h1 class="reveal font-display text-2xl md:text-3xl font-medium text-white/90 leading-[1.2] mb-6">Que la distancia<br><span class="gradient-text font-semibold">no le reste a tu envío</span></h1>
+                        <p class="reveal text-lg md:text-xl text-white/80 mb-8 max-w-lg mx-auto lg:mx-0">Compara en segundos las comisiones de los principales servicios de envío de remesas. <strong class="text-white">Descubre cuánto puede recibir tu familia.</strong></p>
                         <div class="reveal flex flex-wrap gap-4 justify-center lg:justify-start">
                             <div class="flex items-center space-x-2 text-white/80"><svg class="w-5 h-5 text-gold-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span class="text-sm font-medium">Actualización diaria</span></div>
                             <div class="flex items-center space-x-2 text-white/80"><svg class="w-5 h-5 text-gold-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span class="text-sm font-medium">100% transparente</span></div>
@@ -190,7 +195,7 @@
                                         <div onclick="selectCountry('ARS', 'ar', 'Argentina')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer"><img src="https://flagcdn.com/w40/ar.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Argentina</span></div>
                                         <div onclick="selectCountry('PEN', 'pe', 'Perú')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer"><img src="https://flagcdn.com/w40/pe.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Perú</span></div>
                                         <div onclick="selectCountry('DOP', 'do', 'Rep. Dominicana')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer"><img src="https://flagcdn.com/w40/do.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Rep. Dominicana</span></div>
-                                        <div onclick="selectCountry('MXN', 'mx', 'México')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer"><img src="https://flagcdn.com/w40/mx.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">México</span></div>
+                                        <div onclick="selectCountry('USD', 'ec', 'Ecuador')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer"><img src="https://flagcdn.com/w40/ec.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Ecuador</span></div>
                                     </div>
                                     <input type="hidden" id="destination" value="VES">
                                 </div>
@@ -334,7 +339,7 @@
                     </div>
                     <div class="text-center">
                         <div class="w-14 h-14 feature-icon rounded-2xl flex items-center justify-center mx-auto mb-4"><svg class="w-7 h-7 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
-                        <h3 class="font-display text-base font-semibold text-warm-800 mb-2">100% gratuita</h3>
+                        <h3 class="font-display text-base font-semibold text-warm-800 mb-2">Sin coste alguno</h3>
                         <p class="text-warm-600 text-sm">Sin registro, sin anuncios, sin costos ocultos. Una herramienta libre para todos.</p>
                     </div>
                 </div>
@@ -675,16 +680,17 @@
     <footer class="bg-teal-900 text-white py-10">
         <div class="container mx-auto px-5 md:px-8 max-w-5xl">
             <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
-                <a href="#" onclick="showHome(); return false;" class="flex items-center space-x-3">
-                    <div class="w-9 h-9 rounded-lg flex items-center justify-center overflow-hidden">
-                        <img src="logo.png" alt="Manda Mejor" class="w-full h-full object-cover">
-                    </div>
-                    <span class="text-lg font-semibold font-display">Manda Mejor</span>
+                <a href="#" onclick="showHome(); return false;" class="flex items-center">
+                    <img src="logo.png" alt="Manda Mejor" class="h-10 w-auto" style="filter: brightness(0) invert(1);">
                 </a>
                 <div class="text-center md:text-right">
                     <p class="text-white/40 text-sm mb-1"><a href="https://www.exchangerate-api.com" target="_blank" class="hover:text-white/60">Rates By Exchange Rate API</a></p>
                     <p class="text-white/60 text-sm">© <span id="year"></span> · <span class="text-white font-medium">Ariana Acosta</span></p>
                 </div>
+            </div>
+            <!-- Feedback contact -->
+            <div class="text-center mb-6">
+                <p class="text-white/50 text-sm">¿Sugerencias o comentarios? <a href="mailto:contact.mandamejor@gmail.com" class="text-teal-300 hover:text-teal-200 transition-colors">contact.mandamejor@gmail.com</a></p>
             </div>
             <div class="border-t border-white/10 pt-6">
                 <p class="text-white/40 text-xs text-center"><strong class="text-white/60">Aviso Legal:</strong> Manda Mejor es un comparador informativo. No somos entidad financiera. Las tasas y comisiones mostradas son aproximadas y pueden variar. Verifica siempre las condiciones actuales con el proveedor antes de enviar.</p>
@@ -699,7 +705,15 @@
         function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('mobileOverlay').classList.remove('open'); document.body.style.overflow = ''; }
         
         const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.pageYOffset > 50));
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset > 50;
+            navbar.classList.toggle('scrolled', scrolled);
+            // Toggle logo filter based on scroll
+            const navLogo = document.querySelector('.nav-logo');
+            if (navLogo) {
+                navLogo.style.filter = scrolled ? 'none' : 'brightness(0) invert(1)';
+            }
+        });
         
         // Reveal animations
         function initRevealAnimations() {
@@ -729,6 +743,8 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
             // Reset navbar for home
             navbar.classList.remove('scrolled');
+            const navLogo = document.querySelector('.nav-logo');
+            if (navLogo) navLogo.style.filter = 'brightness(0) invert(1)';
         }
         
         function showArticle(slug) {
@@ -738,11 +754,13 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
             // Force navbar to scrolled state for articles
             navbar.classList.add('scrolled');
+            const navLogo = document.querySelector('.nav-logo');
+            if (navLogo) navLogo.style.filter = 'none';
         }
 
         // ==================== DATA & APIS ====================
-        const BCE_CURRENCIES = ['COP', 'PEN', 'DOP', 'MXN', 'USD'];
-        const FALLBACK_RATES = { VES: 470, COP: 4500, ARS: 1350, PEN: 4.05, DOP: 65, MXN: 18.5, USD: 1.08 };
+        const BCE_CURRENCIES = ['COP', 'PEN', 'DOP', 'USD'];
+        const FALLBACK_RATES = { VES: 470, COP: 4500, ARS: 1350, PEN: 4.05, DOP: 65, USD: 1.08 };
         
         let EXCHANGE_RATES = { ...FALLBACK_RATES };
         let historicalDataCache = {};
@@ -750,17 +768,27 @@
         let currentPaymentMethod = 'transfer';
         let currentReceiveMethod = 'deposit';
 
-        const CURRENCY_SYMBOLS = { VES: 'Bs', COP: '$', ARS: '$', PEN: 'S/', DOP: 'RD$', MXN: '$', USD: '$' };
-        const CURRENCY_NAMES = { VES: 'Bolívares', COP: 'Pesos colombianos', ARS: 'Pesos argentinos', PEN: 'Soles', DOP: 'Pesos dominicanos', MXN: 'Pesos mexicanos', USD: 'Dólares' };
+        const CURRENCY_SYMBOLS = { VES: 'Bs', COP: '$', ARS: '$', PEN: 'S/', DOP: 'RD$', USD: '$' };
+        const CURRENCY_NAMES = { VES: 'Bolívares', COP: 'Pesos colombianos', ARS: 'Pesos argentinos', PEN: 'Soles', DOP: 'Pesos dominicanos', USD: 'Dólares americanos' };
         const PAYMENT_COSTS = { transfer: { pct: 0, label: 'Sin comisión adicional' }, debit: { pct: 1.25, label: '+1.25% por débito' }, credit: { pct: 3.8, label: '+3.8% por crédito' } };
         const RECEIVE_COSTS = { deposit: { spread: 0, label: 'Sin comisión adicional' }, cash: { spread: 1.5, label: '+1.5% por efectivo' } };
         const SERVICES = {
-            wise: { name: 'Wise', logo: '🔷', fees: { once: { pct: 0.59, fixed: 0.41 }, monthly: { pct: 0.59, fixed: 0.41 }, annual: { pct: 0.59, fixed: 0.41 } }, markup: 0, speed: '< 24h' },
-            remitly: { name: 'Remitly', logo: '💜', fees: { once: { pct: 0, fixed: 3.99 }, monthly: { pct: 0, fixed: 1.99 }, annual: { pct: 0, fixed: 1.49 } }, markup: 2.2, speed: 'Instantáneo' },
-            westernunion: { name: 'Western Union', logo: '🟡', fees: { once: { pct: 0, fixed: 4.90 }, monthly: { pct: 0, fixed: 4.90 }, annual: { pct: 0, fixed: 3.99 } }, markup: 4.2, speed: 'Minutos' },
-            worldremit: { name: 'WorldRemit', logo: '🔴', fees: { once: { pct: 0, fixed: 3.99 }, monthly: { pct: 0, fixed: 2.99 }, annual: { pct: 0, fixed: 0.99 } }, markup: 2.0, speed: 'Minutos' },
-            xoom: { name: 'Xoom', logo: '🔵', fees: { once: { pct: 0, fixed: 4.99 }, monthly: { pct: 0, fixed: 4.99 }, annual: { pct: 0, fixed: 3.99 } }, markup: 3.5, speed: '30 min' },
-            ria: { name: 'Ria', logo: '🟠', fees: { once: { pct: 0, fixed: 3.99 }, monthly: { pct: 0, fixed: 3.99 }, annual: { pct: 0, fixed: 2.99 } }, markup: 2.8, speed: 'Minutos' }
+            wise: { name: 'Wise', logo: '🔷', fees: { once: { pct: 0.59, fixed: 0.41 }, monthly: { pct: 0.59, fixed: 0.41 }, annual: { pct: 0.59, fixed: 0.41 } }, markup: 0, speed: '< 24h', countries: ['VES', 'COP', 'ARS', 'PEN', 'DOP', 'USD'] },
+            remitly: { name: 'Remitly', logo: '💜', fees: { once: { pct: 0, fixed: 3.99 }, monthly: { pct: 0, fixed: 1.99 }, annual: { pct: 0, fixed: 1.49 } }, markup: 2.2, speed: 'Instantáneo', countries: ['COP', 'PEN', 'DOP', 'USD'] },
+            westernunion: { name: 'Western Union', logo: '🟡', fees: { once: { pct: 0, fixed: 4.90 }, monthly: { pct: 0, fixed: 4.90 }, annual: { pct: 0, fixed: 3.99 } }, markup: 4.2, speed: 'Minutos', countries: ['VES', 'COP', 'ARS', 'PEN', 'DOP', 'USD'] },
+            worldremit: { name: 'WorldRemit', logo: '🔴', fees: { once: { pct: 0, fixed: 3.99 }, monthly: { pct: 0, fixed: 2.99 }, annual: { pct: 0, fixed: 0.99 } }, markup: 2.0, speed: 'Minutos', countries: ['COP', 'PEN', 'DOP', 'USD'] },
+            xoom: { name: 'Xoom', logo: '🔵', fees: { once: { pct: 0, fixed: 4.99 }, monthly: { pct: 0, fixed: 4.99 }, annual: { pct: 0, fixed: 3.99 } }, markup: 3.5, speed: '30 min', countries: ['COP', 'ARS', 'PEN', 'DOP', 'USD'] },
+            ria: { name: 'Ria', logo: '🟠', fees: { once: { pct: 0, fixed: 3.99 }, monthly: { pct: 0, fixed: 3.99 }, annual: { pct: 0, fixed: 2.99 } }, markup: 2.8, speed: 'Minutos', countries: ['VES', 'COP', 'ARS', 'PEN', 'DOP', 'USD'] }
+        };
+
+        // Ecuador uses USD but needs special handling for display
+        const COUNTRY_CURRENCY_MAP = {
+            'VES': { currency: 'VES', name: 'Venezuela' },
+            'COP': { currency: 'COP', name: 'Colombia' },
+            'ARS': { currency: 'ARS', name: 'Argentina' },
+            'PEN': { currency: 'PEN', name: 'Perú' },
+            'DOP': { currency: 'DOP', name: 'Rep. Dominicana' },
+            'USD': { currency: 'USD', name: 'Ecuador' }
         };
 
         function seededRandom(seed) { const x = Math.sin(seed) * 10000; return x - Math.floor(x); }
@@ -908,7 +936,12 @@
             return { service: svc.name, logo: svc.logo, speed: svc.speed, explicitFee: totalFee, exchangeRate: effectiveRate, exchangeMarkup: totalMarkup, recipientReceives, totalCost, effectiveFeePercentage: (totalCost / (amount * baseRate)) * 100 };
         }
 
-        function compareAllServices(amount, currency) { return Object.keys(SERVICES).map(key => { const r = calculateRemittance(amount, currency, key); r.serviceKey = key; return r; }).sort((a, b) => b.recipientReceives - a.recipientReceives); }
+        function compareAllServices(amount, currency) { 
+            return Object.keys(SERVICES)
+                .filter(key => SERVICES[key].countries.includes(currency))
+                .map(key => { const r = calculateRemittance(amount, currency, key); r.serviceKey = key; return r; })
+                .sort((a, b) => b.recipientReceives - a.recipientReceives); 
+        }
 
         async function calculateRemittances() {
             const amount = parseFloat(document.getElementById('amount').value);
