@@ -203,7 +203,7 @@
                             </div>
                             <div class="space-y-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-warm-700 mb-2">Cantidad a enviar</label>
+                                    <label class="block text-sm font-medium text-warm-700 mb-2">Monto a enviar</label>
                                     <div class="relative">
                                         <span class="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-semibold text-warm-800">€</span>
                                         <input type="number" id="amount" value="500" min="10" max="10000" class="input-field w-full pl-12 pr-4 py-3.5 text-2xl font-semibold text-warm-800">
@@ -222,6 +222,7 @@
                                     <div id="custom-dropdown-list" class="hidden absolute z-50 w-full mt-2 bg-white rounded-xl shadow-xl border border-warm-200 overflow-hidden">
                                         <div onclick="selectCountry('VES', 've', 'Venezuela')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer"><img src="https://flagcdn.com/w40/ve.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Venezuela</span></div>
                                         <div onclick="selectCountry('COP', 'co', 'Colombia')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer"><img src="https://flagcdn.com/w40/co.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Colombia</span></div>
+                                        <div onclick="selectCountry('BRL', 'br', 'Brasil')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer"><img src="https://flagcdn.com/w40/br.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Brasil</span></div>
                                         <div onclick="selectCountry('ARS', 'ar', 'Argentina')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer"><img src="https://flagcdn.com/w40/ar.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Argentina</span></div>
                                         <div onclick="selectCountry('PEN', 'pe', 'Perú')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer"><img src="https://flagcdn.com/w40/pe.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Perú</span></div>
                                         <div onclick="selectCountry('DOP', 'do', 'Rep. Dominicana')" class="flex items-center px-4 py-3 hover:bg-teal-50 cursor-pointer"><img src="https://flagcdn.com/w40/do.png" class="w-5 h-auto mr-3 rounded" alt=""><span class="font-medium">Rep. Dominicana</span></div>
@@ -714,7 +715,7 @@
                     <img src="logo.png" alt="Manda Mejor" class="h-16 md:h-20 w-auto" style="filter: brightness(0) invert(1);">
                 </a>
                 <div class="text-center">
-                    <p class="text-white/50 text-sm mb-2">¿Sugerencias o comentarios? <a href="mailto:contact.mandamejor@gmail.com" class="text-teal-300 hover:text-teal-200 transition-colors">contact.mandamejor@gmail.com</a></p>
+                    <p class="text-white/50 text-sm mb-2">¿Sugerencias o comentarios? <a href="/cdn-cgi/l/email-protection#b6d5d9d8c2d7d5c298dbd7d8d2d7dbd3dcd9c4f6d1dbd7dfda98d5d9db" class="text-teal-300 hover:text-teal-200 transition-colors"><span class="__cf_email__" data-cfemail="6d0e0203190c0e1943000c03090c000807021f2d0a000c0401430e0200">[email&#160;protected]</span></a></p>
                     <p class="text-white/40 text-sm"><a href="https://www.exchangerate-api.com" target="_blank" class="hover:text-white/60">Rates By Exchange Rate API</a></p>
                     <p class="text-white/60 text-sm mt-1">© <span id="year"></span> · <span class="text-white font-medium">Ariana Acosta</span></p>
                 </div>
@@ -726,7 +727,7 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // ==================== NAVIGATION ====================
         function openMobileMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('mobileOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
         function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('mobileOverlay').classList.remove('open'); document.body.style.overflow = ''; }
@@ -786,8 +787,8 @@
         }
 
         // ==================== DATA & APIS ====================
-        const BCE_CURRENCIES = ['COP', 'PEN', 'DOP', 'USD'];
-        const FALLBACK_RATES = { VES: 470, COP: 4500, ARS: 1350, PEN: 4.05, DOP: 65, USD: 1.08 };
+        const BCE_CURRENCIES = ['COP', 'PEN', 'DOP', 'USD', 'BRL'];
+        const FALLBACK_RATES = { VES: 470, COP: 4500, ARS: 1350, PEN: 4.05, DOP: 65, USD: 1.08, BRL: 6.20 };
         
         let EXCHANGE_RATES = { ...FALLBACK_RATES };
         let historicalDataCache = {};
@@ -795,27 +796,28 @@
         let currentPaymentMethod = 'transfer';
         let currentReceiveMethod = 'deposit';
 
-        const CURRENCY_SYMBOLS = { VES: 'Bs', COP: '$', ARS: '$', PEN: 'S/', DOP: 'RD$', USD: '$' };
-        const CURRENCY_NAMES = { VES: 'Bolívares', COP: 'Pesos colombianos', ARS: 'Pesos argentinos', PEN: 'Soles', DOP: 'Pesos dominicanos', USD: 'Dólares americanos' };
+        const CURRENCY_SYMBOLS = { VES: 'Bs', COP: '$', ARS: '$', PEN: 'S/', DOP: 'RD$', USD: '$', BRL: 'R$' };
+        const CURRENCY_NAMES = { VES: 'Bolívares', COP: 'Pesos colombianos', ARS: 'Pesos argentinos', PEN: 'Soles', DOP: 'Pesos dominicanos', USD: 'Dólares americanos', BRL: 'Reales brasileños' };
         const PAYMENT_COSTS = { transfer: { pct: 0, label: 'Sin comisión adicional' }, debit: { pct: 1.25, label: '+1.25% por débito' }, credit: { pct: 3.8, label: '+3.8% por crédito' } };
         const RECEIVE_COSTS = { deposit: { spread: 0, label: 'Sin comisión adicional' }, cash: { spread: 1.5, label: '+1.5% por efectivo' } };
         const SERVICES = {
-            wise: { name: 'Wise', logo: '🔷', fees: { once: { pct: 0.59, fixed: 0.41 }, monthly: { pct: 0.59, fixed: 0.41 }, annual: { pct: 0.59, fixed: 0.41 } }, markup: 0, speed: '< 24h', countries: ['VES', 'COP', 'ARS', 'PEN', 'DOP', 'USD'] },
-            remitly: { name: 'Remitly', logo: '💜', fees: { once: { pct: 0, fixed: 3.99 }, monthly: { pct: 0, fixed: 1.99 }, annual: { pct: 0, fixed: 1.49 } }, markup: 2.2, speed: 'Instantáneo', countries: ['COP', 'PEN', 'DOP', 'USD'] },
-            westernunion: { name: 'Western Union', logo: '🟡', fees: { once: { pct: 0, fixed: 4.90 }, monthly: { pct: 0, fixed: 4.90 }, annual: { pct: 0, fixed: 3.99 } }, markup: 4.2, speed: 'Minutos', countries: ['VES', 'COP', 'ARS', 'PEN', 'DOP', 'USD'] },
-            worldremit: { name: 'WorldRemit', logo: '🔴', fees: { once: { pct: 0, fixed: 3.99 }, monthly: { pct: 0, fixed: 2.99 }, annual: { pct: 0, fixed: 0.99 } }, markup: 2.0, speed: 'Minutos', countries: ['COP', 'PEN', 'DOP', 'USD'] },
-            xoom: { name: 'Xoom', logo: '🔵', fees: { once: { pct: 0, fixed: 4.99 }, monthly: { pct: 0, fixed: 4.99 }, annual: { pct: 0, fixed: 3.99 } }, markup: 3.5, speed: '30 min', countries: ['COP', 'ARS', 'PEN', 'DOP', 'USD'] },
-            ria: { name: 'Ria', logo: '🟠', fees: { once: { pct: 0, fixed: 3.99 }, monthly: { pct: 0, fixed: 3.99 }, annual: { pct: 0, fixed: 2.99 } }, markup: 2.8, speed: 'Minutos', countries: ['VES', 'COP', 'ARS', 'PEN', 'DOP', 'USD'] }
+            wise: { name: 'Wise', logo: '🔷', fees: { once: { pct: 0.59, fixed: 0.41 }, monthly: { pct: 0.59, fixed: 0.41 }, annual: { pct: 0.59, fixed: 0.41 } }, markup: 0, speed: '< 24h', countries: ['VES', 'COP', 'ARS', 'PEN', 'DOP', 'USD', 'BRL'] },
+            remitly: { name: 'Remitly', logo: '💜', fees: { once: { pct: 0, fixed: 3.99 }, monthly: { pct: 0, fixed: 1.99 }, annual: { pct: 0, fixed: 1.49 } }, markup: 2.2, speed: 'Instantáneo', countries: ['COP', 'PEN', 'DOP', 'USD', 'BRL'] },
+            westernunion: { name: 'Western Union', logo: '🟡', fees: { once: { pct: 0, fixed: 4.90 }, monthly: { pct: 0, fixed: 4.90 }, annual: { pct: 0, fixed: 3.99 } }, markup: 4.2, speed: 'Minutos', countries: ['VES', 'COP', 'ARS', 'PEN', 'DOP', 'USD', 'BRL'] },
+            worldremit: { name: 'WorldRemit', logo: '🔴', fees: { once: { pct: 0, fixed: 3.99 }, monthly: { pct: 0, fixed: 2.99 }, annual: { pct: 0, fixed: 0.99 } }, markup: 2.0, speed: 'Minutos', countries: ['COP', 'PEN', 'DOP', 'USD', 'BRL'] },
+            xoom: { name: 'Xoom', logo: '🔵', fees: { once: { pct: 0, fixed: 4.99 }, monthly: { pct: 0, fixed: 4.99 }, annual: { pct: 0, fixed: 3.99 } }, markup: 3.5, speed: '30 min', countries: ['COP', 'ARS', 'PEN', 'DOP', 'USD', 'BRL'] },
+            ria: { name: 'Ria', logo: '🟠', fees: { once: { pct: 0, fixed: 3.99 }, monthly: { pct: 0, fixed: 3.99 }, annual: { pct: 0, fixed: 2.99 } }, markup: 2.8, speed: 'Minutos', countries: ['VES', 'COP', 'ARS', 'PEN', 'DOP', 'USD', 'BRL'] }
         };
 
-        // Ecuador uses USD but needs special handling for display
+        // Country currency mapping for display
         const COUNTRY_CURRENCY_MAP = {
             'VES': { currency: 'VES', name: 'Venezuela' },
             'COP': { currency: 'COP', name: 'Colombia' },
             'ARS': { currency: 'ARS', name: 'Argentina' },
             'PEN': { currency: 'PEN', name: 'Perú' },
             'DOP': { currency: 'DOP', name: 'Rep. Dominicana' },
-            'USD': { currency: 'USD', name: 'Ecuador' }
+            'USD': { currency: 'USD', name: 'Ecuador' },
+            'BRL': { currency: 'BRL', name: 'Brasil' }
         };
 
         function seededRandom(seed) { const x = Math.sin(seed) * 10000; return x - Math.floor(x); }
@@ -1025,11 +1027,4 @@
                 } else { throw new Error('No rates received'); }
             } catch (e) {
                 console.error('Init error:', e);
-                document.getElementById('rateIndicator').innerHTML = '<svg class="w-4 h-4 text-gold-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg><span class="text-xs text-warm-600">Usando tasas de referencia</span>';
-            }
-        });
-    </script>
-    <script data-goatcounter="https://mandamejor.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-</body>
-</html>
+                document.getElementById('rateIndicator').innerHTML = '<svg class="w-4 h-4 text-gold-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 011
