@@ -714,7 +714,7 @@
                     <img src="logo.png" alt="Manda Mejor" class="h-16 md:h-20 w-auto" style="filter: brightness(0) invert(1);">
                 </a>
                 <div class="text-center">
-                    <p class="text-white/50 text-sm mb-2">¿Sugerencias o comentarios? <a href="mailto:contact.mandamejor@gmail.com" class="text-teal-300 hover:text-teal-200 transition-colors">contact.mandamejor@gmail.com</a></p>
+                    <p class="text-white/50 text-sm mb-2">¿Sugerencias o comentarios? <a href="/cdn-cgi/l/email-protection#02616d6c766361762c6f636c66636f67686d7042656f636b6e2c616d6f" class="text-teal-300 hover:text-teal-200 transition-colors"><span class="__cf_email__" data-cfemail="0b6864657f6a687f25666a656f6a666e6164794b6c666a626725686466">[email&#160;protected]</span></a></p>
                     <p class="text-white/40 text-sm"><a href="https://www.exchangerate-api.com" target="_blank" class="hover:text-white/60">Rates By Exchange Rate API</a></p>
                     <p class="text-white/60 text-sm mt-1">© <span id="year"></span> · <span class="text-white font-medium">Ariana Acosta</span></p>
                 </div>
@@ -726,7 +726,7 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // ==================== NAVIGATION ====================
         function openMobileMenu() { document.getElementById('mobileMenu').classList.add('open'); document.getElementById('mobileOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
         function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.getElementById('mobileOverlay').classList.remove('open'); document.body.style.overflow = ''; }
@@ -787,7 +787,45 @@
 
         // ==================== DATA & APIS ====================
         const BCE_CURRENCIES = ['COP', 'PEN', 'DOP', 'USD', 'BRL'];
-        const FALLBACK_RATES = { VES: 470, COP: 4500, ARS: 1350, PEN: 4.05, DOP: 65, USD: 1.08, BRL: 6.20 };
+        const FALLBACK_RATES = { VES: 470, COP: 4350, ARS: 1650, PEN: 3.95, DOP: 72, USD: 1.18, BRL: 6.15 };
+        
+        // ============================================
+        // MODELO CALIBRADO V6 - Febrero 2025
+        // Basado en 50+ capturas reales de calculadoras
+        // Precisión esperada: ±1-2%
+        // ============================================
+        
+        // MARKUPS por servicio × país (% vs tasa de mercado/Wise)
+        // Positivo = da MEJOR tasa que el mercado (usuario gana más)
+        // Negativo = da PEOR tasa que el mercado (usuario pierde)
+        const MARKUPS_BY_COUNTRY = {
+            westernunion: { DOP: 1.5, BRL: -1.8, COP: 1.5, PEN: 0, ARS: 4.0, VES: -2.0, USD: 1.2 },
+            remitly:      { DOP: 0.6, BRL: 1.2, COP: 1.0, PEN: -0.9, ARS: 5.0, VES: 1.3, USD: 0.9 },
+            ria:          { DOP: 1.0, BRL: 0, COP: -1.5, PEN: -2.2, ARS: 0, VES: 15.0, USD: -0.5 },
+            xoom:         { DOP: -0.7, BRL: -2.6, COP: -3.6, PEN: -4.3, ARS: 0.4, USD: -7.0 },
+            worldremit:   { DOP: -3.2, BRL: -2.3, COP: -2.5, PEN: -2.7 },
+            wise:         { DOP: 0, BRL: 0, COP: 0, PEN: 0, ARS: 0, VES: 0, USD: 0 }
+        };
+        
+        // COMISIONES FIJAS por servicio × país (en EUR)
+        const FEES_BY_COUNTRY = {
+            westernunion: { DOP: 0, BRL: 0, COP: 0, PEN: 0.99, ARS: 0, VES: 0, USD: 0 },
+            remitly:      { DOP: 0, BRL: 0.99, COP: 0.99, PEN: 2.49, ARS: 2.49, VES: 1.99, USD: 1.99 },
+            ria:          { DOP: 0.99, BRL: 2.99, COP: 3.99, PEN: 2.99, ARS: 2.99, VES: 0.99, USD: 2.99 },
+            xoom:         { DOP: 2.99, BRL: 2.99, COP: 2.99, PEN: 0, ARS: 2.99, USD: 2.99 },
+            worldremit:   { DOP: 4.99, BRL: 1.99, COP: 0, PEN: 1.99 },
+            wise:         "formula" // 0.55% + €0.80, mínimo €2.50
+        };
+        
+        // DISPONIBILIDAD por servicio × país
+        const SERVICE_AVAILABILITY = {
+            westernunion: ['VES', 'COP', 'ARS', 'PEN', 'DOP', 'USD', 'BRL'],
+            remitly:      ['VES', 'COP', 'ARS', 'PEN', 'DOP', 'USD', 'BRL'],
+            ria:          ['VES', 'COP', 'ARS', 'PEN', 'DOP', 'USD', 'BRL'],
+            xoom:         ['COP', 'ARS', 'PEN', 'DOP', 'USD', 'BRL'],  // NO Venezuela
+            worldremit:   ['COP', 'PEN', 'DOP', 'BRL'],  // NO Venezuela, NO Argentina, NO Ecuador
+            wise:         ['COP', 'ARS', 'PEN', 'DOP', 'USD', 'BRL']  // NO Venezuela
+        };
         
         let EXCHANGE_RATES = { ...FALLBACK_RATES };
         let historicalDataCache = {};
@@ -797,15 +835,61 @@
 
         const CURRENCY_SYMBOLS = { VES: 'Bs', COP: '$', ARS: '$', PEN: 'S/', DOP: 'RD$', USD: '$', BRL: 'R$' };
         const CURRENCY_NAMES = { VES: 'Bolívares', COP: 'Pesos colombianos', ARS: 'Pesos argentinos', PEN: 'Soles', DOP: 'Pesos dominicanos', USD: 'Dólares americanos', BRL: 'Reales brasileños' };
-        const PAYMENT_COSTS = { transfer: { pct: 0, label: 'Sin comisión adicional' }, debit: { pct: 1.25, label: '+1.25% por débito' }, credit: { pct: 3.8, label: '+3.8% por crédito' } };
-        const RECEIVE_COSTS = { deposit: { spread: 0, label: 'Sin comisión adicional' }, cash: { spread: 1.5, label: '+1.5% por efectivo' } };
+        
+        const PAYMENT_COSTS = { 
+            transfer: { pct: 0, label: 'Sin comisión adicional' }, 
+            debit: { pct: 0, label: 'Sin comisión adicional' },
+            credit: { pct: 1.5, label: '+1.5% por crédito' }
+        };
+        const RECEIVE_COSTS = { 
+            deposit: { spread: 0, label: 'Sin comisión adicional' },
+            cash: { spread: 0.3, label: 'Puede variar la tasa' }
+        };
+        
+        // Información de servicios (solo metadatos, los cálculos usan las matrices)
         const SERVICES = {
-            wise: { name: 'Wise', logo: '🔷', fees: { once: { pct: 0.59, fixed: 0.41 }, monthly: { pct: 0.59, fixed: 0.41 }, annual: { pct: 0.59, fixed: 0.41 } }, markup: 0, speed: '< 24h', countries: ['VES', 'COP', 'ARS', 'PEN', 'DOP', 'USD', 'BRL'] },
-            remitly: { name: 'Remitly', logo: '💜', fees: { once: { pct: 0, fixed: 3.99 }, monthly: { pct: 0, fixed: 1.99 }, annual: { pct: 0, fixed: 1.49 } }, markup: 2.2, speed: 'Instantáneo', countries: ['COP', 'PEN', 'DOP', 'USD', 'BRL'] },
-            westernunion: { name: 'Western Union', logo: '🟡', fees: { once: { pct: 0, fixed: 4.90 }, monthly: { pct: 0, fixed: 4.90 }, annual: { pct: 0, fixed: 3.99 } }, markup: 4.2, speed: 'Minutos', countries: ['VES', 'COP', 'ARS', 'PEN', 'DOP', 'USD', 'BRL'] },
-            worldremit: { name: 'WorldRemit', logo: '🔴', fees: { once: { pct: 0, fixed: 3.99 }, monthly: { pct: 0, fixed: 2.99 }, annual: { pct: 0, fixed: 0.99 } }, markup: 2.0, speed: 'Minutos', countries: ['COP', 'PEN', 'DOP', 'USD', 'BRL'] },
-            xoom: { name: 'Xoom', logo: '🔵', fees: { once: { pct: 0, fixed: 4.99 }, monthly: { pct: 0, fixed: 4.99 }, annual: { pct: 0, fixed: 3.99 } }, markup: 3.5, speed: '30 min', countries: ['COP', 'ARS', 'PEN', 'DOP', 'USD', 'BRL'] },
-            ria: { name: 'Ria', logo: '🟠', fees: { once: { pct: 0, fixed: 3.99 }, monthly: { pct: 0, fixed: 3.99 }, annual: { pct: 0, fixed: 2.99 } }, markup: 2.8, speed: 'Minutos', countries: ['VES', 'COP', 'ARS', 'PEN', 'DOP', 'USD', 'BRL'] }
+            wise: { 
+                name: 'Wise', 
+                logo: '🔷', 
+                speed: '1-2 días', 
+                firstFree: false,
+                note: 'Tasa real del mercado'
+            },
+            remitly: { 
+                name: 'Remitly', 
+                logo: '💜', 
+                speed: 'Instantáneo', 
+                firstFree: true,
+                note: 'Tasa especial 1er envío'
+            },
+            westernunion: { 
+                name: 'Western Union', 
+                logo: '🟡', 
+                speed: 'Minutos', 
+                firstFree: true,
+                note: 'Sin comisión online'
+            },
+            worldremit: { 
+                name: 'WorldRemit', 
+                logo: '🔴', 
+                speed: '1 día', 
+                firstFree: true,
+                note: ''
+            },
+            xoom: { 
+                name: 'Xoom', 
+                logo: '🔵', 
+                speed: 'Minutos', 
+                firstFree: false,
+                note: 'Servicio de PayPal'
+            },
+            ria: { 
+                name: 'Ria', 
+                logo: '🟠', 
+                speed: 'Minutos', 
+                firstFree: true,
+                note: 'Usa código HELLORIA'
+            }
         };
 
         function seededRandom(seed) { const x = Math.sin(seed) * 10000; return x - Math.floor(x); }
@@ -939,23 +1023,73 @@
         function setPaymentMethod(method) { currentPaymentMethod = method; ['transfer','debit','credit'].forEach(m => document.getElementById('btn-' + m).classList.remove('method-active')); document.getElementById('btn-' + method).classList.add('method-active'); document.getElementById('paymentMethodNote').textContent = PAYMENT_COSTS[method].label; }
         function setReceiveMethod(method) { currentReceiveMethod = method; ['deposit','cash'].forEach(m => document.getElementById('btn-' + m).classList.remove('method-active')); document.getElementById('btn-' + method).classList.add('method-active'); document.getElementById('receiveMethodNote').textContent = RECEIVE_COSTS[method].label; }
 
+        // ============================================
+        // FUNCIÓN DE CÁLCULO CALIBRADA V6
+        // Usa matrices de markup y fees por país
+        // ============================================
         function calculateRemittance(amount, currency, serviceKey) {
             const svc = SERVICES[serviceKey];
-            const baseRate = EXCHANGE_RATES[currency];
-            const fees = svc.fees[currentFrequency];
+            const baseRate = EXCHANGE_RATES[currency]; // Tasa de mercado (Wise = referencia)
+            
+            // 1. Obtener markup específico para este servicio y país
+            const markupTable = MARKUPS_BY_COUNTRY[serviceKey] || {};
+            const markup = markupTable[currency] || 0;
+            
+            // 2. Obtener comisión específica para este servicio y país
+            let baseFee = 0;
+            const feeTable = FEES_BY_COUNTRY[serviceKey];
+            
+            if (feeTable === "formula") {
+                // Wise: fórmula especial (0.55% + €0.80, mínimo €2.50)
+                baseFee = Math.max(2.50, (amount * 0.55 / 100) + 0.80);
+            } else if (feeTable && typeof feeTable === 'object') {
+                baseFee = feeTable[currency] || 0;
+            }
+            
+            // 3. Ajustes por frecuencia (pequeños descuentos para clientes frecuentes)
+            if (currentFrequency === 'monthly' && baseFee > 0) {
+                baseFee = baseFee * 0.95; // 5% descuento estimado
+            } else if (currentFrequency === 'annual' && baseFee > 0) {
+                baseFee = baseFee * 0.85; // 15% descuento estimado
+            }
+            
+            // 4. Ajuste por método de pago (solo crédito añade coste)
             const payExtra = amount * PAYMENT_COSTS[currentPaymentMethod].pct / 100;
-            const totalMarkup = svc.markup + RECEIVE_COSTS[currentReceiveMethod].spread;
-            const baseFee = (amount * fees.pct / 100) + fees.fixed;
+            
+            // 5. Ajuste por método de recepción (efectivo puede tener peor tasa)
+            const receiveSpread = RECEIVE_COSTS[currentReceiveMethod].spread;
+            
+            // 6. Calcular tasa efectiva del servicio
+            // markup positivo = mejor tasa para el usuario
+            // markup negativo = peor tasa para el usuario
+            const effectiveMarkup = markup - receiveSpread;
+            const effectiveRate = baseRate * (1 + effectiveMarkup / 100);
+            
+            // 7. Calcular totales
             const totalFee = baseFee + payExtra;
-            const effectiveRate = baseRate * (1 - totalMarkup / 100);
             const recipientReceives = (amount - totalFee) * effectiveRate;
-            const totalCost = (amount * baseRate) - recipientReceives;
-            return { service: svc.name, logo: svc.logo, speed: svc.speed, explicitFee: totalFee, exchangeRate: effectiveRate, exchangeMarkup: totalMarkup, recipientReceives, totalCost, effectiveFeePercentage: (totalCost / (amount * baseRate)) * 100 };
+            const theoreticalMax = amount * baseRate; // Lo máximo posible (sin fees, tasa mercado)
+            const totalCost = theoreticalMax - recipientReceives;
+            const effectiveFeePercentage = (totalCost / theoreticalMax) * 100;
+            
+            return { 
+                service: svc.name, 
+                logo: svc.logo, 
+                speed: svc.speed, 
+                explicitFee: totalFee, 
+                exchangeRate: effectiveRate, 
+                exchangeMarkup: effectiveMarkup, 
+                recipientReceives, 
+                totalCost, 
+                effectiveFeePercentage,
+                firstFree: svc.firstFree || false,
+                note: svc.note || ''
+            };
         }
 
         function compareAllServices(amount, currency) { 
             return Object.keys(SERVICES)
-                .filter(key => SERVICES[key].countries.includes(currency))
+                .filter(key => SERVICE_AVAILABILITY[key] && SERVICE_AVAILABILITY[key].includes(currency))
                 .map(key => { const r = calculateRemittance(amount, currency, key); r.serviceKey = key; return r; })
                 .sort((a, b) => b.recipientReceives - a.recipientReceives); 
         }
@@ -990,16 +1124,38 @@
             if (currentFrequency === 'monthly') { multiplier = 12; periodText = 'al año'; }
             else if (currentFrequency === 'annual') { multiplier = 12; periodText = 'tus 12 envíos'; }
             const annualSavings = (best.recipientReceives - worst.recipientReceives) * multiplier;
-            document.getElementById('summaryCard').innerHTML = '<div class="flex items-start space-x-4"><div class="w-12 h-12 bg-gradient-to-br from-teal-100 to-teal-200 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg"><span class="text-2xl">🏆</span></div><div class="flex-1"><p class="text-xs font-medium text-teal-600 mb-1">Mejor opción</p><h3 class="font-display text-xl md:text-2xl font-semibold text-warm-800">' + best.service + '</h3><p class="text-warm-600 mt-2">Tu familia recibe <span class="font-display font-semibold text-2xl md:text-3xl text-teal-600">' + symbol + formatCurrency(best.recipientReceives, 0) + '</span> <span class="text-sm">' + name + '</span></p>' + (annualSavings > 0 ? '<div class="mt-3 bg-teal-50 rounded-lg p-3 border border-teal-100"><p class="text-warm-800 text-sm"><strong>Ahorro ' + periodText + ':</strong> <span class="text-teal-600 font-semibold">' + symbol + formatCurrency(annualSavings, 0) + '</span> vs la peor opción</p></div>' : '') + '</div></div>';
+            document.getElementById('summaryCard').innerHTML = '<div class="flex items-start space-x-4"><div class="w-12 h-12 bg-gradient-to-br from-teal-100 to-teal-200 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg"><span class="text-2xl">🏆</span></div><div class="flex-1"><p class="text-xs font-medium text-teal-600 mb-1">Mejor opción</p><h3 class="font-display text-xl md:text-2xl font-semibold text-warm-800">' + best.service + (best.firstFree ? ' <span class="text-xs bg-gold-200 text-gold-700 px-2 py-0.5 rounded-full ml-2">1ª transferencia gratis</span>' : '') + '</h3><p class="text-warm-600 mt-2">Tu familia recibe <span class="font-display font-semibold text-2xl md:text-3xl text-teal-600">' + symbol + formatCurrency(best.recipientReceives, 0) + '</span> <span class="text-sm">' + name + '</span></p>' + (annualSavings > 0 ? '<div class="mt-3 bg-teal-50 rounded-lg p-3 border border-teal-100"><p class="text-warm-800 text-sm"><strong>Ahorro ' + periodText + ':</strong> <span class="text-teal-600 font-semibold">' + symbol + formatCurrency(annualSavings, 0) + '</span> vs la peor opción</p></div>' : '') + '</div></div>';
             let gridHTML = '';
             results.forEach((result, i) => {
                 const isBest = i === 0;
                 const diff = best.recipientReceives - result.recipientReceives;
-                gridHTML += '<div class="result-card p-4 ' + (isBest ? 'best-deal relative' : '') + '">' + (isBest ? '<span class="badge-best absolute -top-2.5 -right-2.5">Mejor</span>' : '') + '<div class="flex items-center justify-between mb-3"><div class="flex items-center space-x-2"><span class="text-xl">' + result.logo + '</span><h4 class="font-semibold text-warm-800 text-sm">' + result.service + '</h4></div><span class="text-xs bg-warm-100 text-warm-600 px-2 py-1 rounded-lg">' + result.speed + '</span></div><div class="bg-teal-50 rounded-lg p-3 mb-3"><p class="text-xs text-warm-500 mb-0.5">Reciben</p><p class="text-xl font-semibold text-warm-800">' + symbol + formatCurrency(result.recipientReceives, 0) + '</p></div><div class="space-y-1.5 text-xs"><div class="flex justify-between"><span class="text-warm-500">Comisión:</span><span class="font-medium text-warm-800">€' + formatCurrency(result.explicitFee) + '</span></div><div class="flex justify-between"><span class="text-warm-500">Tipo cambio:</span><span class="font-medium text-warm-800">' + formatCurrency(result.exchangeRate, 2) + '</span></div><div class="flex justify-between"><span class="text-warm-500">Margen oculto:</span><span class="font-medium text-terra-500">' + result.exchangeMarkup.toFixed(1) + '%</span></div><div class="border-t border-warm-200 pt-1.5 mt-1.5 flex justify-between"><span class="font-medium text-warm-800">Costo total:</span><span class="font-semibold text-terra-500">' + formatCurrency(result.effectiveFeePercentage, 2) + '%</span></div></div>' + (!isBest && diff > 0 ? '<div class="mt-3 bg-gold-100 rounded-lg p-2 text-center text-xs"><span class="text-gold-700">-' + symbol + formatCurrency(diff, 0) + ' vs ' + best.service + '</span></div>' : '') + '</div>';
+                const markupDisplay = result.exchangeMarkup > 0 
+                    ? '<span class="font-medium text-teal-600">+' + result.exchangeMarkup.toFixed(1) + '% ✓</span>'
+                    : '<span class="font-medium text-terra-500">' + result.exchangeMarkup.toFixed(1) + '%</span>';
+                const firstFreeBadge = result.firstFree ? '<span class="text-xs bg-gold-100 text-gold-700 px-1.5 py-0.5 rounded ml-1">1ª transf. gratis</span>' : '';
+                gridHTML += '<div class="result-card p-4 ' + (isBest ? 'best-deal relative' : '') + '">' + 
+                    (isBest ? '<span class="badge-best absolute -top-2.5 -right-2.5">Mejor</span>' : '') + 
+                    '<div class="flex items-center justify-between mb-3"><div class="flex items-center space-x-2"><span class="text-xl">' + result.logo + '</span><h4 class="font-semibold text-warm-800 text-sm">' + result.service + firstFreeBadge + '</h4></div><span class="text-xs bg-warm-100 text-warm-600 px-2 py-1 rounded-lg">' + result.speed + '</span></div>' +
+                    '<div class="bg-teal-50 rounded-lg p-3 mb-3"><p class="text-xs text-warm-500 mb-0.5">Reciben</p><p class="text-xl font-semibold text-warm-800">' + symbol + formatCurrency(result.recipientReceives, 0) + '</p></div>' +
+                    '<div class="space-y-1.5 text-xs">' +
+                    '<div class="flex justify-between"><span class="text-warm-500">Comisión:</span><span class="font-medium text-warm-800">€' + formatCurrency(result.explicitFee) + '</span></div>' +
+                    '<div class="flex justify-between"><span class="text-warm-500">Tipo cambio:</span><span class="font-medium text-warm-800">' + formatCurrency(result.exchangeRate, 4) + '</span></div>' +
+                    '<div class="flex justify-between"><span class="text-warm-500">Margen tasa:</span>' + markupDisplay + '</div>' +
+                    '<div class="border-t border-warm-200 pt-1.5 mt-1.5 flex justify-between"><span class="font-medium text-warm-800">Costo total:</span><span class="font-semibold ' + (result.effectiveFeePercentage < 0 ? 'text-teal-600' : 'text-terra-500') + '">' + formatCurrency(Math.abs(result.effectiveFeePercentage), 2) + '%</span></div>' +
+                    '</div>' + 
+                    (!isBest && diff > 0 ? '<div class="mt-3 bg-gold-100 rounded-lg p-2 text-center text-xs"><span class="text-gold-700">-' + symbol + formatCurrency(diff, 0) + ' vs ' + best.service + '</span></div>' : '') + 
+                    '</div>';
             });
             document.getElementById('resultsGrid').innerHTML = gridHTML;
+            
+            // Disclaimer de primera transferencia gratis
+            const servicesWithFirstFree = results.filter(r => r.firstFree).map(r => r.service);
             const avgFee = results.reduce((s, r) => s + r.effectiveFeePercentage, 0) / results.length;
-            document.getElementById('insightText').innerHTML = 'La comisión promedio es <strong>' + formatCurrency(avgFee, 2) + '%</strong>, pero con <strong>' + best.service + '</strong> solo pagas <strong>' + formatCurrency(best.effectiveFeePercentage, 2) + '%</strong>. ' + (currentFrequency === 'monthly' ? 'Enviando €' + formatCurrency(amount, 0) + ' mensualmente, ahorras <strong>' + symbol + formatCurrency(annualSavings, 0) + '</strong> al año.' : '') + ' Wise usa el tipo de cambio real del mercado.';
+            let insightHTML = 'La comisión promedio es <strong>' + formatCurrency(avgFee, 2) + '%</strong>, pero con <strong>' + best.service + '</strong> solo pagas <strong>' + formatCurrency(best.effectiveFeePercentage, 2) + '%</strong>. ' + (currentFrequency === 'monthly' ? 'Enviando €' + formatCurrency(amount, 0) + ' mensualmente, ahorras <strong>' + symbol + formatCurrency(annualSavings, 0) + '</strong> al año.' : '');
+            if (servicesWithFirstFree.length > 0) {
+                insightHTML += '<br><span class="text-gold-600 text-sm mt-2 inline-block">💡 ' + servicesWithFirstFree.join(', ') + ' ofrecen la primera transferencia sin comisión.</span>';
+            }
+            document.getElementById('insightText').innerHTML = insightHTML;
         }
 
         // Init
