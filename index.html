@@ -714,12 +714,7 @@
                     <img src="logo.png" alt="Manda Mejor" class="h-16 md:h-20 w-auto" style="filter: brightness(0) invert(1);">
                 </a>
                 <div class="text-center">
-                    <p class="text-white/50 text-sm mb-2">
-  ¿Sugerencias o comentarios? 
-  <a href="mailto:contact.mandamejor@gmail.com" class="text-teal-300 hover:text-teal-200 transition-colors">
-    contact.mandamejor@gmail.com
-  </a>
-</p>
+                    <p class="text-white/50 text-sm mb-2">¿Sugerencias o comentarios? <a href="/cdn-cgi/l/email-protection#02616d6c766361762c6f636c66636f67686d7042656f636b6e2c616d6f" class="text-teal-300 hover:text-teal-200 transition-colors"><span class="__cf_email__" data-cfemail="0b6864657f6a687f25666a656f6a666e6164794b6c666a626725686466">[email&#160;protected]</span></a></p>
                     <p class="text-white/40 text-sm"><a href="https://www.exchangerate-api.com" target="_blank" class="hover:text-white/60">Rates By Exchange Rate API</a></p>
                     <p class="text-white/60 text-sm mt-1">© <span id="year"></span> · <span class="text-white font-medium">Ariana Acosta</span></p>
                 </div>
@@ -1146,7 +1141,7 @@
                     '<div class="flex justify-between"><span class="text-warm-500">Comisión:</span><span class="font-medium text-warm-800">€' + formatCurrency(result.explicitFee) + '</span></div>' +
                     '<div class="flex justify-between"><span class="text-warm-500">Tipo cambio:</span><span class="font-medium text-warm-800">' + formatCurrency(result.exchangeRate, 4) + '</span></div>' +
                     '<div class="flex justify-between"><span class="text-warm-500">Margen tasa:</span>' + markupDisplay + '</div>' +
-                    '<div class="border-t border-warm-200 pt-1.5 mt-1.5 flex justify-between"><span class="font-medium text-warm-800">Costo total:</span><span class="font-semibold ' + (result.effectiveFeePercentage < 0 ? 'text-teal-600' : 'text-terra-500') + '">' + formatCurrency(Math.abs(result.effectiveFeePercentage), 2) + '%</span></div>' +
+                    '<div class="border-t border-warm-200 pt-1.5 mt-1.5 flex justify-between"><span class="font-medium text-warm-800">' + (result.effectiveFeePercentage < 0 ? 'Ventaja vs mercado:' : 'Costo total:') + '</span><span class="font-semibold ' + (result.effectiveFeePercentage < 0 ? 'text-teal-600' : 'text-terra-500') + '">' + (result.effectiveFeePercentage < 0 ? '+' : '') + formatCurrency(Math.abs(result.effectiveFeePercentage), 2) + '%</span></div>' +
                     '</div>' + 
                     (!isBest && diff > 0 ? '<div class="mt-3 bg-gold-100 rounded-lg p-2 text-center text-xs"><span class="text-gold-700">-' + symbol + formatCurrency(diff, 0) + ' vs ' + best.service + '</span></div>' : '') + 
                     '</div>';
@@ -1156,7 +1151,22 @@
             // Disclaimer de primera transferencia gratis
             const servicesWithFirstFree = results.filter(r => r.firstFree).map(r => r.service);
             const avgFee = results.reduce((s, r) => s + r.effectiveFeePercentage, 0) / results.length;
-            let insightHTML = 'La comisión promedio es <strong>' + formatCurrency(avgFee, 2) + '%</strong>, pero con <strong>' + best.service + '</strong> solo pagas <strong>' + formatCurrency(best.effectiveFeePercentage, 2) + '%</strong>. ' + (currentFrequency === 'monthly' ? 'Enviando €' + formatCurrency(amount, 0) + ' mensualmente, ahorras <strong>' + symbol + formatCurrency(annualSavings, 0) + '</strong> al año.' : '');
+            
+            // Generar mensaje según si hay ventaja o costo
+            let insightHTML = '';
+            if (best.effectiveFeePercentage < 0) {
+                // Caso especial: el mejor servicio da VENTAJA vs mercado
+                insightHTML = '¡Buenas noticias! Con <strong>' + best.service + '</strong> recibes <strong class="text-teal-600">+' + formatCurrency(Math.abs(best.effectiveFeePercentage), 2) + '% más</strong> que la tasa de mercado. ';
+                if (currentFrequency === 'monthly') {
+                    insightHTML += 'Enviando €' + formatCurrency(amount, 0) + ' mensualmente, tu familia recibe <strong class="text-teal-600">' + symbol + formatCurrency(annualSavings, 0) + ' extra</strong> al año vs la peor opción.';
+                }
+            } else {
+                // Caso normal: hay costo
+                insightHTML = 'La comisión promedio es <strong>' + formatCurrency(Math.abs(avgFee), 2) + '%</strong>, pero con <strong>' + best.service + '</strong> solo pagas <strong>' + formatCurrency(best.effectiveFeePercentage, 2) + '%</strong>. ';
+                if (currentFrequency === 'monthly') {
+                    insightHTML += 'Enviando €' + formatCurrency(amount, 0) + ' mensualmente, ahorras <strong>' + symbol + formatCurrency(annualSavings, 0) + '</strong> al año.';
+                }
+            }
             if (servicesWithFirstFree.length > 0) {
                 insightHTML += '<br><span class="text-gold-600 text-sm mt-2 inline-block">💡 ' + servicesWithFirstFree.join(', ') + ' ofrecen la primera transferencia sin comisión.</span>';
             }
